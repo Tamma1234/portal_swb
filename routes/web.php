@@ -23,8 +23,10 @@ Route::get('/callback/google', 'SocialController@callback');
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', 'DashboardController@index')->name('dashboard');
-    Route::get('/dashboard', 'DashboardController@getCareer')->name('chooseOffices');
 
+    Route::group(['prefix' => 'students'], function () {
+        Route::get('index', 'DashboardController@listGroup')->name('student.index');
+    });
     // Route phần users
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UserController@index')->name('users.index');

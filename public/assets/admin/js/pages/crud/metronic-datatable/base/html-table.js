@@ -20,9 +20,8 @@ var KTDatatableHtmlTableDemo = function() {
 					type: 'number',
 				},
 				{
-					field: 'OrderDate',
-					type: 'date',
-					format: 'YYYY-MM-DD',
+					field: 'Grade',
+					type: 'text'
 				}, {
 					field: 'Status',
 					title: 'Status',
