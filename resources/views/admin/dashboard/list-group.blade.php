@@ -15,18 +15,6 @@
                         Learned history
                     </h3>
                 </div>
-                <div class="kt-portlet__head-toolbar">
-                    <div class="kt-portlet__head-wrapper">
-                        <div class="kt-portlet__head-actions">
-                            <div class="dropdown dropdown-inline">
-                                <button type="button" class="btn btn-default btn-icon-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="la la-download"></i>
-                                    Grade view
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="kt-portlet__body">
 
@@ -81,17 +69,32 @@
                         <th title="Field #5">Semester</th>
                         <th title="Field #6">Grade</th>
                         <th title="Field #7">Status</th>
+                        <th title="Field #8">#</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($group_member as $item)
+                        <?php
+                           $num_of_credit = $subject::find($item->subject_id)->num_of_credit;
+                            ?>
                     <tr>
-                        <td>{{ $item->subject_name }}</td>
-                        <td>{{ $item->subject_name_en }}</td>
-                        <td>Range Rover</td>
-                        <td>{{ $item->num_of_credit }}</td>
-                        <td>$22672.60</td>
-                        <td>#</td>
+                        <td>{{ $item->psubject_name }}</td>
+                        <td>{{ $item->psubject_code }}</td>
+                        <td>{{ $item->psubject_code .' '. $item->pterm_name }}</td>
+                        <td>{{ $num_of_credit }}</td>
+                        <td>{{ $item->pterm_name }}</td>
+                        <td>{{ $item->grade }}</td>
+                        <td align="right">
+                            @if($item->is_finish == 0)
+                                5
+                            @else
+                                @if($item->val <= 0)
+                                    2
+                                @else
+                                    4
+                                @endif
+                            @endif
+                        </td>
                         <td align="right">5</td>
                     </tr>
                     @endforeach
