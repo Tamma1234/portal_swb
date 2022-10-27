@@ -1,5 +1,5 @@
 /*!
-FullCalendar Google Calendar Plugin v4.3.0
+FullCalendar Google calendar Plugin v4.3.0
 Docs & License: https://fullcalendar.io/
 (c) 2019 Adam Shaw
 */
@@ -76,7 +76,7 @@ Docs & License: https://fullcalendar.io/
                 core.requestJson('GET', url, requestParams_1, function (body, xhr) {
                     if (body.error) {
                         onFailure({
-                            message: 'Google Calendar API: ' + body.error.message,
+                            message: 'Google calendar API: ' + body.error.message,
                             errors: body.error.errors,
                             xhr: xhr
                         });

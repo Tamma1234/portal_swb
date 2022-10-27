@@ -26,6 +26,13 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'students'], function () {
         Route::get('index', 'DashboardController@listGroup')->name('student.index');
+        Route::get('academic', 'DashboardController@getAcademic')->name('student.academic');
+        Route::get('activities', 'DashboardController@getActivities')->name('student.activities');
+        Route::get('fees', 'DashboardController@getFees')->name('student.fees');
+    });
+
+    Route::group(['prefix' => 'calendar'], function () {
+        Route::get('schedule', 'DashboardController@listSchedule')->name('student.schedule');
     });
     // Route phần users
     Route::group(['prefix' => 'users'], function () {

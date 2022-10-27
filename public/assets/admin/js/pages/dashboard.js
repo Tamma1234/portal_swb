@@ -1631,7 +1631,7 @@ var KTDashboard = function() {
         });
     }
 
-    // Calendar Init
+    // calendar Init
     var calendarInit = function() {
         if ($('#kt_calendar').length === 0) {
             return;
