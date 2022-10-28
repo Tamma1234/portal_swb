@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\dra\GroupMember;
 use App\Models\dra\StudentSubject;
 use App\Models\EventSwin;
+use App\Models\Fu\Acitivitys;
 use App\Models\Fu\Slot;
 use App\Models\Fu\Subjects;
+use App\Models\Fu\Term;
 use App\Models\T7\CourseResult;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
@@ -52,27 +54,25 @@ class DashboardController extends Controller
         return view('admin.notifications.fees');
     }
 
-    public function listSchedule()
-    {
+    public function schedule() {
         $user_logins = auth()->user()->user_login;
-        $list_group_id=CourseResult::where("student_login",$user_logins)
+        $list_group=CourseResult::where("student_login",$user_logins)
             ->select("groupid","psubject_code","pterm_name")
             ->get();
 
         $data = [];
-        foreach ($list_group_id as $gi){
+        foreach ($list_group as $gi){
             $group_id=$gi->groupid;
             $subject_code=$gi->psubject_code;
             $term_name=$gi->pterm_name;
-            $ds_activity=Activity::where("groupid",$group_id)
+            $ds_activity=Acitivitys::where("groupid",$group_id)
                 ->select("day","session_check")
                 ->distinct()
                 ->get();
-
             foreach($ds_activity as $activity) {
                 $day = $activity->day;
                 $session_check = $activity->session_check;
-                $activity_ids = Activity::where('groupid', $group_id)
+                $activity_ids = Acitivitys::where('groupid', $group_id)
                     ->where('day', $day)
                     ->where('session_check', $session_check)
                     ->select('id')
@@ -80,7 +80,7 @@ class DashboardController extends Controller
                     ->first();
 
                 $activity_id =$activity_ids->id;
-                $room_names = Activity::where('id', $activity_id)
+                $room_names = Acitivitys::where('id', $activity_id)
                     ->select('room_name','psubject_name')
                     ->first();
                 $room_name =$room_names->room_name;
@@ -100,11 +100,15 @@ class DashboardController extends Controller
                     ->where('fu_activity.day', $day)
                     ->where('fu_activity.session_check', $session_check)
                     ->select('fu_slot.slot_end','fu_activity.slot')
-                    ->orderBy('fu_activity.slot', 'DESC')->first();
+                    ->orderBy('fu_activity.slot', 'DESC')
+                    ->first();
+
                 $slot_end_id=$s_end->slot;
                 $slot_end=$s_end->slot_end;
-                $start=$slot_start;
-                $end=$slot_end;
+                $start=substr($slot_start,0,-3);
+                $end=substr($slot_end,0,-3);
+//                $start=$slot_start;
+//                $end=$slot_end;
                 if($subject_code =='ENL101' || $subject_code =='ENL102' || $subject_code =='ENL201' || $subject_code =='ENL202' || $subject_code =='ENL301' || $subject_code =='ENL302' ){
                     if($slot_start_id==1){
                         $start='07:30:00';
@@ -117,36 +121,45 @@ class DashboardController extends Controller
                     }if($slot_start_id ==8){
                         $start='15:30:00';
                     }
-
                 }
-                $fu_subject = Subject::where('subject_code', $subject_code)
+
+                $day_st = $activity->day . " " . "$start";
+                $day_end = $activity->day . " " . "$end";
+                $title = "Group:" .' '. $subject_code .'-'. $term_name;
+                $des = "Room: " . $room_name . " - Subject: " . $subject_name . " (" . $subject_code . ")";
+                $today = date('Y-m-d');
+                if ($today > $activity->day) {
+                    $class_name = "fc-event-light fc-event-solid-success";
+                } elseif ($today == $activity->day) {
+                    $class_name = "fc-event-light fc-event-solid-danger";
+                } else {
+                    $class_name = "fc-event-light fc-event-solid-primary";
+                }
+                $fu_subject = Subjects::where('subject_code', $subject_code)
                     ->select('is_major')
                     ->first();
 
                 $data[] = [
-                    'day' => $day,
-                    'subject_name' => $subject_name,
-                    'subject_code' => $subject_code,
-                    'is_major' => $fu_subject->is_major,
-                    'room_name' => $room_name,
-                    'time_start' => $start,
-                    'time_end' => $end,
-                    'term_name' => $term_name
+                    'title' => $title,
+                    'start' => $day_st,
+                    'description' => $des,
+                    'end' => $day_end,
+                    'className' => $class_name,
+                    'allDay' => false,
                 ];
             }
         }
-        if($data == null) {
-            return response()->json([
-                'Errors' => false,
-                'data' => "No data",
+        dd($data);
+        return response()->json($data);
+    }
 
-            ], 200);
-        }
-        return response()->json([
-            'success' => true,
-            'data' => $data,
+    public function listSchedule()
+    {
+        return view('admin.calendar.schedule');
+    }
 
-        ], 200);
-//        return view('admin.calendar.schedule');
+    public function getAttendance() {
+        $terms = Term::all();
+        return view('admin.calendar.attendance', compact('terms'));
     }
 }

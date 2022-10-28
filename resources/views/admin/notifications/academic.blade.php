@@ -14,6 +14,7 @@
                     <h3 class="kt-portlet__head-title">
                         Academic
                     </h3>
+
                 </div>
             </div>
         </div>

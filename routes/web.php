@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'calendar'], function () {
         Route::get('schedule', 'DashboardController@listSchedule')->name('student.schedule');
+        Route::get('getSchedule', 'DashboardController@schedule')->name('student.list');
+        Route::get('attendance-report', 'DashboardController@getAttendance')->name('student.attendance');
     });
     // Route phần users
     Route::group(['prefix' => 'users'], function () {

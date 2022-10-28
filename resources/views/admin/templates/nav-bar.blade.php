@@ -236,7 +236,7 @@
                             </li>
                             <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
                                 data-ktmenu-submenu-toggle="hover"><a
-                                    href="#" class="kt-menu__link "><i
+                                    href="{{ route('student.attendance') }}" class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                         class="kt-menu__link-text">Attendance Report</span></a>
                             </li>

@@ -233,6 +233,8 @@
 <script src="{{asset('assets/admin/js/pages/crud/datatables/basic/basic.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/js/pages/crud/metronic-datatable/base/html-table.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/js/pages/components/calendar/basic.js') }}" type="text/javascript"></script>
+{{--<script src="{{ asset('assets/admin/js/pages/components/calendar/background-events.js') }}" type="text/javascript"></script>--}}
+
 
 <script src="{{asset('assets/admin/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
 <!-- // Alert success -->
