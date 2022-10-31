@@ -21,9 +21,10 @@
                     <div class="form-group">
                         <label>Semester</label>
                         <div></div>
-                        <select class="custom-select form-control">
+                        <select class="custom-select form-control" id="term_id">
                             @foreach($terms as $term)
-                            <option selected="{{ $term->id }}">{{ $term->term_name }}</option>
+                                <option
+                                    value="{{ Request::url()}}?term_name={{ $term->term_name  }}">{{ $term->term_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -33,61 +34,113 @@
 
         <div class="row">
             <div class="col-xl-12">
-
-                <!--begin::Portlet-->
-                <div class="kt-portlet">
-                    <div class="kt-portlet__head">
-                        <div class="kt-portlet__head-label">
-                            <h3 class="kt-portlet__head-title">
-                                Bordered Table
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="kt-portlet__body">
-
-                        <!--begin::Section-->
-                        <div class="kt-section">
-                            <div class="kt-section__content">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Jhon</td>
-                                        <td>Stone</td>
-                                        <td>@jhon</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Lisa</td>
-                                        <td>Nilson</td>
-                                        <td>@lisa</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                @if($listAttendances != "")
+                    <!--begin::Portlet-->
+                    @foreach($listAttendances as $list)
+                            <?php
+                            $getAttendances = $attendance->where('groupid', $list->groupid)
+                                ->where('user_login', $list->student_login)
+                                ->orderBy('day', 'ASC')
+                                ->get();
+                            ?>
+                        <div class="kt-portlet">
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-label">
+                                    <h3 class="kt-portlet__head-title">
+                                        {{ $list->psubject_name }}
+                                    </h3>
+                                </div>
                             </div>
+                            <div class="kt-portlet__body">
+
+                                <!--begin::Section-->
+                                <div class="kt-section">
+                                    <div class="kt-section__content">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Status</th>
+                                                <th>Note</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($getAttendances as $item)
+                                                    <?php
+                                                    $slot_id = $item->activities->slot;
+                                                    $slot_start = $slot->find($slot_id)->slot_start;
+                                                    $slot_end = $slot->find($slot_id)->slot_end;
+                                                    ?>
+                                                <tr>
+                                                    <th scope="row">{{ $item->id }}</th>
+                                                    <td>{{ $item->day }}</td>
+                                                    <td>{{ $slot_start .' - '. $slot_end }}</td>
+                                                    <td>
+                                                        @if($item->val == 1)
+                                                            <span
+                                                                class="btn btn-bold btn-sm btn-font-sm  btn-label-success">Present</span>
+                                                        @else
+                                                            <span
+                                                                class="btn btn-bold btn-sm btn-font-sm  btn-label-danger">Absent</span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="kt-widget15__item">
+																<span class="kt-widget15__stats">17																	%
+																</span>
+                                                        <span class="kt-widget15__text">Absent</span>
+                                                        <div class="kt-space-10"></div>
+                                                        <div class="progress kt-widget15__chart-progress--sm">
+                                                            <div class="progress-bar bg-danger" role="progressbar"
+                                                                 style="width: 17%;" aria-valuenow="10"
+                                                                 aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!--end::Section-->
+                            </div>
+                            <!--end::Form-->
                         </div>
-
-                        <!--end::Section-->
-                    </div>
-
-                    <!--end::Form-->
-                </div>
+                    @endforeach
+                @endif
                 <!--end::Portlet-->
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('#term_id').change(function () {
+            var url = $('#term_id').val();
+            alert(url);
+            if (url) {
+                window.location = url;
+            }
+            return false;
+            {{--var term_name = $('#term_id').val();--}}
+            {{--var data = {--}}
+            {{--    term_name : term_name--}}
+            {{--}--}}
+            {{--$.ajax({--}}
+            {{--    url: '{{ route('rooms.search') }}',--}}
+            {{--    type: 'GET',--}}
+            {{--    data: data--}}
+            {{--}).done(function (response) {--}}
+            {{--    $('#table-room').empty();--}}
+            {{--    $('#table-room').html(response);--}}
+
+            {{--})--}}
+        });
+    </script>
 @endsection

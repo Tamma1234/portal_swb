@@ -6,6 +6,7 @@ use App\Models\dra\GroupMember;
 use App\Models\dra\StudentSubject;
 use App\Models\EventSwin;
 use App\Models\Fu\Acitivitys;
+use App\Models\Fu\Attendance;
 use App\Models\Fu\Slot;
 use App\Models\Fu\Subjects;
 use App\Models\Fu\Term;
@@ -54,22 +55,23 @@ class DashboardController extends Controller
         return view('admin.notifications.fees');
     }
 
-    public function schedule() {
+    public function schedule()
+    {
         $user_logins = auth()->user()->user_login;
-        $list_group=CourseResult::where("student_login",$user_logins)
-            ->select("groupid","psubject_code","pterm_name")
+        $list_group = CourseResult::where("student_login", $user_logins)
+            ->select("groupid", "psubject_code", "pterm_name")
             ->get();
 
         $data = [];
-        foreach ($list_group as $gi){
-            $group_id=$gi->groupid;
-            $subject_code=$gi->psubject_code;
-            $term_name=$gi->pterm_name;
-            $ds_activity=Acitivitys::where("groupid",$group_id)
-                ->select("day","session_check")
+        foreach ($list_group as $gi) {
+            $group_id = $gi->groupid;
+            $subject_code = $gi->psubject_code;
+            $term_name = $gi->pterm_name;
+            $ds_activity = Acitivitys::where("groupid", $group_id)
+                ->select("day", "session_check")
                 ->distinct()
                 ->get();
-            foreach($ds_activity as $activity) {
+            foreach ($ds_activity as $activity) {
                 $day = $activity->day;
                 $session_check = $activity->session_check;
                 $activity_ids = Acitivitys::where('groupid', $group_id)
@@ -79,53 +81,57 @@ class DashboardController extends Controller
                     ->orderBy('slot', 'ASC')
                     ->first();
 
-                $activity_id =$activity_ids->id;
+                $activity_id = $activity_ids->id;
                 $room_names = Acitivitys::where('id', $activity_id)
-                    ->select('room_name','psubject_name')
+                    ->select('room_name', 'psubject_name')
                     ->first();
-                $room_name =$room_names->room_name;
-                $subject_name =$room_names->psubject_name;
-                $s_start= Slot::join('fu_activity', 'fu_slot.slot_id', '=', 'fu_activity.slot')
+                $room_name = $room_names->room_name;
+                $subject_name = $room_names->psubject_name;
+                $s_start = Slot::join('fu_activity', 'fu_slot.slot_id', '=', 'fu_activity.slot')
                     ->where('fu_activity.groupid', $group_id)
                     ->where('fu_activity.day', $day)
                     ->where('fu_activity.session_check', $session_check)
-                    ->select('fu_slot.slot_start','fu_activity.slot')
+                    ->select('fu_slot.slot_start', 'fu_activity.slot')
                     ->orderBy('fu_activity.slot', 'ASC')->first();
 
-                $slot_start_id=$s_start->slot;
-                $slot_start=$s_start->slot_start;
+                $slot_start_id = $s_start->slot;
+                $slot_start = $s_start->slot_start;
 
-                $s_end=Slot::join('fu_activity', 'fu_slot.slot_id', '=', 'fu_activity.slot')
+                $s_end = Slot::join('fu_activity', 'fu_slot.slot_id', '=', 'fu_activity.slot')
                     ->where('fu_activity.groupid', $group_id)
                     ->where('fu_activity.day', $day)
                     ->where('fu_activity.session_check', $session_check)
-                    ->select('fu_slot.slot_end','fu_activity.slot')
+                    ->select('fu_slot.slot_end', 'fu_activity.slot')
                     ->orderBy('fu_activity.slot', 'DESC')
                     ->first();
 
-                $slot_end_id=$s_end->slot;
-                $slot_end=$s_end->slot_end;
-                $start=substr($slot_start,0,-3);
-                $end=substr($slot_end,0,-3);
+                $slot_end_id = $s_end->slot;
+                $slot_end = $s_end->slot_end;
+                $start = substr($slot_start, 0, -3);
+                $end = substr($slot_end, 0, -3);
 //                $start=$slot_start;
 //                $end=$slot_end;
-                if($subject_code =='ENL101' || $subject_code =='ENL102' || $subject_code =='ENL201' || $subject_code =='ENL202' || $subject_code =='ENL301' || $subject_code =='ENL302' ){
-                    if($slot_start_id==1){
-                        $start='07:30:00';
-                    }if($slot_start_id==2){
-                        $start='08:30:00';
-                    }if($slot_start_id==3){
-                        $start='09:30:00';
-                    }if($slot_end_id==8){
-                        $end='17:30:00';
-                    }if($slot_start_id ==8){
-                        $start='15:30:00';
+                if ($subject_code == 'ENL101' || $subject_code == 'ENL102' || $subject_code == 'ENL201' || $subject_code == 'ENL202' || $subject_code == 'ENL301' || $subject_code == 'ENL302') {
+                    if ($slot_start_id == 1) {
+                        $start = '07:30:00';
+                    }
+                    if ($slot_start_id == 2) {
+                        $start = '08:30:00';
+                    }
+                    if ($slot_start_id == 3) {
+                        $start = '09:30:00';
+                    }
+                    if ($slot_end_id == 8) {
+                        $end = '17:30:00';
+                    }
+                    if ($slot_start_id == 8) {
+                        $start = '15:30:00';
                     }
                 }
 
                 $day_st = $activity->day . " " . "$start";
                 $day_end = $activity->day . " " . "$end";
-                $title = "Group:" .' '. $subject_code .'-'. $term_name;
+                $title = "Group:" . ' ' . $subject_code . '-' . $term_name;
                 $des = "Room: " . $room_name . " - Subject: " . $subject_name . " (" . $subject_code . ")";
                 $today = date('Y-m-d');
                 if ($today > $activity->day) {
@@ -149,7 +155,6 @@ class DashboardController extends Controller
                 ];
             }
         }
-        dd($data);
         return response()->json($data);
     }
 
@@ -158,8 +163,23 @@ class DashboardController extends Controller
         return view('admin.calendar.schedule');
     }
 
-    public function getAttendance() {
+    public function getAttendance()
+    {
+        $user = auth()->user();
+
         $terms = Term::all();
-        return view('admin.calendar.attendance', compact('terms'));
+        if (isset($_GET['term_name'])) {
+            $term_name = $_GET['term_name'];
+            $listAttendances = CourseResult::where('student_login', $user->user_login)
+                ->where('pterm_name', $term_name)
+                ->select('groupid', 'psubject_name', 'student_login')
+                ->get();
+
+            $attendance = new Attendance();
+            $slot = new Slot();
+            return view('admin.calendar.attendance', compact('terms', 'listAttendances', 'attendance', 'slot'));
+        }
+        $listAttendances = "";
+        return view('admin.calendar.attendance', compact('terms', 'listAttendances'));
     }
 }
