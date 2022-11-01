@@ -23,8 +23,8 @@
                         <div></div>
                         <select class="custom-select form-control" id="term_id">
                             @foreach($terms as $term)
-                                <option
-                                    value="{{ Request::url()}}?term_name={{ $term->term_name  }}">{{ $term->term_name }}</option>
+                                <option {{ $term_name == $term->term_name ? "selected" : "" }}
+                                        value="{{ Request::url()}}?term_name={{ $term->term_name  }}">{{ $term->term_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -42,6 +42,8 @@
                                 ->where('user_login', $list->student_login)
                                 ->orderBy('day', 'ASC')
                                 ->get();
+                            $attendance_absent = $list->attendance_absent;
+                            $total_session = $list->total_session;
                             ?>
                         <div class="kt-portlet">
                             <div class="kt-portlet__head">
@@ -67,6 +69,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <?php $i = 1; ?>
                                             @foreach($getAttendances as $item)
                                                     <?php
                                                     $slot_id = $item->activities->slot;
@@ -74,7 +77,7 @@
                                                     $slot_end = $slot->find($slot_id)->slot_end;
                                                     ?>
                                                 <tr>
-                                                    <th scope="row">{{ $item->id }}</th>
+                                                    <th scope="row">{{ $i++ }}</th>
                                                     <td>{{ $item->day }}</td>
                                                     <td>{{ $slot_start .' - '. $slot_end }}</td>
                                                     <td>
@@ -91,14 +94,22 @@
                                             <tr>
                                                 <td colspan="5">
                                                     <div class="kt-widget15__item">
-																<span class="kt-widget15__stats">17																	%
+																<span class="kt-widget15__stats">
+                                                                    @if(is_numeric($attendance_absent) && is_numeric($total_session))
+                                                                    {{ round(($attendance_absent * 100) / $total_session) }}
+                                                                        %
+                                                                    @endif
 																</span>
                                                         <span class="kt-widget15__text">Absent</span>
                                                         <div class="kt-space-10"></div>
                                                         <div class="progress kt-widget15__chart-progress--sm">
+                                                            @if(is_numeric($attendance_absent) && is_numeric($total_session))
                                                             <div class="progress-bar bg-danger" role="progressbar"
-                                                                 style="width: 17%;" aria-valuenow="10"
+                                                                 style="width:
+                                                                    {{ round(($attendance_absent * 100) / $total_session) }}%;"
+                                                                 aria-valuenow="10"
                                                                  aria-valuemin="0" aria-valuemax="100"></div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </td>
@@ -123,7 +134,6 @@
     <script>
         $('#term_id').change(function () {
             var url = $('#term_id').val();
-            alert(url);
             if (url) {
                 window.location = url;
             }

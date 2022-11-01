@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
         Route::get('academic', 'DashboardController@getAcademic')->name('student.academic');
         Route::get('activities', 'DashboardController@getActivities')->name('student.activities');
         Route::get('fees', 'DashboardController@getFees')->name('student.fees');
+        Route::get('grade', 'ResultController@listGrade')->name('student.grade');
     });
 
     Route::group(['prefix' => 'calendar'], function () {

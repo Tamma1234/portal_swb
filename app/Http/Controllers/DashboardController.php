@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dra\GroupMember;
-use App\Models\dra\StudentSubject;
+use App\Models\Dra\GroupMember;
+use App\Models\Dra\StudentSubject;
 use App\Models\EventSwin;
 use App\Models\Fu\Acitivitys;
 use App\Models\Fu\Attendance;
@@ -166,20 +166,21 @@ class DashboardController extends Controller
     public function getAttendance()
     {
         $user = auth()->user();
-
         $terms = Term::all();
+
         if (isset($_GET['term_name'])) {
             $term_name = $_GET['term_name'];
             $listAttendances = CourseResult::where('student_login', $user->user_login)
                 ->where('pterm_name', $term_name)
-                ->select('groupid', 'psubject_name', 'student_login')
+                ->select('groupid', 'psubject_name', 'student_login', 'total_session', 'attendance_absent')
                 ->get();
 
             $attendance = new Attendance();
             $slot = new Slot();
-            return view('admin.calendar.attendance', compact('terms', 'listAttendances', 'attendance', 'slot'));
+            return view('admin.calendar.attendance', compact('terms', 'listAttendances', 'attendance', 'slot', 'term_name'));
         }
+        $term_name = "";
         $listAttendances = "";
-        return view('admin.calendar.attendance', compact('terms', 'listAttendances'));
+        return view('admin.calendar.attendance', compact('terms', 'listAttendances', 'term_name'));
     }
 }
