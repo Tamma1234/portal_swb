@@ -21,8 +21,20 @@ class AuthController extends Controller
         if(auth()->user() != "") {
             return redirect()->route('dashboard');
         } else {
-            $campus = Campus::all();
-            return view('admin.auth.login', compact('campus'));
+            $campus = Campus::select('id', 'campus_code', 'campus_name')->get();
+            $campus_id = "";
+            if (isset($_GET['campus_id'])) {
+                $array_campus = config('localStorage')->campus;
+                $campus_id = $_GET['campus_id'];
+                if (!$campus_id) {
+                    return redirect()->route('home');
+                } else if (!in_array($campus_id, $array_campus)) {
+                    return redirect()->route('home');
+                }
+                session(['campus_db' => $campus_id]);
+            }
+//            $campus = Campus::all();
+            return view('admin.auth.login', compact('campus', 'campus_id'));
         }
     }
 

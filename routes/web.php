@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'AuthController@index')->name('home');
 //Route::get('/login', 'AuthController@index')->name('login');
 Route::post('/login', 'AuthController@login')->name('login.post');
 Route::get('/logout', 'AuthController@logout')->name('logout.index');
@@ -36,6 +35,12 @@ Route::middleware('auth')->group(function () {
         Route::get('schedule', 'DashboardController@listSchedule')->name('student.schedule');
         Route::get('getSchedule', 'DashboardController@schedule')->name('student.list');
         Route::get('attendance-report', 'DashboardController@getAttendance')->name('student.attendance');
+    });
+
+    Route::group(['prefix' => 'queries'], function () {
+        Route::get('/', 'QueryController@index')->name('queries.index');
+        Route::post('send-queries', 'QueryController@sendQueries')->name('queries.send');
+        Route::get('history-query', 'QueryController@getHistoryQuery')->name('queries.history');
     });
     // Route phần users
     Route::group(['prefix' => 'users'], function () {

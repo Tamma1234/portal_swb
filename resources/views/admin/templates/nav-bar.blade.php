@@ -247,7 +247,7 @@
                                     class="kt-menu__link"><span class="kt-menu__link-text">My Financials (Fees)</span></span></li>
                             <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
                                 data-ktmenu-submenu-toggle="hover"><a
-                                    href="#" class="kt-menu__link "><i
+                                    href="https://dng.fpt.edu.vn/Invoice" class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                         class="kt-menu__link-text">Make a payment</span></a>
                             </li>
@@ -283,9 +283,9 @@
                                     class="kt-menu__link"><span class="kt-menu__link-text">Queries</span></span></li>
                             <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
                                 data-ktmenu-submenu-toggle="hover"><a
-                                    href="#" class="kt-menu__link "><i
+                                    href="{{ route('queries.index') }}" class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
-                                        class="kt-menu__link-text">Academic</span></a>
+                                        class="kt-menu__link-text">Queries</span></a>
                             </li>
                             <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
                                 data-ktmenu-submenu-toggle="hover"><a
