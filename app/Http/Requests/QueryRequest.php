@@ -44,7 +44,6 @@ class QueryRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute cannot be left blank',
             'max' => ':attribute must be less 225 kí tự',
             'mimes' => ':attribute format jpg, png, jpeg,',
             'file.max' => ':attribute less than 2mb',

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Dra\Curriculum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -65,6 +66,11 @@ class User extends Authenticatable
     public function offices() {
         return $this->belongsToMany(Office::class, 'dra_user_office',
             'user_id', 'office_id');
+    }
+
+    public function curriculums() {
+        return $this->belongsTo(Curriculum::class, 'curriculum_id',
+            'id');
     }
 
     public function roles() {

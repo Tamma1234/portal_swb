@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'students'], function () {
         Route::get('index', 'DashboardController@listGroup')->name('student.index');
+        Route::get('profile', 'DashboardController@profile')->name('student.profile');
         Route::get('academic', 'DashboardController@getAcademic')->name('student.academic');
         Route::get('activities', 'DashboardController@getActivities')->name('student.activities');
         Route::get('fees', 'DashboardController@getFees')->name('student.fees');

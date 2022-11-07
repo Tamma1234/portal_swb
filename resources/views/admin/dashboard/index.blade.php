@@ -65,8 +65,8 @@
                                 <i class="flaticon-chat-1"></i>
                             </div>
                             <div class="kt-widget__details">
-                                <span class="kt-widget__title">648 Comments</span>
-                                <a href="#" class="kt-widget__value kt-font-brand">View</a>
+                                <span class="kt-widget__title">{{ count($comment) }}</span>
+                                <a href="{{ route('queries.history') }}" class="kt-widget__value kt-font-brand">View</a>
                             </div>
                         </div>
 

@@ -12,7 +12,7 @@
 											<i class="kt-font-brand flaticon2-line-chart"></i>
 										</span>
                     <h3 class="kt-portlet__head-title">
-                        Grade View
+                        Queries history
                     </h3>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
-                                Course
+                                History
                             </h3>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                                             <th scope="row">{{ $i++ }}</th>
                                             <td>{{ $item->queries_type }}</td>
                                             <td>{{ $item->question }}</td>
-                                            <td>{{ $item->file_name }}</td>
+                                            <td><img src="{{asset('storage/'.$item->file_name)  }}" style="width: 200px" alt=""></td>
                                             <td>{{ $item->file_response }}</td>
                                             <td>{{ $item->querries_status }}</td>
                                             <td>{{ $item->note_xu_ly }}</td>

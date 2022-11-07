@@ -10,6 +10,7 @@ use App\Models\Fu\Attendance;
 use App\Models\Fu\Slot;
 use App\Models\Fu\Subjects;
 use App\Models\Fu\Term;
+use App\Models\Queries;
 use App\Models\T7\CourseResult;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
@@ -25,10 +26,11 @@ class DashboardController extends Controller
             ->where('dra_student_subject.student_login', '=', 'fu_user.user_login')
             ->select('dra_student_subject.subject_id')
             ->get();
+        $comment = Queries::where('user_login', $user->user_login)->get();
         $group_member = GroupMember::where('member_login', $user->user_login)->get();
         $countGroup = count($group_member);
 
-        return view('admin.dashboard.index', compact('user', 'countGroup', 'events'));
+        return view('admin.dashboard.index', compact('user', 'countGroup', 'events', 'comment'));
     }
 
     public function listGroup()
@@ -39,6 +41,11 @@ class DashboardController extends Controller
         $subject = new Subjects();
         return view('admin.dashboard.list-group', compact('group_member', 'subject'));
     }
+
+    public function profile() {
+        $user = auth()->user();
+        return view('admin.dashboard.profile', compact('user'));
+        }
 
     public function getAcademic()
     {

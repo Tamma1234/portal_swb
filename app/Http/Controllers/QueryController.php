@@ -21,16 +21,17 @@ class QueryController extends Controller
         $user_code = $user->user_code;
         $question = $request->question;
         $queries_type = $request->waye;
-        $originalFileName = $request->file->getClientOriginalName();
-        $fileName = uniqid() . '_' . str_replace(' ', '_', $originalFileName);
-        $file_image = $request->file('file')->storeAs('images', $fileName, 'public');
+//        $originalFileName = $request->file->getClientOriginalName();
+//        $fileName = uniqid() . '_' . str_replace(' ', '_', $originalFileName);
+//        $file_image = $request->file('file')->storeAs('images', $fileName, 'public');
+        $name =  $request->file('file')->store('images');
         $query = new Queries();
         $query->create([
             'user_login' => $user_login,
             'user_code' => $user_code,
             'queries_type' => $queries_type,
             'question' => $question,
-            'file_name' => $file_image,
+            'file_name' => $name,
             'querries_status' => 'New',
             'phone' => $user->user_telephone,
             'address' => $user->address,
