@@ -54,7 +54,6 @@
 
                         nowIndicator: true,
 
-
                         views: {
                             dayGridMonth: { buttonText: 'month' },
                             timeGridWeek: { buttonText: 'week' },

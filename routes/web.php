@@ -22,14 +22,21 @@ Route::get('/callback/google', 'SocialController@callback');
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', 'DashboardController@index')->name('dashboard');
-
     Route::group(['prefix' => 'students'], function () {
         Route::get('index', 'DashboardController@listGroup')->name('student.index');
         Route::get('profile', 'DashboardController@profile')->name('student.profile');
-        Route::get('academic', 'DashboardController@getAcademic')->name('student.academic');
-        Route::get('activities', 'DashboardController@getActivities')->name('student.activities');
-        Route::get('fees', 'DashboardController@getFees')->name('student.fees');
+        Route::get('profile-2', 'DashboardController@profileDetail')->name('student.profile-2');
+        Route::post('/uploads', 'DashboardController@uploadDrive')->name('upload.drive');
+
         Route::get('grade', 'ResultController@listGrade')->name('student.grade');
+    });
+
+    Route::group(['prefix' => 'notifications'], function () {
+        Route::get('index', 'NotificationController@index')->name('notification.index');
+        Route::get('detail/{id}', 'NotificationController@detailNotification')->name('notification.detail');
+        Route::get('academic', 'NotificationController@getAcademic')->name('student.academic');
+        Route::get('activities', 'NotificationController@getActivities')->name('student.activities');
+        Route::get('fees', 'NotificationController@getFees')->name('student.fees');
     });
 
     Route::group(['prefix' => 'calendar'], function () {

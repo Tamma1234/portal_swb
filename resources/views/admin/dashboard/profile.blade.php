@@ -114,9 +114,8 @@
 														Major: {{ $user->nganh }}
 															</span>
                                     </div>
-                                    <div class="kt-widget__action">
-                                        <button type="button" class="btn btn-info btn-sm">chat</button>&nbsp;
-                                        <button type="button" class="btn btn-success btn-sm">follow</button>
+                                    <div class="kt-widget__media">
+                                        <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={{ $user->user_code }}&choe=UTF-8" title="{{ $user->user_code }}" />
                                     </div>
                                 </div>
                             </div>
@@ -234,10 +233,8 @@
                     </div>
                 </div>
             </div>
-
             <!--End:: App Content-->
         </div>
-
         <!--End::App-->
     </div>
 @endsection

@@ -13,6 +13,7 @@ use App\Models\Fu\Term;
 use App\Models\Queries;
 use App\Models\T7\CourseResult;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use function GuzzleHttp\Promise\all;
 
 class DashboardController extends Controller
@@ -26,11 +27,12 @@ class DashboardController extends Controller
             ->where('dra_student_subject.student_login', '=', 'fu_user.user_login')
             ->select('dra_student_subject.subject_id')
             ->get();
-        $comment = Queries::where('user_login', $user->user_login)->get();
+//        $comment = Queries::where('user_login', $user->user_login)->get();
+//        dd($comment);
         $group_member = GroupMember::where('member_login', $user->user_login)->get();
         $countGroup = count($group_member);
 
-        return view('admin.dashboard.index', compact('user', 'countGroup', 'events', 'comment'));
+        return view('admin.dashboard.index', compact('user', 'countGroup', 'events'));
     }
 
     public function listGroup()
@@ -42,10 +44,16 @@ class DashboardController extends Controller
         return view('admin.dashboard.list-group', compact('group_member', 'subject'));
     }
 
-    public function profile() {
+    public function profile()
+    {
         $user = auth()->user();
         return view('admin.dashboard.profile', compact('user'));
-        }
+    }
+
+    public function profileDetail()
+    {
+        return view('admin.dashboard.profile-2');
+    }
 
     public function getAcademic()
     {
@@ -62,13 +70,17 @@ class DashboardController extends Controller
         return view('admin.notifications.fees');
     }
 
+    public function uploadDrive(Request $request) {
+        $file = $request->file('file');
+       Storage::disk("google")->put('text.txt', "hello world");
+    }
+
     public function schedule()
     {
         $user_logins = auth()->user()->user_login;
         $list_group = CourseResult::where("student_login", $user_logins)
             ->select("groupid", "psubject_code", "pterm_name")
             ->get();
-
         $data = [];
         foreach ($list_group as $gi) {
             $group_id = $gi->groupid;
@@ -120,19 +132,19 @@ class DashboardController extends Controller
 //                $end=$slot_end;
                 if ($subject_code == 'ENL101' || $subject_code == 'ENL102' || $subject_code == 'ENL201' || $subject_code == 'ENL202' || $subject_code == 'ENL301' || $subject_code == 'ENL302') {
                     if ($slot_start_id == 1) {
-                        $start = '07:30:00';
+                        $start = '07:30';
                     }
                     if ($slot_start_id == 2) {
-                        $start = '08:30:00';
+                        $start = '08:30';
                     }
                     if ($slot_start_id == 3) {
-                        $start = '09:30:00';
+                        $start = '09:30';
                     }
                     if ($slot_end_id == 8) {
-                        $end = '17:30:00';
+                        $end = '17:30';
                     }
                     if ($slot_start_id == 8) {
-                        $start = '15:30:00';
+                        $start = '15:30';
                     }
                 }
 

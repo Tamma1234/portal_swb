@@ -4,7 +4,7 @@
         <br>
         <div class="kt-aside__brand-logo">
             <a href="{{route('dashboard')}}">
-                <img alt="Logo" src="{{asset('assets/admin/images/Logo_Technology.png')}}"/>
+                <img alt="Logo" src="{{asset('assets/admin/images/logo-swb-2.jpg')}}"/>
             </a>
         </div>
         <div class="kt-aside__brand-tools">
@@ -153,32 +153,32 @@
                 </li>
                 @endcan
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
-                    data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
-                                                          class="kt-menu__link kt-menu__toggle"><span
-                            class="kt-menu__link-icon flaticon-web"></span><span class="kt-menu__link-text">Notification</span><i
-                            class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                    >
+                    <a href="{{ route('notification.index') }}"
+                                                          class="kt-menu__link "><span
+                            class="kt-menu__link-icon flaticon-web"></span><span class="kt-menu__link-text">Notification</span></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
-                                    class="kt-menu__link"><span class="kt-menu__link-text">Notification</span></span></li>
-                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
-                                data-ktmenu-submenu-toggle="hover"><a
-                                    href="{{ route('student.academic') }}" class="kt-menu__link "><i
-                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
-                                        class="kt-menu__link-text">Academic</span></a>
-                            </li>
-                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
-                                data-ktmenu-submenu-toggle="hover"><a
-                                    href="{{ route('student.activities') }}" class="kt-menu__link "><i
-                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
-                                        class="kt-menu__link-text">Student service</span></a>
-                            </li>
-                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
-                                data-ktmenu-submenu-toggle="hover"><a
-                                    href="{{ route('student.fees') }}" class="kt-menu__link "><i
-                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
-                                        class="kt-menu__link-text">Fees</span></a>
-                            </li>
+                                    class="kt-menu__link"><span class="kt-menu__link-text"></span></span></li>
+{{--                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"--}}
+{{--                                data-ktmenu-submenu-toggle="hover"><a--}}
+{{--                                    href="{{ route('student.academic') }}" class="kt-menu__link "><i--}}
+{{--                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span--}}
+{{--                                        class="kt-menu__link-text">Academic</span></a>--}}
+{{--                            </li>--}}
+{{--                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"--}}
+{{--                                data-ktmenu-submenu-toggle="hover"><a--}}
+{{--                                    href="{{ route('student.activities') }}" class="kt-menu__link "><i--}}
+{{--                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span--}}
+{{--                                        class="kt-menu__link-text">Student service</span></a>--}}
+{{--                            </li>--}}
+{{--                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"--}}
+{{--                                data-ktmenu-submenu-toggle="hover"><a--}}
+{{--                                    href="{{ route('student.fees') }}" class="kt-menu__link "><i--}}
+{{--                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span--}}
+{{--                                        class="kt-menu__link-text">Fees</span></a>--}}
+{{--                            </li>--}}
                         </ul>
                     </div>
                 </li>

@@ -26,7 +26,7 @@
                             <div class="kt-widget__subhead">
                                 <a href="#"><i class="flaticon2-new-email"></i>{{ $user->user_email }}</a>
                                 <a href="#"><i class="flaticon2-calendar-3"></i>{{ $user->nganh }} </a>
-                                <a href="#"><i class="flaticon2-calendar-3"></i>{{ $user->nganh }} </a>
+                                <a href="#"><i class="flaticon2-calendar-3"></i>{{ $user->curriculums ? $user->curriculums->chuyen_nganh : "" }} </a>
                             </div>
                             <div class="kt-widget__info">
                                 <div class="kt-widget__desc">
@@ -44,7 +44,7 @@
                                              aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <div class="kt-widget__stats">
-                                        {{ $countGroup }}
+                                        78
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                 <i class="flaticon-chat-1"></i>
                             </div>
                             <div class="kt-widget__details">
-                                <span class="kt-widget__title">{{ count($comment) }}</span>
+{{--                                <span class="kt-widget__title">{{ count($comment) }}</span>--}}
                                 <a href="{{ route('queries.history') }}" class="kt-widget__value kt-font-brand">View</a>
                             </div>
                         </div>

@@ -35,6 +35,7 @@
 <link href="{{asset('assets/admin/plugins/general/plugins/flaticon/flaticon.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/plugins/general/plugins/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/plugins/general/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/admin/css/pages/wizard/wizard-2.css') }}" rel="stylesheet" type="text/css" />
 
 <style>
     .custom-checkbox {
@@ -113,7 +114,5 @@
 <link href="{{asset('assets/admin/css/skins/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/css/skins/brand/dark.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/css/skins/aside/dark.css')}}" rel="stylesheet" type="text/css" />
-
 <!--end::Layout Skins -->
 <link rel="shortcut icon" href="{{asset('assets/admin/media/logos/favicon.ico')}}" />
-
