@@ -12,6 +12,7 @@ use App\Models\Fu\Subjects;
 use App\Models\Fu\Term;
 use App\Models\Queries;
 use App\Models\T7\CourseResult;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use function GuzzleHttp\Promise\all;
@@ -70,9 +71,13 @@ class DashboardController extends Controller
         return view('admin.notifications.fees');
     }
 
-    public function uploadDrive(Request $request) {
+    public function uploadDrive(Request $request)
+    {
         $file = $request->file('file');
-       Storage::disk("google")->put('text.txt', "hello world");
+        $user = auth()->user();
+        Storage::disk("google")->putFileAs("", $file, "$user->user_login.pdf");
+
+        return redirect()->route('student.profile-2')->with('msg', 'Upload File Successfully');
     }
 
     public function schedule()
