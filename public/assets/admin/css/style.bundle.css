@@ -12892,6 +12892,69 @@ code {
 .input-daterange .input-group-addon {
   min-width: 44px; }
 
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #337ab7;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.nav-pills>li>a {
+    border-radius: 4px;
+    text-align: center;
+}
+
+a:focus, a:hover {
+    color: #23527c;
+}
+.nav-pills>li {
+    display: table-cell;
+    width: 20%;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #eee;
+}
+
+
+html {
+    font-size:10px;
+}
+
+.outer-container {
+    font-family: "Roboto";
+    font-size: 1.6rem;
+}
+
+.outer-container {
+    padding:60px;
+}
+
+
+.step-content {
+    padding:40px 0;
+}
+
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.nav-justified {
+    width: 100%;
+}
+
 .bootstrap-timepicker-widget {
   left: auto;
   width: 175px; }
@@ -21891,6 +21954,11 @@ strong {
           min-width: none; } }
 
 @media (max-width: 768px) {
+    .nav-justified>li {
+        display: table-cell;
+        width: 1%;
+    }
+
     .kt-grid.kt-grid--ver-mobile.kt-grid--mobile > .kt-grid__item.kt-grid__item--order-1-mobile {
       -webkit-box-ordinal-group: 2;
       -ms-flex-order: 1;

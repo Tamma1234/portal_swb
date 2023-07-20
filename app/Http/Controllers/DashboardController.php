@@ -73,11 +73,22 @@ class DashboardController extends Controller
 
     public function uploadDrive(Request $request)
     {
+        dd($request->all());
         $file = $request->file('file');
         $user = auth()->user();
         Storage::disk("google")->putFileAs("", $file, "$user->user_login.pdf");
 
         return redirect()->route('student.profile-2')->with('msg', 'Upload File Successfully');
+    }
+
+    public function profileUpload()
+    {
+        return view('admin.dashboard.profile-1');
+    }
+
+    public function profile3()
+    {
+        return view('admin.dashboard.profile-3');
     }
 
     public function schedule()

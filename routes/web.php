@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
         Route::get('index', 'DashboardController@listGroup')->name('student.index');
         Route::get('profile', 'DashboardController@profile')->name('student.profile');
         Route::get('profile-2', 'DashboardController@profileDetail')->name('student.profile-2');
+        Route::get('profile-1', 'DashboardController@profileUpload')->name('student.profile-1');
+        Route::get('profile-3', 'DashboardController@profile3')->name('student.profile-3');
         Route::post('/uploads', 'DashboardController@uploadDrive')->name('upload.drive');
 
         Route::get('grade', 'ResultController@listGrade')->name('student.grade');

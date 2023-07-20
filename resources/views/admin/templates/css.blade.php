@@ -80,9 +80,27 @@
         height: -webkit-fill-available;
     }
 
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic);
+
+    html {
+        font-size:10px;
+    }
+
+    .outer-container {
+        font-family: "Roboto";
+        font-size: 1.6rem;
+    }
+
+    .outer-container {
+        padding:60px;
+    }
+
+
+    .step-content {
+        padding:40px 0;
+    }
 </style>
 <link href="{{asset('assets/admin/css/pages/login/login-1.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/admin/css/pages/login/login-2.css')}}" rel="stylesheet" type="text/css" />
 
 
 <!--end:: Vendor Plugins -->
@@ -116,3 +134,5 @@
 <link href="{{asset('assets/admin/css/skins/aside/dark.css')}}" rel="stylesheet" type="text/css" />
 <!--end::Layout Skins -->
 <link rel="shortcut icon" href="{{asset('assets/admin/media/logos/favicon.ico')}}" />
+
+

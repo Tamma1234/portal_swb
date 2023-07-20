@@ -116,10 +116,9 @@
                         <!--end: Form Wizard Nav -->
                     </div>
                     <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v2__wrapper">
-
-                        <!--begin: Form Wizard Form-->
-                        <form class="kt-form" id="kt_form" style="width: 100%" action="{{ route('upload.drive') }}" method="POST" enctype="multipart/form-data">
+                        <form class="kt-form" id="kt_form" style="width: 100%" method="POST" enctype="multipart/form-data">
                             @csrf
+                        <!--begin: Form Wizard Form-->
                             <!--begin: Form Wizard Step 1-->
                             <div class="kt-wizard-v2__content" data-ktwizard-type="step-content"
                                  data-ktwizard-state="current">
@@ -199,8 +198,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--end: Form Wizard Step 1-->
-
                             <!--begin: Form Wizard Step 2-->
                             <div class="kt-wizard-v2__content" data-ktwizard-type="step-content">
                                 <div class="kt-heading kt-heading--md">I agree for Swinburne to contact the below nominees:/ Tôi đồng ý cho phép Swinburne Việt Nam thông báo với những người thân dưới đây trong các trường hợp</div>
@@ -285,9 +282,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!--end: Form Wizard Step 2-->
-
                             <!--begin: Form Wizard Step 3-->
                             <div class="kt-wizard-v2__content" data-ktwizard-type="step-content">
                                 <div class="kt-form__section kt-form__section--first" style="width: max-content">
@@ -412,9 +406,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!--end: Form Wizard Step 3-->
-
                             <!--begin: Form Wizard Step 4-->
                             <div class="kt-wizard-v2__content" data-ktwizard-type="step-content">
                                 <div class="kt-heading kt-heading--md">Have you taken an English proficiency test?: (*):</div>
@@ -655,7 +646,6 @@
 
                                 </div>
                             </div>
-
                             <!--begin: Form Actions -->
                             <div class="kt-form__actions">
                                 <button
@@ -663,7 +653,7 @@
                                     data-ktwizard-type="action-prev">
                                     Previous
                                 </button>
-                                <button type="submit" class="btn btn-success" data-ktwizard-type="action-submit">Submit</button>
+                                <button type="submit" data-ktwizard-type="action-submit" id="submit" class="btn btn-success">Submit</button>
                                 <button
                                     class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
                                     data-ktwizard-type="action-next">
@@ -679,6 +669,20 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $('#submit').on("click", function () {
+                $.ajax( {
+                    url : "{{ route('upload.drive') }}",
+                    type: 'POST',
+                    date : $('form').resize(),
+                    success: function (data) {
 
-
+                    }
+                })
+            })
+        })
+    </script>
+@endsection
 

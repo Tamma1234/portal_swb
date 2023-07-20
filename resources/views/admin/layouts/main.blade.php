@@ -9,6 +9,7 @@
 
     <!-- Google Font: Source Sans Pro -->
     @include('admin.templates.css')
+
 </head>
 
 <body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right
@@ -41,6 +42,6 @@
     </div>
 </div>
 @include('admin.templates.script')
-
+@yield('css')
 </body>
 </html>

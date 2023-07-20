@@ -237,7 +237,6 @@
 
 {{--<script src="{{ asset('assets/admin/js/pages/components/calendar/background-events.js') }}" type="text/javascript"></script>--}}
 
-
 <script src="{{asset('assets/admin/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
 <!-- // Alert success -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
