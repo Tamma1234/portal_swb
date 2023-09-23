@@ -1,10 +1,3 @@
-
-<!--begin::Page Vendors Styles(used by this page) -->
-
-<!--end::Page Vendors Styles -->
-
-<!--begin::Global Theme Styles(used by all pages) -->
-
 <!--begin:: Vendor Plugins -->
 <link href="{{asset('assets/admin/plugins/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/plugins/general/tether/dist/css/tether.css')}}" rel="stylesheet" type="text/css" />
@@ -36,7 +29,7 @@
 <link href="{{asset('assets/admin/plugins/general/plugins/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/plugins/general/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/admin/css/pages/wizard/wizard-2.css') }}" rel="stylesheet" type="text/css" />
-
+<link href="{{ asset('assets/admin/css/pages/pricing/pricing-1.css') }}" rel="stylesheet" type="text/css" />
 <style>
     .custom-checkbox {
              margin: auto;
@@ -79,32 +72,22 @@
         background: blue;
         height: -webkit-fill-available;
     }
-
-    @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic);
-
-    html {
-        font-size:10px;
+    .icon-hover:hover {
+        border-color: #3b71ca !important;
+        background-color: white !important;
+        color: #3b71ca !important;
     }
 
-    .outer-container {
-        font-family: "Roboto";
-        font-size: 1.6rem;
-    }
-
-    .outer-container {
-        padding:60px;
-    }
-
-
-    .step-content {
-        padding:40px 0;
+    .icon-hover:hover i {
+        color: #3b71ca !important;
     }
 </style>
-<link href="{{asset('assets/admin/css/pages/login/login-1.css')}}" rel="stylesheet" type="text/css" />
-
 
 <!--end:: Vendor Plugins -->
 <link href="{{asset('assets/admin/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/admin/css/item.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/admin/css/pages/login/login-1.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/admin/css/pages/login/login-2.css')}}" rel="stylesheet" type="text/css" />
 
 <!--begin:: Vendor Plugins for custom pages -->
 <link href="{{asset('assets/admin/plugins/custom/plugins/jquery-ui/jquery-ui.min.css')}}" rel="stylesheet" type="text/css" />
@@ -132,6 +115,7 @@
 <link href="{{asset('assets/admin/css/skins/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/css/skins/brand/dark.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/css/skins/aside/dark.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/admin/css/login.css')}}" rel="stylesheet" type="text/css" />
 <!--end::Layout Skins -->
 <link rel="shortcut icon" href="{{asset('assets/admin/media/logos/favicon.ico')}}" />
 

@@ -300,7 +300,7 @@
  *
  * =========================================================
  *
- * Copyright 2016 Creative Tim (http://www.creative-tim.com/product/material-bootstrap-wizard)
+ * MIT License - Copyright 2017 Creative Tim (http://www.creative-tim.com/product/material-bootstrap-wizard)
  *
  *
  *                       _oo0oo_
@@ -554,6 +554,12 @@ function debounce(func, wait, immediate) {
         if (immediate && !timeout) func.apply(context, args);
     };
 };
+
+
+
+
+
+
 
 /*! jQuery Validation Plugin - v1.14.0 - 6/30/2015
  * https://jqueryvalidation.org/

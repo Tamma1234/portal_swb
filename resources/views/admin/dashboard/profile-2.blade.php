@@ -203,7 +203,6 @@
                                 <div class="kt-heading kt-heading--md">I agree for Swinburne to contact the below nominees:/ Tôi đồng ý cho phép Swinburne Việt Nam thông báo với những người thân dưới đây trong các trường hợp</div>
                                 <div class="kt-form__section kt-form__section--first">
                                     <div class="kt-wizard-v2__form">
-
                                         <div class="form-group">
                                             <label>* Contact 1’s full name (Parent/guardian) / Họ và tên người
                                                 thân (Phụ huynh, người giám hộ) 1</label>

@@ -10,9 +10,12 @@ use App\Models\Fu\Attendance;
 use App\Models\Fu\Slot;
 use App\Models\Fu\Subjects;
 use App\Models\Fu\Term;
+use App\Models\Golds;
 use App\Models\Queries;
+use App\Models\StudentEvent;
 use App\Models\T7\CourseResult;
 use App\Models\User;
+use Google\Service\ServiceControl\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use function GuzzleHttp\Promise\all;
@@ -30,10 +33,12 @@ class DashboardController extends Controller
             ->get();
 //        $comment = Queries::where('user_login', $user->user_login)->get();
 //        dd($comment);
+
         $group_member = GroupMember::where('member_login', $user->user_login)->get();
         $countGroup = count($group_member);
+        $totalGold = Golds::where('gold_receiver', $user->user_code)->selectRaw('SUM(gold) as total')->first();
 
-        return view('admin.dashboard.index', compact('user', 'countGroup', 'events'));
+        return view('admin.dashboard.index', compact('user', 'countGroup', 'events', 'totalGold'));
     }
 
     public function listGroup()
@@ -43,6 +48,12 @@ class DashboardController extends Controller
             ->get();
         $subject = new Subjects();
         return view('admin.dashboard.list-group', compact('group_member', 'subject'));
+    }
+
+    public function goldList() {
+        $user = \auth()->user();
+        $studentEvent = StudentEvent::where('user_code', $user->user_code)->get();
+        return view('admin.dashboard.list-gold', compact('studentEvent'));
     }
 
     public function profile()
@@ -74,11 +85,31 @@ class DashboardController extends Controller
     public function uploadDrive(Request $request)
     {
         dd($request->all());
-        $file = $request->file('file');
         $user = auth()->user();
-        Storage::disk("google")->putFileAs("", $file, "$user->user_login.pdf");
+        $application_file = $request->application_file;
+        $certified_file = $request->certified_file;
+        $transcripts_file = $request->transcripts_file;
+        $photograph_file = $request->photograph_file;
+        $certified_copy = $request->certified_copy;
+        $english_language = $request->english_language;
 
-        return redirect()->route('student.profile-2')->with('msg', 'Upload File Successfully');
+//        Storage::disk("google")->putFileAs("1EuXc7_YVOH40es5DbUNTzYGUjil0V_9k", $application_file, "$user->user_code-application_file.jpg");
+//        Storage::disk("google")->putFileAs("1EuXc7_YVOH40es5DbUNTzYGUjil0V_9k", $certified_file, "$user->user_code-certified_file.jpg");
+//        Storage::disk("google")->putFileAs("1EuXc7_YVOH40es5DbUNTzYGUjil0V_9k", $transcripts_file, "$user->user_code-transcripts_file.jpg");
+//        Storage::disk("google")->putFileAs("1EuXc7_YVOH40es5DbUNTzYGUjil0V_9k", $photograph_file, "$user->user_code-photograph_file.jpg");
+//        Storage::disk("google")->putFileAs("1EuXc7_YVOH40es5DbUNTzYGUjil0V_9k", $certified_copy, "$user->user_code-certified_copy.jpg");
+//        Storage::disk("google")->putFileAs("1EuXc7_YVOH40es5DbUNTzYGUjil0V_9k", $english_language, "$user->user_code-english_language.jpg");
+        $fileName = Storage::disk("google")->directories();
+        dd($fileName);
+//        $file = Storage::disk('google')->makeDirectory('avatars');
+//        dd($file);
+        $fileName = Storage::disk("google")->allFiles();
+//        $details = Storage::disk('google')->getMetadata($fileName[0]);
+        dd($fileName);
+//        $user = auth()->user();
+//        Storage::disk("google")->putFileAs("", $file, "$user->user_login.pdf");
+//
+//        return redirect()->route('student.profile-2')->with('msg', 'Upload File Successfully');
     }
 
     public function profileUpload()

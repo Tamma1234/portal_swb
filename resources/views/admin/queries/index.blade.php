@@ -61,9 +61,7 @@
                                         <input type="radio" name="waye" value="Other" checked>Other
                                         <span></span>
                                     </label>
-
                                 </div>
-
                             </div>
                             <div class="form-group">
                                 <label for="exampleTextarea">What is your question?:<code>*</code></label>

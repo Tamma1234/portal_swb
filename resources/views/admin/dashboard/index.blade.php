@@ -26,7 +26,9 @@
                             <div class="kt-widget__subhead">
                                 <a href="#"><i class="flaticon2-new-email"></i>{{ $user->user_email }}</a>
                                 <a href="#"><i class="flaticon2-calendar-3"></i>{{ $user->nganh }} </a>
-                                <a href="#"><i class="flaticon2-calendar-3"></i>{{ $user->curriculums ? $user->curriculums->chuyen_nganh : "" }} </a>
+                                <a href="#"><i
+                                        class="flaticon2-calendar-3"></i>{{ $user->curriculums ? $user->curriculums->chuyen_nganh : "" }}
+                                </a>
                             </div>
                             <div class="kt-widget__info">
                                 <div class="kt-widget__desc">
@@ -60,16 +62,28 @@
                                 <a href="{{ route('student.index') }}" class="kt-widget__value kt-font-brand">View</a>
                             </div>
                         </div>
+                        {{--                        <div class="kt-widget__item">--}}
+                        {{--                            <div class="kt-widget__icon">--}}
+                        {{--                                <i class="flaticon-chat-1"></i>--}}
+                        {{--                            </div>--}}
+                        {{--                            <div class="kt-widget__details">--}}
+                        {{--                                <span class="kt-widget__title">{{ count($comment) }}</span>--}}
+                        {{--                                <a href="{{ route('queries.history') }}" class="kt-widget__value kt-font-brand">View</a>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                         <div class="kt-widget__item">
                             <div class="kt-widget__icon">
-                                <i class="flaticon-chat-1"></i>
+                                <i class="flaticon-piggy-bank"></i>
                             </div>
                             <div class="kt-widget__details">
-{{--                                <span class="kt-widget__title">{{ count($comment) }}</span>--}}
-                                <a href="{{ route('queries.history') }}" class="kt-widget__value kt-font-brand">View</a>
+                                @if($totalGold->total == null)
+                                    <span class="kt-widget__title">0 Gold</span>
+                                @else
+                                    <span class="kt-widget__title">{{ $totalGold->total }} Gold</span>
+                                @endif
+                                <a href="{{ route('gold.list') }}" class="kt-widget__value kt-font-brand">View</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -91,7 +105,7 @@
                                     <div class="kt-widget__label">
                                         <div class="kt-widget__info kt-margin-t-5">
                                             <a href="#" class="kt-widget__title">
-                                                {{ $event->name_event }}  <span
+                                                {{ $event->name_event }} <span
                                                     class="btn btn-label-brand btn-sm btn-bold btn-upper">EVENT</span>
                                             </a>
                                             <span class="kt-widget__desc">

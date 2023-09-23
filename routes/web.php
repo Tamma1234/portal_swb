@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
         Route::get('profile-1', 'DashboardController@profileUpload')->name('student.profile-1');
         Route::get('profile-3', 'DashboardController@profile3')->name('student.profile-3');
         Route::post('/uploads', 'DashboardController@uploadDrive')->name('upload.drive');
+        Route::get('/gold', 'DashboardController@goldList')->name('gold.list');
 
         Route::get('grade', 'ResultController@listGrade')->name('student.grade');
     });
@@ -45,6 +46,14 @@ Route::middleware('auth')->group(function () {
         Route::get('schedule', 'DashboardController@listSchedule')->name('student.schedule');
         Route::get('getSchedule', 'DashboardController@schedule')->name('student.list');
         Route::get('attendance-report', 'DashboardController@getAttendance')->name('student.attendance');
+    });
+
+    Route::group(['prefix' => 'clubs'], function () {
+        Route::get('/', 'ClubController@index')->name('clubs.index');
+        Route::get('/register', 'ClubController@Register')->name('clubs.register');
+        Route::get('/detail/{id}', 'ClubController@detail')->name('club.detail');
+        Route::get('/delete/{id?}', 'ClubController@deleteClub')->name('delete.club');
+        Route::post('/store-register', 'ClubController@storeRegister')->name('clubs.store');
     });
 
     Route::group(['prefix' => 'queries'], function () {
@@ -78,5 +87,14 @@ Route::middleware('auth')->group(function () {
         Route::get('update-room/{id}', 'RoomController@updateRooms')->name('rooms.update');
         Route::get('cancel-room/{id}', 'RoomController@cancelRooms')->name('rooms.cancel');
         Route::post('store-room/{id}', 'RoomController@storeCancel')->name('rooms.store.cancel');
+    });
+
+    //Route Items
+    Route::group(['prefix' => 'items'], function () {
+        Route::get('index', 'ItemController@index')->name('items.index');
+        Route::get('detail/{id}', 'ItemController@detail')->name('items.detail');
+        Route::get('update', 'ItemController@update')->name('items.update');
+        Route::post('order/{id}', 'ItemController@orders')->name('items.order');
+        Route::get('bill-list', 'ItemController@billList')->name('items.bill');
     });
 });

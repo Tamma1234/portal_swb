@@ -33,11 +33,15 @@
                             <img src="{{ asset('assets/admin/images/logo.png') }}">
                         </a>
                     </div>
+
                     <div class="kt-login__signin">
                         <form class="kt-form" method="POST" action="{{ route('login.post') }}" enctype="multipart/form-data">
                             @csrf
+                            <div class="row">
+
+                            </div>
                             <div class="form-group">
-                                {{--                                <label for="exampleSelect1">Choose Campus</label>--}}
+                                                                <label for="exampleSelect1">Choose Campus</label>
                                 <select class="form-control" id="campus_id" name="campus_id">
                                     <option value="">Choose Campus</option>
                                     @if(!empty($campus))
@@ -77,6 +81,7 @@
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -87,6 +92,5 @@
 
 <!--end::Page Scripts -->
 </body>
-
 <!-- end::Body -->
 </html>

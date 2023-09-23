@@ -287,6 +287,25 @@
             }
             return false;
         })
+    });
+
+    $(document).ready(function () {
+        $("#list-carts").on("change","#cart_quantity", function () {
+            var qty = $(this).val();
+            var id = $(this).data('id');
+            var data = {
+                id: id,
+                qty: qty
+            };
+            $.ajax({
+                url: '{{ route('items.update') }}',
+                type: 'GET',
+                data: data,
+            }).done(function(response) {
+                $('#pricing-1__price').empty();
+                $('#pricing-1__price').html(response);
+            });
+        })
     })
 </script>
 

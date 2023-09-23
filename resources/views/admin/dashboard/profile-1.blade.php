@@ -95,4 +95,69 @@ $("#wizard").aiiaWizard({
     <script src="{{asset('assets/admin/js/wizard/wizard.js')}}" type="text/javascript"></script>
 
 @endsection
+@section('css')
+    <style>
+        .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+            color: #fff;
+            background-color: #337ab7;
+        }
 
+        .nav>li>a {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+        }
+
+        .nav-pills>li>a {
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        a:focus, a:hover {
+            color: #23527c;
+        }
+        .nav-pills>li {
+            display: table-cell;
+            width: 20%;
+        }
+        .nav>li>a:focus, .nav>li>a:hover {
+            text-decoration: none;
+            background-color: #eee;
+        }
+
+
+        html {
+            font-size:10px;
+        }
+
+        .outer-container {
+            font-family: "Roboto";
+            font-size: 1.6rem;
+        }
+
+        .outer-container {
+            padding:60px;
+        }
+
+
+        .step-content {
+            padding:40px 0;
+        }
+
+        .glyphicon {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-family: 'Glyphicons Halflings';
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .nav-justified {
+            width: 100%;
+        }
+    </style>
+@endsection
