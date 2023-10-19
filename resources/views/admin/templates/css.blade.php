@@ -86,6 +86,7 @@
 <!--end:: Vendor Plugins -->
 <link href="{{asset('assets/admin/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/css/item.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/admin/css/detail-item.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/css/pages/login/login-1.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/css/pages/login/login-2.css')}}" rel="stylesheet" type="text/css" />
 

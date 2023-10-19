@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Bills;
 use App\Models\Golds;
 use App\Models\Items;
+use App\Models\ItemSizes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -19,7 +21,7 @@ class ItemController extends Controller
     public function detail(Request $request)
     {
         $id = $request->id;
-        $item = Items::where('id', $id)->first();
+        $item = Items::find($id);
         return view('admin.items.detail', compact('item'));
     }
 
@@ -64,10 +66,8 @@ class ItemController extends Controller
                     'quantity' => $request->$quantity,
                     'date_time' => $date_now
                 ]);
-
                 return redirect()->route('items.bill')->with('msg-add', 'You have successfully made a purchase');
             }
-
         }
     }
 

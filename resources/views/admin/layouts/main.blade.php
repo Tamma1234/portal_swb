@@ -18,7 +18,7 @@
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
         <a href="index.html">
-            <img alt="Logo" src="assets/media/logos/logo-light.png"/>
+            <img alt="Logo" src="{{asset('assets/admin/images/logo-swb-2.jpg')}}"/>
         </a>
     </div>
     <div class="kt-header-mobile__toolbar">

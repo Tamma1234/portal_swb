@@ -1,9 +1,13 @@
 <?php
 $data = [
-    'campus' => [1, 8, 14],
+    'campus' => ['ph','pd','pk','ps','pc','th','ht','ts','tc','tk','td','ho'],
     'campus_detail' => [
-        '1' => 'Hà Nội',
-        '14' => 'Hồ Chí Minh',
+        'ph' => 'Hà Nội',
+        'ps' => 'Hồ Chí Minh',
+        'pd' => 'Đà Nẵng',
+        'pk' => 'Tây Nguyên',
+        'pc' => 'Cần Thơ',
+        'ht' => 'Hitech',
     ]
 ];
 $data = json_encode($data);

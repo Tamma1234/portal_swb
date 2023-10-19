@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Items extends Model
+class Sizes extends Model
 {
     use HasFactory;
 
-    protected $table = "items";
+    protected $table = "sizes";
 
     protected $guarded;
 
@@ -17,9 +17,5 @@ class Items extends Model
     {
         $this->connection = session('campus_db');
         parent::__construct($attributes);
-    }
-
-    public function sizes() {
-        return $this->belongsToMany(Sizes::class, 'item_size', 'item_id', 'size_id');
     }
 }

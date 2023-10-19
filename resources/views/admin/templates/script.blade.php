@@ -279,16 +279,6 @@
         r.valid() && (location.href = '/redirect?campus_id=' + campus_id);
     });
 
-    $(document).ready(function() {
-        $('#campus_id').change(function() {
-            var url = $(this).val();
-            if (url) {
-                window.location = url;
-            }
-            return false;
-        })
-    });
-
     $(document).ready(function () {
         $("#list-carts").on("change","#cart_quantity", function () {
             var qty = $(this).val();

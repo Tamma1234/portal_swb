@@ -24,54 +24,33 @@
 <body
     class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
 <div class="kt-grid kt-grid--ver kt-grid--root">
-    <div class="kt-grid kt-grid--hor kt-grid--root kt-login kt-login--v2 kt-login--signin" id="kt_login">
-        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url({{ asset('assets/admin/images/bg-sw.png') }});">
+    <div class="kt-grid kt-grid--hor kt-grid--root kt-login kt-login--v2 kt-login--signin" id="kt_login" style="background-image: url({{ asset('assets/admin/images/banner-swinburne.jpg') }})">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
             <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
                 <div class="kt-login__container">
                     <div class="kt-login__logo">
-                        <a href="#">
                             <img src="{{ asset('assets/admin/images/logo.png') }}">
-                        </a>
                     </div>
 
                     <div class="kt-login__signin">
-                        <form class="kt-form" method="POST" action="{{ route('login.post') }}" enctype="multipart/form-data">
+                        <form class="kt-form" enctype="multipart/form-data">
                             @csrf
-                            <div class="row">
-
-                            </div>
                             <div class="form-group">
-                                                                <label for="exampleSelect1">Choose Campus</label>
                                 <select class="form-control" id="campus_id" name="campus_id">
-                                    <option value="">Choose Campus</option>
+                                    <option value="">Choose location</option>
                                     @if(!empty($campus))
                                         {
                                         @for($i = 0; $i < count($campus); $i++)
-                                            <option {{ $campus_id == $campus[$i]->id ? 'selected' : ""}}
-                                                    value="{{ Request::url() }}?campus_id={{$campus[$i]->id}}">{{ $campus[$i]->campus_name }}</option>
+                                            <option {{ $campusCode == $campus[$i]->campus_code ? 'selected' : ""}}
+                                                    value="{{ $campus[$i]->campus_code}}">{{ $campus[$i]->campus_name }}</option>
                                         @endfor
                                     @endif
                                 </select>
                             </div>
-                            <div class="input-group form-group">
-                                <input type="text" class="form-control" placeholder="Username:" name="user_login">
-                            </div>
-                            @error('user_login')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                            <div class="input-group form-group">
-                                <input type="password" class="form-control" placeholder="Password" name="password">
-                            </div>
-                            @error('password')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
                             <div class="form-group">
-                                <div class="row" style="margin-top: 15px">
-                                    <div class="col-sm-6 col-md-8">
-                                        <a href="{{route('login.redirect')}}" id="kt_login_signin_submit" class="btn btn-dark kt-login__btn-primary" style="width: 100%"> <i class="fab fa-google"></i>Sign In With Google</a>
-                                    </div>
-                                    <div class="col-6 col-md-4" style="margin: auto">
-                                        <button type="submit" class="btn btn-primary">Login</button>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <button id="btn_login_google" type="button" class="btn btn-danger btn-block" style="width: 100%"> <i class="fab fa-google"></i> Sign In With Google</button>
                                     </div>
                                 </div>
                             </div>

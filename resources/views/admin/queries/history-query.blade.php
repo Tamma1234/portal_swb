@@ -33,7 +33,7 @@
 
                         <!--begin::Section-->
                         <div class="kt-section">
-                            <div class="kt-section__content">
+                            <div class="kt-section__content" style="overflow-x: auto;">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>

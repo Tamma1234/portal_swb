@@ -32,5 +32,4 @@ class Queries extends Model
         $this->connection = session('campus_db');
         parent::__construct($attributes);
     }
-
 }

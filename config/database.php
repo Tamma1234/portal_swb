@@ -83,7 +83,7 @@ return [
             ]) : [],
         ],
 
-        '14' => [
+        'ps' => [
             'driver' => 'mysql',
             'url' => env('HCM_PH_DATABASE_URL'),
             'host' => env('HCM_PH_DB_HOST', '127.0.0.1'),
@@ -103,7 +103,7 @@ return [
             ]) : [],
         ],
 
-        '1' => [
+        'ph' => [
             'driver' => 'mysql',
             'url' => env('HN_PH_DATABASE_URL'),
             'host' => env('HN_PH_DB_HOST', '127.0.0.1'),

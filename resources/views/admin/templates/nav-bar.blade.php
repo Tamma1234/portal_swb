@@ -221,12 +221,12 @@
                                         class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                         class="kt-menu__link-text">Academic Transcript</span></a>
                             </li>
-                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
-                                data-ktmenu-submenu-toggle="hover"><a
-                                    href="{{ route('student.grade') }}" class="kt-menu__link "><i
-                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
-                                        class="kt-menu__link-text">Study Plan</span></a>
-                            </li>
+{{--                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"--}}
+{{--                                data-ktmenu-submenu-toggle="hover"><a--}}
+{{--                                    href="{{ route('student.grade') }}" class="kt-menu__link "><i--}}
+{{--                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span--}}
+{{--                                        class="kt-menu__link-text">Study Plan</span></a>--}}
+{{--                            </li>--}}
                         </ul>
                     </div>
                 </li>
