@@ -3,7 +3,6 @@
 @section('content')
     @include('admin.templates.content-header', ['name' => 'Swinburne', 'key' => 'Items', 'value' => "Detail", 'value2' => ""])
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-        <div class="container">
             <div class="card">
                 <div class="row">
                     <div class="col-md-6 border-end">
@@ -27,7 +26,7 @@
                         </div>
                     </div>
                     <div class="col-md-6" id="list-carts">
-                        <form action="{{ route('items.order', ['id' => $item->id]) }}" method="post">
+                        <form action="" method="">
                             @csrf
                             <div class="">
                                 <div class="d-flex justify-content-between align-items-center text-uppercase"><h3
@@ -70,10 +69,48 @@
                                 @endif
                             </div>
                             <div class="buttons d-flex flex-row mt-5 gap-3">
-                                <button type="submit" class="btn btn-outline-dark">Buy Now</button>
+                                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal">Buy Now</button>
                                 {{--                                <button class="btn btn-dark">Add to Basket</button>--}}
                             </div>
                         </form>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có chắc chắn muốn mua sản phẩm này không
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Understood</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Button trigger modal -->
                     <!-- Modal -->
@@ -95,7 +132,6 @@
                     {{--                    </div>--}}
                 </div>
             </div>
-        </div>
     </div>
 @endsection
 @section('script')

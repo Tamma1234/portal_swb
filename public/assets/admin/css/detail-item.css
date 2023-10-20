@@ -15,7 +15,8 @@ body {
 
 .card-img-tiles {
     display: block;
-    border-bottom: 1px solid #e1e7ec;
+    border: 1px solid #e1e7ec;
+    height: 230px;
 }
 
 a {

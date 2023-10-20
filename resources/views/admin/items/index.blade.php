@@ -16,52 +16,97 @@
                     <h3 class="kt-portlet__head-title">
                         Items List
                     </h3>
-                </div>
-            </div>
-{{--            <div class="kt-portlet">--}}
-{{--                <div class="kt-portlet__body">--}}
-{{--                    <div class="kt-pricing-1">--}}
-{{--                        <div class="kt-pricing-1__items row">--}}
-{{--                            @foreach($items as $item)--}}
-{{--                                <div class="kt-pricing-1__item col-lg-3">--}}
-{{--                                    <div class="kt-pricing-1__visual">--}}
-{{--                                        <span class="kt-pricing-1__icon kt-font-warning"><img src="{{ asset("assets/admin/images/items/$item->images") }}" style="width: 200px; height: 200px" alt=""></span>--}}
-{{--                                    </div>--}}
-{{--                                    <span class="kt-pricing-1__price" style="font-size: 2rem">{{ $item->gold }} <img width="20px" src="{{ asset('assets/admin/images/dong-coin.jpg') }}" alt=""></span>--}}
-{{--                                    <h2 class="kt-pricing-1__subtitle text-uppercase"><a href="{{ route('items.detail', ['id' => $item->id]) }}" style="color: #0f0f16">{{ $item->name_item }}</a> </h2>--}}
-{{--                                    <div class="kt-pricing-1__btn">--}}
-{{--                                        <a href="{{ route('items.detail', ['id' => $item->id]) }}" class="btn btn-info btn-wide btn-uppercase btn-bolder btn-sm">--}}
-{{--                                            PURCHASE--}}
-{{--                                        </a>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
 
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-            <div class="container mt-100">
-                <div class="row">
-                    @foreach($items as $item)
-                    <div class="col-md-3 col-sm-3">
-                        <div class="card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
-                                <div class="inner">
-                                    <div class="main-img"><img src="https://drive.google.com/uc?export=view&id={{ $item->images }}" style="width: 200px">
+                </div>
+
+            </div>
+            <div class="col-xl-12 col-lg-12">
+                <!--begin:: Widgets/Audit Log-->
+                <div class="kt-portlet kt-portlet--height-fluid">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-toolbar">
+                            <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#kt_widget4_tab11_content" role="tab">
+                                        Items
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#kt_widget4_tab12_content" role="tab">
+                                        Events
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="kt_widget4_tab11_content">
+                                <div class="container">
+                                    <div class="row">
+                                        @foreach($items as $item)
+                                            <div class="col-md-3 col-sm-3">
+                                                <div class="card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
+                                                        <div class="inner">
+                                                            <div class="main-img"><img
+                                                                    src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
+                                                                    style="width: 200px">
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body text-center">
+                                                        <h4 class="card-title">{{ $item->name_item }}</h4>
+                                                        <p class="text-muted"><span class="kt-pricing-1__price" id="pricing-1__price"
+                                                                                    style="font-size: x-large;color: red;font-family: unset;">{{ $item->gold }}
+                               </span><span class="kt-pricing-1__price"><img
+                                                                    style="vertical-align: baseline; width: 20px"
+                                                                    src="{{ asset('assets/admin/images/dong-coin.jpg') }}" alt=""></span>
+                                                        </p>
+                                                        <a class="btn btn-outline-primary btn-sm"
+                                                           href="{{ route('items.detail', ['id' => $item->id]) }}" data-abc="true">View
+                                                            Products</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                </div></a>
-                            <div class="card-body text-center">
-                                <h4 class="card-title">{{ $item->name_item }}</h4>
-                                <p class="text-muted"><span class="kt-pricing-1__price" id="pricing-1__price"
-                                                            style="font-size: x-large;color: red;font-family: unset;">{{ $item->gold }}
-                               </span><span class="kt-pricing-1__price"><img style="vertical-align: baseline; width: 20px" src="{{ asset('assets/admin/images/dong-coin.jpg') }}" alt=""></span></p>
-                                <a class="btn btn-outline-primary btn-sm" href="{{ route('items.detail', ['id' => $item->id]) }}" data-abc="true">View Products</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="kt_widget4_tab12_content">
                             </div>
                         </div>
                     </div>
-                    @endforeach
                 </div>
+
+                <!--end:: Widgets/Audit Log-->
             </div>
+            {{--            <div class="kt-portlet">--}}
+            {{--                <div class="kt-portlet__body">--}}
+            {{--                    <div class="kt-pricing-1">--}}
+            {{--                        <div class="kt-pricing-1__items row">--}}
+            {{--                            @foreach($items as $item)--}}
+            {{--                                <div class="kt-pricing-1__item col-lg-3">--}}
+            {{--                                    <div class="kt-pricing-1__visual">--}}
+            {{--                                        <span class="kt-pricing-1__icon kt-font-warning"><img src="{{ asset("assets/admin/images/items/$item->images") }}" style="width: 200px; height: 200px" alt=""></span>--}}
+            {{--                                    </div>--}}
+            {{--                                    <span class="kt-pricing-1__price" style="font-size: 2rem">{{ $item->gold }} <img width="20px" src="{{ asset('assets/admin/images/dong-coin.jpg') }}" alt=""></span>--}}
+            {{--                                    <h2 class="kt-pricing-1__subtitle text-uppercase"><a href="{{ route('items.detail', ['id' => $item->id]) }}" style="color: #0f0f16">{{ $item->name_item }}</a> </h2>--}}
+            {{--                                    <div class="kt-pricing-1__btn">--}}
+            {{--                                        <a href="{{ route('items.detail', ['id' => $item->id]) }}" class="btn btn-info btn-wide btn-uppercase btn-bolder btn-sm">--}}
+            {{--                                            PURCHASE--}}
+            {{--                                        </a>--}}
+            {{--                                    </div>--}}
+            {{--                                </div>--}}
+            {{--                            @endforeach--}}
+
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
+
         </div>
     </div>
+@endsection
+@section("script")
+
 @endsection
