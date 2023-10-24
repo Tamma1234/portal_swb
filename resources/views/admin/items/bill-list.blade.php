@@ -49,7 +49,7 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $item->items ? $item->items->name_item : "" }}</td>
-                            <td><img src="{{ asset("assets/admin/images/items/$image") }}" width="100px" height="100px" alt=""> </td>
+                            <td><img src="https://drive.google.com/uc?export=view&id={{ $item->items ? $item->items->images : "" }}" width="100px" height="100px" alt=""> </td>
                             <td>{{ $item->gold }}</td>
                             <td>{{ $item->quantity }}</td>
                             <td>{{ $item->date_time }}</td>

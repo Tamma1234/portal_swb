@@ -95,6 +95,8 @@ Route::middleware('auth')->group(function () {
         Route::get('detail/{id}', 'ItemController@detail')->name('items.detail');
         Route::get('update', 'ItemController@update')->name('items.update');
         Route::post('order/{id}', 'ItemController@orders')->name('items.order');
+        Route::post('store-event/{id}', 'ItemController@storeEvent')->name('store.event');
         Route::get('bill-list', 'ItemController@billList')->name('items.bill');
+
     });
 });

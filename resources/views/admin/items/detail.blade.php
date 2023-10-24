@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="col-md-6" id="list-carts">
-                        <form action="" method="">
+                        <form action="{{ route("items.order", ['id' => $item->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="">
                                 <div class="d-flex justify-content-between align-items-center text-uppercase"><h3
@@ -59,9 +59,8 @@
 
                                         <h6 class="fw-bold">Size</h6>
                                         @foreach($item->sizes as $size)
-                                            <label class="radio"> <input type="radio" name="size" value="S" checked>
+                                            <label class="radio"> <input type="radio" name="size" value="{{ $size->id }}" checked>
                                                 <span>{{ $size->name }}</span>
-
                                             </label>
                                         @endforeach
 
@@ -72,28 +71,26 @@
                                 <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal">Buy Now</button>
                                 {{--                                <button class="btn btn-dark">Add to Basket</button>--}}
                             </div>
-                        </form>
-                        <!-- Button trigger modal -->
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Bạn có chắc chắn muốn mua sản phẩm này không
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Yes</button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel"> Bạn có chắc chắn muốn mua sản phẩm này không</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                        </form>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
                         <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">

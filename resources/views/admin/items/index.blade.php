@@ -27,7 +27,8 @@
                         <div class="kt-portlet__head-toolbar">
                             <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#kt_widget4_tab11_content" role="tab">
+                                    <a class="nav-link active" data-toggle="tab" href="#kt_widget4_tab11_content"
+                                       role="tab">
                                         Items
                                     </a>
                                 </li>
@@ -46,7 +47,8 @@
                                     <div class="row">
                                         @foreach($items as $item)
                                             <div class="col-md-3 col-sm-3">
-                                                <div class="card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
+                                                <div class="card mb-30"><a class="card-img-tiles" href="#"
+                                                                           data-abc="true">
                                                         <div class="inner">
                                                             <div class="main-img"><img
                                                                     src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
@@ -56,14 +58,17 @@
                                                     </a>
                                                     <div class="card-body text-center">
                                                         <h4 class="card-title">{{ $item->name_item }}</h4>
-                                                        <p class="text-muted"><span class="kt-pricing-1__price" id="pricing-1__price"
+                                                        <p class="text-muted"><span class="kt-pricing-1__price"
+                                                                                    id="pricing-1__price"
                                                                                     style="font-size: x-large;color: red;font-family: unset;">{{ $item->gold }}
                                </span><span class="kt-pricing-1__price"><img
                                                                     style="vertical-align: baseline; width: 20px"
-                                                                    src="{{ asset('assets/admin/images/dong-coin.jpg') }}" alt=""></span>
+                                                                    src="{{ asset('assets/admin/images/dong-coin.jpg') }}"
+                                                                    alt=""></span>
                                                         </p>
                                                         <a class="btn btn-outline-primary btn-sm"
-                                                           href="{{ route('items.detail', ['id' => $item->id]) }}" data-abc="true">View
+                                                           href="{{ route('items.detail', ['id' => $item->id]) }}"
+                                                           data-abc="true">View
                                                             Products</a>
                                                     </div>
                                                 </div>
@@ -73,6 +78,95 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="kt_widget4_tab12_content">
+                                <div class="row">
+                                    @foreach($events as $event)
+                                        <div class="col-xl-6">
+                                            <!--begin:: Portlet-->
+                                            <div class="kt-portlet kt-callout kt-callout--brand">
+                                                <div class="kt-portlet__body kt-portlet__body--fit">
+
+                                                    <!--begin::Widget -->
+                                                    <div class="kt-widget kt-widget--project-1">
+                                                        <div class="kt-widget__head">
+                                                            <div class="kt-widget__label">
+                                                                <div class="kt-widget__info kt-margin-t-5">
+                                                                    <a href="#" class="kt-widget__title">
+                                                                        {{ $event->name_event }} <span
+                                                                            class="btn btn-label-brand btn-sm btn-bold btn-upper">{{ $event->gold }} GOLD</span>
+                                                                    </a>
+                                                                    <span class="kt-widget__desc">
+																{{ $event->description_event }}
+															</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kt-widget__body">
+                                                            <div class="kt-widget__stats">
+                                                                <div class="kt-widget__item">
+															    <span class="kt-widget__date">
+															    	Start Date
+														    	</span>
+                                                                    <div class="kt-widget__label">
+                                                                        <span
+                                                                            class="btn btn-label-brand btn-sm btn-bold btn-upper">{{ $event->start_date }}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="kt-widget__item">
+														    	<span class="kt-widget__date">
+																    Due Date
+															    </span>
+                                                                    <div class="kt-widget__label">
+                                                                        <span
+                                                                            class="btn btn-label-danger btn-sm btn-bold btn-upper">{{ $event->end_date }}</span>
+                                                                    </div>
+                                                                </div>
+                                                                    <div class="kt-callout__action"
+                                                                         style="margin: auto">
+{{--                                                                        <a href="#"--}}
+{{--                                                                           class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-primary">Join</a>--}}
+                                                                        <div class="buttons d-flex flex-row mt-2 gap-3">
+                                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{ $event->id }}">Join</button>
+                                                                            {{--                                <button class="btn btn-dark">Add to Basket</button>--}}
+                                                                        </div>
+                                                                        <form action="{{ route('store.event', ['id' => $event->id]) }}" method="post" enctype="multipart/form-data">
+                                                                            @csrf
+                                                                            <div class="modal fade" id="exampleModal-{{ $event->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">Events</h5>
+                                                                                            <input type="hidden" name="event_id" value="{{ $event->id }}">
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            Are you sure you want to join the event?
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+{{--                                                                    <div class="kt-callout__action"--}}
+{{--                                                                         style="margin: auto; margin-top: 40px">--}}
+{{--                                                                        <input class="btn btn-success disabled" value="End">--}}
+{{--                                                                    </div>--}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--end::Widget -->
+                                                </div>
+                                            </div>
+                                            <!--end:: Portlet-->
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>

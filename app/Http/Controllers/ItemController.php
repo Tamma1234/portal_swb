@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bills;
+use App\Models\EventSwin;
 use App\Models\Golds;
 use App\Models\Items;
 use App\Models\ItemSizes;
+use App\Models\StudentEvent;
+use App\Models\User;
+use Google\Service\ServiceControl\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +19,9 @@ class ItemController extends Controller
     public function index()
     {
         $items = Items::all();
-        return view('admin.items.index', compact('items'));
+        $events = EventSwin::orderBy('start_date', 'DESC')->get();
+        $dayNow = Carbon::now()->toDateTimeString();
+        return view('admin.items.index', compact('items', 'events', 'dayNow'));
     }
 
     public function detail(Request $request)
@@ -63,8 +69,9 @@ class ItemController extends Controller
                     'user_code' => $user_code,
                     'gold' => $total_gold,
                     'item_id' => $request->id,
-                    'quantity' => $request->$quantity,
-                    'date_time' => $date_now
+                    'quantity' => $quantity,
+                    'date_time' => $date_now,
+                    'size_id' => $request->size
                 ]);
                 return redirect()->route('items.bill')->with('msg-add', 'You have successfully made a purchase');
             }
@@ -77,5 +84,14 @@ class ItemController extends Controller
         $bills = Bills::where('user_code', $user->user_code)->get();
 
         return view('admin.items.bill-list', compact('bills', 'user', 'full_name'));
+    }
+
+    public function storeEvent(Request $request) {
+        $event_id = $request->event_id;
+        $user = \auth()->user();
+        $student_event = StudentEvent::where('event_id', $event_id)->where('user_code', $user->user_code)->first();
+        if (count($student_event) > 0) {
+            return redirect()->route('items.index')->with('errors', 'Your gold is not enough to buy');
+        }
     }
 }
