@@ -350,6 +350,18 @@
                         </ul>
                     </div>
                 </li>
+                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true">
+                    <a href="{{ route('parent.index') }}"
+                       class="kt-menu__link "><span
+                            class="kt-menu__link-icon flaticon-web"></span><span class="kt-menu__link-text">Parent Engagement</span></a>
+                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
+                                    class="kt-menu__link"><span class="kt-menu__link-text"></span></span></li>
+
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

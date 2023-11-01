@@ -80,6 +80,8 @@
                             <div class="tab-pane" id="kt_widget4_tab12_content">
                                 <div class="row">
                                     @foreach($events as $event)
+                                        <?php $event_swin = \App\Models\StudentEvent::where('user_code', $user->user_code)->where('event_id', $event->id)->first();
+                                        ?>
                                         <div class="col-xl-6">
                                             <!--begin:: Portlet-->
                                             <div class="kt-portlet kt-callout kt-callout--brand">
@@ -120,42 +122,85 @@
                                                                             class="btn btn-label-danger btn-sm btn-bold btn-upper">{{ $event->end_date }}</span>
                                                                     </div>
                                                                 </div>
+                                                                @if($dayNow < $event->end_date)
                                                                     <div class="kt-callout__action"
                                                                          style="margin: auto">
-{{--                                                                        <a href="#"--}}
-{{--                                                                           class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-primary">Join</a>--}}
-                                                                        <div class="buttons d-flex flex-row mt-2 gap-3">
-                                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{ $event->id }}">Join</button>
-                                                                            {{--                                <button class="btn btn-dark">Add to Basket</button>--}}
-                                                                        </div>
-                                                                        <form action="{{ route('store.event', ['id' => $event->id]) }}" method="post" enctype="multipart/form-data">
-                                                                            @csrf
-                                                                            <div class="modal fade" id="exampleModal-{{ $event->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h5 class="modal-title" id="exampleModalLabel">Events</h5>
-                                                                                            <input type="hidden" name="event_id" value="{{ $event->id }}">
-                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                            Are you sure you want to join the event?
-                                                                                        </div>
-                                                                                        <div class="modal-footer">
-                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                                                        {{--                                                                        <a href="#"--}}
+                                                                        {{--                                                                           class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-primary">Join</a>--}}
+                                                                        @if($event_swin == null)
+                                                                            <div
+                                                                                class="buttons d-flex flex-row mt-2 gap-3">
+                                                                                <button type="button"
+                                                                                        class="btn btn-primary"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#exampleModal-{{ $event->id }}">
+                                                                                    Join
+                                                                                </button>
+                                                                                {{--                                <button class="btn btn-dark">Add to Basket</button>--}}
+                                                                            </div>
+                                                                            <form
+                                                                                action="{{ route('store.event', ['id' => $event->id]) }}"
+                                                                                method="post"
+                                                                                enctype="multipart/form-data">
+                                                                                @csrf
+                                                                                <div class="modal fade"
+                                                                                     id="exampleModal-{{ $event->id }}"
+                                                                                     tabindex="-1"
+                                                                                     aria-labelledby="exampleModalLabel"
+                                                                                     aria-hidden="true">
+                                                                                    <div
+                                                                                        class="modal-dialog modal-dialog-centered">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header">
+                                                                                                <h5 class="modal-title"
+                                                                                                    id="exampleModalLabel">
+                                                                                                    Events</h5>
+                                                                                                <input type="hidden"
+                                                                                                       name="event_id"
+                                                                                                       value="{{ $event->id }}">
+                                                                                                <button type="button"
+                                                                                                        class="close"
+                                                                                                        data-dismiss="modal"
+                                                                                                        aria-label="Close">
+                                                                                                    <span
+                                                                                                        aria-hidden="true">&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body">
+                                                                                                Are you sure you want to
+                                                                                                join the event?
+                                                                                            </div>
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="button"
+                                                                                                        class="btn btn-secondary"
+                                                                                                        data-dismiss="modal">
+                                                                                                    Close
+                                                                                                </button>
+                                                                                                <button type="submit"
+                                                                                                        class="btn btn-primary">
+                                                                                                    Yes
+                                                                                                </button>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            </form>
+                                                                        @else
+                                                                            <div class="buttons">
+                                                                                <span class="btn btn-outline-primary"
+                                                                                   href="#"
+                                                                                   data-abc="true">Joined</span>
+                                                                                {{--                                <button class="btn btn-dark">Add to Basket</button>--}}
                                                                             </div>
-                                                                        </form>
+                                                                        @endif
                                                                     </div>
-{{--                                                                    <div class="kt-callout__action"--}}
-{{--                                                                         style="margin: auto; margin-top: 40px">--}}
-{{--                                                                        <input class="btn btn-success disabled" value="End">--}}
-{{--                                                                    </div>--}}
+                                                                @else
+                                                                    <div class="kt-callout__action"
+                                                                         style="margin: auto; margin-top: 40px">
+                                                                        <input class="btn btn-success disabled"
+                                                                               value="End">
+                                                                    </div>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
@@ -197,7 +242,6 @@
             {{--                    </div>--}}
             {{--                </div>--}}
             {{--            </div>--}}
-
         </div>
     </div>
 @endsection

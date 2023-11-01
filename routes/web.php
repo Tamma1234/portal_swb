@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
         Route::get('academic', 'NotificationController@getAcademic')->name('student.academic');
         Route::get('activities', 'NotificationController@getActivities')->name('student.activities');
         Route::get('fees', 'NotificationController@getFees')->name('student.fees');
+        Route::get('parent', 'NotificationController@getParent')->name('parent.index');
     });
 
     Route::group(['prefix' => 'calendar'], function () {

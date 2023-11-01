@@ -33,4 +33,8 @@ class NotificationController extends Controller
     {
         return view('admin.notifications.fees');
     }
+
+    public function getParent() {
+        return view('admin.parent.index');
+    }
 }

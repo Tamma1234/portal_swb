@@ -11,18 +11,12 @@
                                     src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
                                     id="main_product_image"
                                     width="400"></div>
-                            {{--                            <div class="thumbnail_images">--}}
-                            {{--                                <ul id="thumbnail">--}}
-                            {{--                                    <li><img onclick="changeImage(this)" src="https://i.imgur.com/TAzli1U.jpg"--}}
-                            {{--                                             width="70"></li>--}}
-                            {{--                                    <li><img onclick="changeImage(this)" src="https://i.imgur.com/w6kEctd.jpg"--}}
-                            {{--                                             width="70"></li>--}}
-                            {{--                                    <li><img onclick="changeImage(this)" src="https://i.imgur.com/L7hFD8X.jpg"--}}
-                            {{--                                             width="70"></li>--}}
-                            {{--                                    <li><img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg"--}}
-                            {{--                                             width="70"></li>--}}
-                            {{--                                </ul>--}}
-                            {{--                            </div>--}}
+                                                        <div class="thumbnail_images">
+                                                            <ul id="thumbnail">
+                                                                <li><img onclick="changeImage(this)" src="https://drive.google.com/file/d/15oXFbTUAJKmy5qt9aJ-EwrdYGHmkOWpN/view"
+                                                                         width="70"></li>
+                                                            </ul>
+                                                        </div>
                         </div>
                     </div>
                     <div class="col-md-6" id="list-carts">
@@ -128,6 +122,167 @@
                     {{--                        </div>--}}
                     {{--                    </div>--}}
                 </div>
+                <div class="kt-portlet kt-portlet--height-fluid">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-toolbar">
+                            <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#kt_widget5_tab1_content" role="tab">
+                                        Product Details
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#kt_widget5_tab2_content" role="tab">
+                                        Shopping Guide
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="kt_widget5_tab1_content" aria-expanded="true">
+                                <div class="kt-widget5">
+                                    <div class="kt-widget5__item">
+                                        <div class="kt-widget5__content">
+                                            <div class="kt-widget5__pic">
+                                                <img class="kt-widget7__img" src="assets/media/products/product27.jpg" alt="">
+                                            </div>
+                                            <div class="kt-widget5__section">
+                                                <p class="kt-widget5__desc">
+                                                    {{ $item->description }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="kt-widget5__content">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="kt_widget5_tab2_content">
+                                <div class="kt-widget5">
+                                    <div class="kt-widget5__item">
+                                        <div class="kt-widget5__content">
+                                            <div class="kt-widget5__pic">
+                                                <img class="kt-widget7__img" src="assets/media/products/product10.jpg" alt="">
+                                            </div>
+
+                                        </div>
+                                        <div class="kt-widget5__content">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{{--                <section class="py-5 bg-light">--}}
+{{--                    <div class="container px-4 px-lg-5 mt-5">--}}
+{{--                        <h2 class="fw-bolder mb-4">Related products</h2>--}}
+{{--                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">--}}
+{{--                            <div class="col mb-5">--}}
+{{--                                <div class="card h-100">--}}
+{{--                                    <!-- Product image-->--}}
+{{--                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--}}
+{{--                                    <!-- Product details-->--}}
+{{--                                    <div class="card-body p-4">--}}
+{{--                                        <div class="text-center">--}}
+{{--                                            <!-- Product name-->--}}
+{{--                                            <h5 class="fw-bolder">Fancy Product</h5>--}}
+{{--                                            <!-- Product price-->--}}
+{{--                                            $40.00 - $80.00--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <!-- Product actions-->--}}
+{{--                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--}}
+{{--                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col mb-5">--}}
+{{--                                <div class="card h-100">--}}
+{{--                                    <!-- Sale badge-->--}}
+{{--                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>--}}
+{{--                                    <!-- Product image-->--}}
+{{--                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--}}
+{{--                                    <!-- Product details-->--}}
+{{--                                    <div class="card-body p-4">--}}
+{{--                                        <div class="text-center">--}}
+{{--                                            <!-- Product name-->--}}
+{{--                                            <h5 class="fw-bolder">Special Item</h5>--}}
+{{--                                            <!-- Product reviews-->--}}
+{{--                                            <div class="d-flex justify-content-center small text-warning mb-2">--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                            </div>--}}
+{{--                                            <!-- Product price-->--}}
+{{--                                            <span class="text-muted text-decoration-line-through">$20.00</span>--}}
+{{--                                            $18.00--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <!-- Product actions-->--}}
+{{--                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--}}
+{{--                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col mb-5">--}}
+{{--                                <div class="card h-100">--}}
+{{--                                    <!-- Sale badge-->--}}
+{{--                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>--}}
+{{--                                    <!-- Product image-->--}}
+{{--                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--}}
+{{--                                    <!-- Product details-->--}}
+{{--                                    <div class="card-body p-4">--}}
+{{--                                        <div class="text-center">--}}
+{{--                                            <!-- Product name-->--}}
+{{--                                            <h5 class="fw-bolder">Sale Item</h5>--}}
+{{--                                            <!-- Product price-->--}}
+{{--                                            <span class="text-muted text-decoration-line-through">$50.00</span>--}}
+{{--                                            $25.00--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <!-- Product actions-->--}}
+{{--                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--}}
+{{--                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col mb-5">--}}
+{{--                                <div class="card h-100">--}}
+{{--                                    <!-- Product image-->--}}
+{{--                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--}}
+{{--                                    <!-- Product details-->--}}
+{{--                                    <div class="card-body p-4">--}}
+{{--                                        <div class="text-center">--}}
+{{--                                            <!-- Product name-->--}}
+{{--                                            <h5 class="fw-bolder">Popular Item</h5>--}}
+{{--                                            <!-- Product reviews-->--}}
+{{--                                            <div class="d-flex justify-content-center small text-warning mb-2">--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                                <div class="bi-star-fill"></div>--}}
+{{--                                            </div>--}}
+{{--                                            <!-- Product price-->--}}
+{{--                                            $40.00--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <!-- Product actions-->--}}
+{{--                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--}}
+{{--                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </section>--}}
             </div>
     </div>
 @endsection
