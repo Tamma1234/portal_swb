@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Queries extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $table = "queries";
 

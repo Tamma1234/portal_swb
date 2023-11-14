@@ -221,8 +221,8 @@ label.radio input:checked + span {
 }
 
 .btn-danger {
-    background-color: #ff0000 !important;
-    border-color: #ff0000 !important
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
 }
 
 .btn-danger:hover {

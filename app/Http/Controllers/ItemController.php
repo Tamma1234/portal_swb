@@ -28,7 +28,8 @@ class ItemController extends Controller
 
     public function detail(Request $request)
     {
-
+        $files = Storage::disk("google")->directories();
+        dd($files);
         $id = $request->id;
         $item = Items::find($id);
         $items = Items::all();

@@ -26,7 +26,7 @@ class QueryController extends Controller
 //        $file_image = $request->file('file')->storeAs('images', $fileName, 'public');
         $name =  $request->file('file')->store('images');
         $query = new Queries();
-        $query->create([
+        $data = [
             'user_login' => $user_login,
             'user_code' => $user_code,
             'queries_type' => $queries_type,
@@ -39,8 +39,11 @@ class QueryController extends Controller
             'time_xu_ly' => "",
             'note_xu_ly' => "",
             'nguoi_xu_ly' => ""
-        ]);
-
+        ];
+        $query->fill($data);
+        $query->save();
+        $id = $query->id;
+        dd($id);
         return redirect()->route('queries.history')->with('msg', 'query sent successfully');
     }
 

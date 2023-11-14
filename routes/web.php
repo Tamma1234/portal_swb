@@ -40,7 +40,6 @@ Route::middleware('auth')->group(function () {
         Route::get('academic', 'NotificationController@getAcademic')->name('student.academic');
         Route::get('activities', 'NotificationController@getActivities')->name('student.activities');
         Route::get('fees', 'NotificationController@getFees')->name('student.fees');
-        Route::get('parent', 'NotificationController@getParent')->name('parent.index');
     });
 
     Route::group(['prefix' => 'calendar'], function () {
@@ -99,5 +98,10 @@ Route::middleware('auth')->group(function () {
         Route::post('store-event/{id}', 'ItemController@storeEvent')->name('store.event');
         Route::get('bill-list', 'ItemController@billList')->name('items.bill');
 
+    });
+    //Parent
+    Route::group(['prefix' => 'parent'], function () {
+        Route::get('parent', 'ParentController@getParent')->name('parent.index');
+        Route::post('store', 'ParentController@store')->name('parent.store');
     });
 });
