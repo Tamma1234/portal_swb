@@ -17,7 +17,7 @@ class Queries extends Model
         'user_code',
         'queries_type',
         'question',
-        'querries_status',
+        'queries_status',
         'file_name',
         'phone',
         'address',

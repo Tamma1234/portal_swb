@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\QueryRequest;
 use App\Models\Queries;
+use App\Models\QuerisCommunicate;
 use Illuminate\Http\Request;
 
 class QueryController extends Controller
@@ -21,29 +22,44 @@ class QueryController extends Controller
         $user_code = $user->user_code;
         $question = $request->question;
         $queries_type = $request->waye;
-//        $originalFileName = $request->file->getClientOriginalName();
-//        $fileName = uniqid() . '_' . str_replace(' ', '_', $originalFileName);
-//        $file_image = $request->file('file')->storeAs('images', $fileName, 'public');
-        $name =  $request->file('file')->store('images');
+
+        // file images
+        $targetDir = 'temp/';
+        $fileName = $request->file->getClientOriginalName();
+        if ($fileName != "") {
+            $targetFilePath = $targetDir."-".$user_code."-".$fileName;
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            $allowTypes = array('jpg','png','jpeg','gif','pdf','JPG','PNG','JPEG','GIF','PDF','doc','DOC','docx','DOCX');
+            $targetFilePath2 = "https://portal.swin.edu.vn/students/".$targetFilePath;
+            if (in_array($fileType, $allowTypes)) {
+
+            }
+
+        } else {
+            $targetFilePath2 = '';
+        }
         $query = new Queries();
         $data = [
             'user_login' => $user_login,
             'user_code' => $user_code,
             'queries_type' => $queries_type,
             'question' => $question,
-            'file_name' => $name,
-            'querries_status' => 'New',
-            'phone' => $user->user_telephone,
-            'address' => $user->address,
-            'email' => $user->user_email,
-            'time_xu_ly' => "",
-            'note_xu_ly' => "",
-            'nguoi_xu_ly' => ""
+            'queries_status' => 'New',
         ];
         $query->fill($data);
         $query->save();
         $id = $query->id;
-        dd($id);
+        $queryFill = Queries::find($id);
+
+        $query = new QuerisCommunicate();
+        $query->insert([
+            'queries_id' => $id,
+            'content' => "",
+            'file_name' => $targetFilePath2,
+            'queries_status' => $queryFill->queries_status,
+            'create_by' => $user_login
+        ]);
+
         return redirect()->route('queries.history')->with('msg', 'query sent successfully');
     }
 

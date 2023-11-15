@@ -41,9 +41,9 @@
                                         <th>Queries_type</th>
                                         <th>Question</th>
                                         <th>File</th>
-                                        <th>File response</th>
                                         <th>Status</th>
                                         <th>Note</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -54,21 +54,14 @@
                                             <td>{{ $item->queries_type }}</td>
                                             <td>{{ $item->question }}</td>
                                             <td><img src="{{asset('storage/'.$item->file_name)  }}" style="width: 200px" alt=""></td>
-                                            <td>{{ $item->file_response }}</td>
-                                            <td>{{ $item->querries_status }}</td>
+                                            <td>{{ $item->queries_status }}</td>
                                             <td>{{ $item->note_xu_ly }}</td>
-{{--                                            <td>--}}
-{{--                                                @if($coureResult->val == 1)--}}
-{{--                                                    <span--}}
-{{--                                                        class="btn btn-bold btn-sm btn-font-sm  btn-label-success">Pass</span>--}}
-{{--                                                @elseif($coureResult->val == 0 && $coureResult->is_finish == 2)--}}
-{{--                                                    <span--}}
-{{--                                                        class="btn btn-bold btn-sm btn-font-sm  btn-label-danger">Fail</span>--}}
-{{--                                                @else--}}
-{{--                                                    <span--}}
-{{--                                                        class="btn btn-bold btn-sm btn-font-sm  btn-label-primary">Transfer</span>--}}
-{{--                                                @endif--}}
-{{--                                            </td>--}}
+                                            <td class="text-nowrap">
+                                                <a href="" data-toggle="tooltip"
+                                                   data-original-title="Edit">Communicate</i>
+                                                </a>
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
