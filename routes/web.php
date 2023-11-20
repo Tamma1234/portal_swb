@@ -57,8 +57,10 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['prefix' => 'queries'], function () {
-        Route::get('/', 'QueryController@index')->name('queries.index');
+        Route::get('/index', 'QueryController@index')->name('queries.index');
         Route::post('send-queries', 'QueryController@sendQueries')->name('queries.send');
+        Route::get('detail-query/{id}', 'QueryController@detailQuery')->name('queries.detail');
+        Route::post('update-query/{id}', 'QueryController@queryUpdate')->name('queries.update');
         Route::get('history-query', 'QueryController@getHistoryQuery')->name('queries.history');
     });
     // Route phần users
@@ -97,11 +99,11 @@ Route::middleware('auth')->group(function () {
         Route::post('order/{id}', 'ItemController@orders')->name('items.order');
         Route::post('store-event/{id}', 'ItemController@storeEvent')->name('store.event');
         Route::get('bill-list', 'ItemController@billList')->name('items.bill');
-
     });
     //Parent
     Route::group(['prefix' => 'parent'], function () {
         Route::get('parent', 'ParentController@getParent')->name('parent.index');
         Route::post('store', 'ParentController@store')->name('parent.store');
+        Route::post('setting-update', 'ParentController@setingUpdate')->name('setting.store');
     });
 });

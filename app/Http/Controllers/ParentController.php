@@ -18,8 +18,7 @@ class ParentController extends Controller
         $user = auth()->user();
         $user_email = $user->user_email;
         if ($parent_active == 1) {
-            Service::getSendMail()->sendMailParent($user_email);
-
+//            Service::getSendMail()->sendMailParent($user_email);
             $studentUser = User::where('user_code', $user->user_code)->first();
             $studentUser->parent_active = $parent_active;
             $studentUser->save();
@@ -31,5 +30,17 @@ class ParentController extends Controller
 
             return response()->json(["You already have parental access"]);
         }
+    }
+
+    public function setingUpdate(Request $request) {
+        $user = auth()->user();
+        $data = [
+            'calendar_active' => $request->calendar_active,
+            'graduation_active' => $request->graduation_active,
+            'event_active' => $request->event_active
+        ];
+        dd($data);
+        $user->fill($data);
+        $user->save();
     }
 }

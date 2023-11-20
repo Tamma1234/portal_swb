@@ -53,11 +53,16 @@
                                             <th scope="row">{{ $i++ }}</th>
                                             <td>{{ $item->queries_type }}</td>
                                             <td>{{ $item->question }}</td>
-                                            <td><img src="{{asset('storage/'.$item->file_name)  }}" style="width: 200px" alt=""></td>
+                                            <td>
+                                                @if($item->file_name != "")
+                                                    <a href="{{ $item->file_name }}" target="_blank">View</a>
+                                                @endif
+                                            </td>
                                             <td>{{ $item->queries_status }}</td>
                                             <td>{{ $item->note_xu_ly }}</td>
                                             <td class="text-nowrap">
-                                                <a href="" data-toggle="tooltip"
+                                                <a href="{{ route('queries.detail', ['id' => $item->id]) }}"
+                                                   data-toggle="tooltip"
                                                    data-original-title="Edit">Communicate</i>
                                                 </a>
 

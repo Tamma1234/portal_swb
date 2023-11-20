@@ -35,7 +35,10 @@ class User extends Authenticatable
         'ngaycap',
         'campus_id',
         'office_id',
-        'password'
+        'password',
+        'calendar_active',
+        'graduation_active',
+        'event_active'
     ];
 
     public function __construct(array $attributes = [])

@@ -22,19 +22,18 @@ class QueryController extends Controller
         $user_code = $user->user_code;
         $question = $request->question;
         $queries_type = $request->waye;
-
         // file images
-        $targetDir = 'temp/';
+        $targetDir = 'temp';
         $fileName = $request->file->getClientOriginalName();
         if ($fileName != "") {
             $targetFilePath = $targetDir."-".$user_code."-".$fileName;
             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
             $allowTypes = array('jpg','png','jpeg','gif','pdf','JPG','PNG','JPEG','GIF','PDF','doc','DOC','docx','DOCX');
-            $targetFilePath2 = "https://portal.swin.edu.vn/students/".$targetFilePath;
+            $targetFilePath2 = "http://127.0.0.1:8000/queries/".$targetFilePath;
             if (in_array($fileType, $allowTypes)) {
-
+                $fileGllery = $request->file->move('queries', $targetFilePath);
             }
-
         } else {
             $targetFilePath2 = '';
         }
@@ -45,14 +44,15 @@ class QueryController extends Controller
             'queries_type' => $queries_type,
             'question' => $question,
             'queries_status' => 'New',
+            'file_name' => $targetFilePath
         ];
         $query->fill($data);
         $query->save();
         $id = $query->id;
         $queryFill = Queries::find($id);
 
-        $query = new QuerisCommunicate();
-        $query->insert([
+        $queries = new QuerisCommunicate();
+        $queries->insert([
             'queries_id' => $id,
             'content' => "",
             'file_name' => $targetFilePath2,
@@ -68,5 +68,46 @@ class QueryController extends Controller
         $user = auth()->user();
         $queries = Queries::where('user_login', $user->user_login)->get();
         return view('admin.queries.history-query', compact('queries'));
+    }
+
+    public function detailQuery(Request $request) {
+        $id = $request->id;
+        $query = QuerisCommunicate::where('queries_id', $id)->get();
+        return view('admin.queries.detail', compact('query', 'id'));
+    }
+
+    public function queryUpdate(Request $request) {
+        $id = $request->id;
+        $queries = Queries::find($id);
+        $queries->update([
+            'note_xu_ly' => $request->content
+        ]);
+        $user = auth()->user();
+        $user_login = $user->user_login;
+        $user_code = $user->user_code;
+        $targetDir = 'temp';
+        if ($request->hasFile('file')) {
+            $fileName = $request->file->getClientOriginalName();
+            $targetFilePath = $targetDir."-".$user_code."-".$fileName;
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            $allowTypes = array ('jpg','png','jpeg','gif','pdf','JPG','PNG','JPEG','GIF','PDF','doc','DOC','docx','DOCX');
+            $targetFilePath2 = "http://127.0.0.1:8000/queries/".$targetFilePath;
+            if (in_array($fileType, $allowTypes)) {
+                $fileGllery = $request->file->move('queries', $targetFilePath);
+            }
+        } else {
+            $targetFilePath2 = '';
+        }
+
+        $query = new QuerisCommunicate();
+        $query->insert([
+            'queries_id' => $id,
+            'content' => $request->content,
+            'file_name' => $targetFilePath2,
+            'queries_status' => $queries->queries_status,
+            'create_by' => $user_login
+        ]);
+
+        return redirect()->route('queries.history')->with('msg-add', 'query sent successfully');
     }
 }

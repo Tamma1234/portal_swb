@@ -19,13 +19,7 @@ class Queries extends Model
         'question',
         'queries_status',
         'file_name',
-        'phone',
-        'address',
-        'email',
-        'time_send',
-        'time_xu_ly',
-        'note_xu_ly',
-        'nguoi_xu_ly'
+        'note_xu_ly'
     ];
 
     public function __construct(array $attributes = [])
