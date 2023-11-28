@@ -18,4 +18,8 @@ class SwinClub extends Model
         $this->connection = session('campus_db');
         parent::__construct($attributes);
     }
+
+    public function clubs() {
+        return $this->hasMany(SwClubMember::class,'club_id', 'id');
+    }
 }

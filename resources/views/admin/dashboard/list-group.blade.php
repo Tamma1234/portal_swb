@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.main')
 @section('title', 'Create')
 
@@ -25,30 +24,31 @@
                             <div class="row align-items-center">
                                 <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-input-icon kt-input-icon--left">
-                                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                                        <input type="text" class="form-control" placeholder="Search..."
+                                               id="generalSearch">
                                         <span class="kt-input-icon__icon kt-input-icon__icon--left">
 																<span><i class="la la-search"></i></span>
 															</span>
                                     </div>
                                 </div>
-                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                    <div class="kt-form__group kt-form__group--inline">
-                                        <div class="kt-form__label">
-                                            <label>Status:</label>
-                                        </div>
-                                        <div class="kt-form__control">
-                                            <select class="form-control bootstrap-select" id="kt_form_status">
-                                                <option value="">All</option>
-                                                <option value="1">Pending</option>
-                                                <option value="2">Delivered</option>
-                                                <option value="3">Canceled</option>
-                                                <option value="4">Success</option>
-                                                <option value="5">Info</option>
-                                                <option value="6">Danger</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">--}}
+{{--                                    <div class="kt-form__group kt-form__group--inline">--}}
+{{--                                        <div class="kt-form__label">--}}
+{{--                                            <label>Status:</label>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="kt-form__control">--}}
+{{--                                            <select class="form-control bootstrap-select" id="kt_form_status">--}}
+{{--                                                <option value="">All</option>--}}
+{{--                                                <option value="1">Pending</option>--}}
+{{--                                                <option value="2">Delivered</option>--}}
+{{--                                                <option value="3">Canceled</option>--}}
+{{--                                                <option value="4">Success</option>--}}
+{{--                                                <option value="5">Info</option>--}}
+{{--                                                <option value="6">Danger</option>--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                             </div>
                         </div>
                     </div>
@@ -68,35 +68,34 @@
                         <th title="Field #4">Credit Points</th>
                         <th title="Field #5">Semester</th>
                         <th title="Field #6">Grade</th>
-                        <th title="Field #7">Status</th>
+{{--                        <th title="Field #7">Status</th>--}}
                         <th title="Field #8">#</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($group_member as $item)
                         <?php
-                           $num_of_credit = $subject::find($item->subject_id)->num_of_credit;
-                            ?>
-                    <tr>
-                        <td>{{ $item->psubject_name }}</td>
-                        <td>{{ $item->psubject_code }}</td>
-                        <td>{{ $item->psubject_code .' '. $item->pterm_name }}</td>
-                        <td>{{ $num_of_credit }}</td>
-                        <td>{{ $item->pterm_name }}</td>
-                        <td>{{ $item->grade }}</td>
-                        <td align="right">
-                            @if($item->is_finish == 0)
-                                5
-                            @else
-                                @if($item->val <= 0)
-                                    2
-                                @else
-                                    4
-                                @endif
-                            @endif
-                        </td>
-                        <td align="right">5</td>
-                    </tr>
+                        $num_of_credit = $subject::find($item->subject_id)->num_of_credit;
+                        ?>
+                        <tr>
+                            <td>{{ $item->psubject_name }}</td>
+                            <td>{{ $item->psubject_code }}</td>
+                            <td>{{ $item->psubject_code .' '. $item->pterm_name }}</td>
+                            <td>{{ $num_of_credit }}</td>
+                            <td>{{ $item->pterm_name }}</td>
+                            <td>{{ $item->grade }}</td>
+{{--                            <td align="right">--}}
+{{--                                @if($item->is_finish == 0)--}}
+{{--                                    5--}}
+{{--                                @else--}}
+{{--                                    @if($item->val <= 0)--}}
+{{--                                        2--}}
+{{--                                    @else--}}
+{{--                                        4--}}
+{{--                                    @endif--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>

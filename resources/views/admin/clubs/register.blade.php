@@ -8,9 +8,6 @@
         <!--Begin::Section-->
         <div class="row">
             @foreach($clubs as $item)
-                <?php
-                $userClub = \App\Models\UserClub::where('club_id', $item->id)->where('user_code', $user_code)->first();
-                ?>
                 <div class="col-xl-3">
                     <div class="kt-portlet kt-portlet--height-fluid">
                         <form action="{{ route('clubs.store') }}" method="POST">
@@ -18,24 +15,45 @@
                             <input type="hidden" value="{{ $item->id }}" name="club_id">
                             <div class="kt-portlet__body kt-portlet__body--fit-y">
                                 <!--begin::Widget -->
+                                <?php
+                                $userClub = \App\Models\SwClubMember::where('club_id', $item->id)
+                                    ->where('user_code', $user_code)
+                                    ->first();
+                                ?>
                                 <div class="kt-widget kt-widget--user-profile-4">
                                     <div class="kt-widget__head">
                                         <div class="kt-widget__content">
                                             <div class="kt-widget__section">
-                                                <a href="#" class="kt-widget__username">
+                                                <a href="{{ route('club.detail', ['id' => $item->id]) }}"
+                                                   class="kt-widget__username">
                                                     {{ $item->name }}
                                                 </a>
                                                 <div class="kt-widget__button">
-                                                    <span
-                                                        class="btn btn-label btn-sm">{{ $item->description }}</span>
+                                                    <img
+                                                        src="https://drive.google.com/uc?export=view&id={{ $item->image_url }}"
+                                                        style="width: 150px; height: 150px">
                                                 </div>
                                                 @if($userClub)
-                                                    <div class="kt-widget__action">
-                                                        <a href="{{ route('club.detail', ['id' => $item->id]) }}"
-                                                                class="btn btn-label-brand btn-bold btn-sm btn-upper">
-                                                            View Club
-                                                        </a>
-                                                    </div>
+                                                    @if($userClub->permission == 0)
+                                                        <div class="kt-widget__action">
+                                                            <button type="button" class="btn btn-info disabled"
+                                                                    disabled="">Waiting for approval
+                                                            </button>
+                                                        </div>
+                                                    @elseif($userClub->permission == 5)
+                                                        <div class="kt-widget__action">
+                                                            <button type="button" class="btn btn-warning disabled"
+                                                                    disabled="">Leaves the club
+                                                            </button>
+                                                        </div>
+                                                    @else
+                                                        <div class="kt-widget__action">
+                                                            <a href="{{ route('club.detail', ['id' => $item->id]) }}"
+                                                               class="btn btn-info">
+                                                                View Club
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 @else
                                                     <div class="kt-widget__action">
                                                         <button type="submit"

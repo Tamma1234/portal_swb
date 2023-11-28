@@ -62,7 +62,7 @@
 														<span
                                                             class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
 															<label>
-																<input type="checkbox" checked="checked" name="" id="calendar">
+																<input type="checkbox" checked="checked" onclick="check_parent()" name="calendar" id="calendar">
 																<span></span>
 															</label>
 														</span>
@@ -74,7 +74,7 @@
 														<span
                                                             class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
 															<label>
-																<input type="checkbox" checked="checked" name="" id="graduation">
+																<input type="checkbox" checked="checked" onclick="check_parent()" name="graduation" id="graduation">
 																<span></span>
 															</label>
 														</span>
@@ -86,7 +86,7 @@
 														<span
                                                             class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
 															<label>
-																<input type="checkbox" checked="checked" name="" id="events">
+																<input type="checkbox" checked="checked" onclick="check_parent()" name="events" id="events">
 																<span></span>
 															</label>
 														</span>
@@ -134,7 +134,7 @@
             });
         });
 
-        $('#calendar').on("click", function () {
+        function check_parent() {
             let calendar_active = "";
             let event_active = "";
             let graduation_active = "";
@@ -162,11 +162,45 @@
             $.ajax({
                 url: "{{ route('setting.store') }}",
                 type: 'POST',
-                data: {calendar_active: calendar_active,event_active:event_active,graduation_active:graduation_active, _token: _token},
+                data: {graduation_active:graduation_active, calendar_active:calendar_active, event_active:event_active, _token:_token},
             }).done(function (response) {
                 // Gọi hàm renderCart trả về cart item con
             });
-        });
+        }
+
+        {{--$('#calendar').on("click", function () {--}}
+        {{--    let calendar_active = "";--}}
+        {{--    let event_active = "";--}}
+        {{--    let graduation_active = "";--}}
+        {{--    let calendar = $('#calendar').is(":checked");--}}
+        {{--    let grade = $('#graduation').is(":checked");--}}
+        {{--    let event = $('#events').is(":checked");--}}
+        {{--    var _token = $('input[name="_token"]').val();--}}
+
+        {{--    if (grade == true) {--}}
+        {{--        graduation_active = 0;--}}
+        {{--    } else {--}}
+        {{--        graduation_active = 1;--}}
+        {{--    }--}}
+
+        {{--    if (calendar == true) {--}}
+        {{--        calendar_active = 0;--}}
+        {{--    } else {--}}
+        {{--        calendar_active = 1;--}}
+        {{--    }--}}
+        {{--    if (event == true) {--}}
+        {{--        event_active = 0;--}}
+        {{--    } else {--}}
+        {{--        event_active = 1;--}}
+        {{--    }--}}
+        {{--    $.ajax({--}}
+        {{--        url: "{{ route('setting.store') }}",--}}
+        {{--        type: 'POST',--}}
+        {{--        data: $('form').serialize(),--}}
+        {{--    }).done(function (response) {--}}
+        {{--        // Gọi hàm renderCart trả về cart item con--}}
+        {{--    });--}}
+        {{--});--}}
 
         {{--$('#graduation').on("click", function () {--}}
         {{--    let graduation_active = "";--}}

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SwClubMember;
 use App\Models\SwinClub;
 use App\Models\UserClub;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ClubController extends Controller
 {
@@ -17,16 +19,26 @@ class ClubController extends Controller
 
     public function detail(Request $request)
     {
+        $id = $request->id;
+        $user = auth()->user();
+        $club_join_user = SwClubMember::where('club_id', $request->id)->where('user_code', $user->user_code)->first();
         $club_detail = SwinClub::where('id', $request->id)->first();
-        $user_club = UserClub::where('club_id', $request->id)->get();
+        $user_club = SwClubMember::where('club_id', $request->id)->get();
+        $club_join = SwClubMember::where('club_id', $id)->where('permission', 0)->get();
+        $club_leave = SwClubMember::where('club_id', $id)->where('permission', 5)->get();
+        $club_boss = SwClubMember::where('club_id', $id)->where('user_code', $user->user_code)
+            ->where('permission', 1)->first();
+        $club_permission = \App\Models\SwClubMember::where('club_id', $id)
+            ->where('permission', 1)->first();
 
-        return view('admin.clubs.detail', compact('club_detail', 'user_club'));
+        return view('admin.clubs.detail', compact('club_detail', 'user_club', 'id',
+            'club_join', 'club_leave', 'club_boss', 'club_permission', 'club_join_user'));
     }
 
     public function deleteClub(Request $request)
     {
         $id = $request->id;
-        $user_club = UserClub::find($id);
+        $user_club = SwClubMember::find($id);
         $user_club->delete();
 
         return response()->json(['msg_delete' => 'Delete User Club Successful']);
@@ -36,12 +48,41 @@ class ClubController extends Controller
     {
         $user_code = auth()->user()->user_code;
         $club_id = $request->club_id;
-        UserClub::create([
+        SwClubMember::create([
             'user_code' => $user_code,
             'club_id' => $club_id,
             'status' => 0,
-            'permission' => 1
+            'permission' => 0
         ]);
         return redirect()->route('clubs.register')->with('msg-add', 'Register Clubs Successfully');
+    }
+
+    public function acceptMember(Request $request) {
+        $id = $request->id;
+        $club = SwClubMember::find($id);
+        $club->update([
+            'permission' => 3
+        ]);
+        return Redirect::back()->with('msg-add', 'You have successfully approved');
+    }
+
+    public function leaveClub(Request $request) {
+        $id = $request->id;
+        $des = $request->description;
+        $user = auth()->user();
+        $club = SwClubMember::where('club_id', $id)->where('user_code', $user->user_code)->first();
+        $club->update([
+            'permission' => 5,
+            'description' => $des
+        ]);
+        return Redirect::back()->with('msg-add', 'You have successfully approved');
+    }
+
+    public function delete(Request $request) {
+        $id = $request->id;
+        $club = SwClubMember::find($id);
+        $club->delete();
+
+        return Redirect::back()->with('msg-add', 'Successfully removed members from group Club');
     }
 }

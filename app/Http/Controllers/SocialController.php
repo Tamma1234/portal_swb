@@ -30,7 +30,7 @@ class SocialController extends Controller
 
         $user = Socialite::driver('google')->stateless()->user();
         $user = User::where('user_email', $user->email)
-            ->orWhere('personal_email', $user->email)
+            ->orWhere('admin_email', $user->email)
             ->first();
 //        dd($user);
         if ($user) {

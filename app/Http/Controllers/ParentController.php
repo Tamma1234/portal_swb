@@ -39,7 +39,6 @@ class ParentController extends Controller
             'graduation_active' => $request->graduation_active,
             'event_active' => $request->event_active
         ];
-        dd($data);
         $user->fill($data);
         $user->save();
     }

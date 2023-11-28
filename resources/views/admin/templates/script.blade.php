@@ -265,6 +265,7 @@
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+
     $('#btn_login_google').click(function (e) {
         let campus_id = $('#campus_id').val();
         let t = $(this), r = $(this).closest("form");
