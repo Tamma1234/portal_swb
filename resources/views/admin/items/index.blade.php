@@ -44,7 +44,33 @@
                             <div class="tab-pane active" id="kt_widget4_tab11_content">
                                 <div class="container">
                                     <div class="row">
-
+                                        @foreach($items as $item)
+                                            <div class="col-md-3 col-sm-3">
+                                                <div class="card mb-30"><a class="card-img-tiles" href="#"
+                                                                           data-abc="true">
+                                                        <div class="inner">
+                                                            <div class="main-img"><img
+                                                                    src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
+                                                                    style="width: 200px">
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body text-center">
+                                                        <h4 class="card-title"><a href="{{ route('items.detail', ['id' => $item->id]) }}"> {{ $item->name_item }}</a></h4>
+                                                        <p class="text-muted"><span class="kt-pricing-1__price"
+                                                                                    id="pricing-1__price"
+                                                                                    style="font-size: x-large;color: red;font-family: unset;">{{ $item->gold }}</span><span class="kt-pricing-1__price">
+                                                                <img style="vertical-align: baseline; width: 20px" src="{{ asset('assets/admin/images/dong-coin.jpg') }}"
+                                                                     alt=""></span>
+                                                        </p>
+                                                        <a class="btn btn-outline-primary btn-sm"
+                                                           href="{{ route('items.detail', ['id' => $item->id]) }}"
+                                                           data-abc="true">View
+                                                            Products</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

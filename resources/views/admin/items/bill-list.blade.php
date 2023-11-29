@@ -16,48 +16,134 @@
                 </div>
             </div>
             <div class="kt-portlet__body" id="form-table-search">
-                <table class="table table-striped- table-bordered table-hover table-checkable">
-                    <thead>
-                    </thead>
-                    <tbody id="tbody">
-                    <tr>
-                        <td>User Code</td>
-                        <td>{{ $user->user_code }}</td>
-                    </tr>
-                    <tr>
-                        <td>Full Name</td>
-                        <td>{{ $full_name }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!--begin: Datatable -->
-                <table class="table table-striped- table-bordered table-hover table-checkable">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>NAME ITEM</th>
-                        <th>IMAGES</th>
-                        <th>GOLD</th>
-                        <th>QUANTITY</th>
-                        <th>DATE</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tbody">
-                    <?php $i = 1; ?>
-                    @foreach($bills as $item)
-                        <?php $image = $item->items ? $item->items->images : ""; ?>
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{ $item->items ? $item->items->name_item : "" }}</td>
-                            <td><img src="https://drive.google.com/uc?export=view&id={{ $item->items ? $item->items->images : "" }}" width="100px" height="100px" alt=""> </td>
-                            <td>{{ $item->gold }}</td>
-                            <td>{{ $item->quantity }}</td>
-                            <td>{{ $item->date_time }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                <!--end: Datatable -->
+                <ul class="nav nav-pills nav-fill" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#kt_tabs_5_1">All Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kt_tabs_5_2">Awaiting confirmation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kt_tabs_5_3">Confirmed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kt_tabs_5_4">Successful delivery</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="kt_tabs_5_1">
+                        <table class="table table-striped- table-bordered table-hover table-checkable">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NAME ITEM</th>
+                                <th>IMAGES</th>
+                                <th>GOLD</th>
+                                <th>QUANTITY</th>
+                                <th>DATE</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            <?php $i = 1; ?>
+                            @foreach($bill_all as $item)
+                                <?php $image = $item->items ? $item->items->images : ""; ?>
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $item->items ? $item->items->name_item : "" }}</td>
+                                    <td><img src="https://drive.google.com/uc?export=view&id={{ $item->items ? $item->items->images : "" }}" width="100px" height="100px" alt=""> </td>
+                                    <td>{{ $item->gold }}</td>
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ $item->date_time }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="kt_tabs_5_2">
+                        <table class="table table-striped- table-bordered table-hover table-checkable">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NAME ITEM</th>
+                                <th>IMAGES</th>
+                                <th>GOLD</th>
+                                <th>QUANTITY</th>
+                                <th>DATE</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            <?php $i = 1; ?>
+                            @foreach($bill_awaiting as $item)
+                                <?php $image = $item->items ? $item->items->images : ""; ?>
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $item->items ? $item->items->name_item : "" }}</td>
+                                    <td><img src="https://drive.google.com/uc?export=view&id={{ $item->items ? $item->items->images : "" }}" width="100px" height="100px" alt=""> </td>
+                                    <td>{{ $item->gold }}</td>
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ $item->date_time }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="kt_tabs_5_3">
+                        <table class="table table-striped- table-bordered table-hover table-checkable">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NAME ITEM</th>
+                                <th>IMAGES</th>
+                                <th>GOLD</th>
+                                <th>QUANTITY</th>
+                                <th>DATE</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            <?php $i = 1; ?>
+                            @foreach($bill_confirmed as $item)
+                                <?php $image = $item->items ? $item->items->images : ""; ?>
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $item->items ? $item->items->name_item : "" }}</td>
+                                    <td><img src="https://drive.google.com/uc?export=view&id={{ $item->items ? $item->items->images : "" }}" width="100px" height="100px" alt=""></td>
+                                    <td>{{ $item->gold }}</td>
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ $item->date_time }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="kt_tabs_5_3">
+                        <table class="table table-striped- table-bordered table-hover table-checkable">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NAME ITEM</th>
+                                <th>IMAGES</th>
+                                <th>GOLD</th>
+                                <th>QUANTITY</th>
+                                <th>DATE</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            <?php $i = 1; ?>
+                            @foreach($bill_successful as $item)
+                                <?php $image = $item->items ? $item->items->images : ""; ?>
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $item->items ? $item->items->name_item : "" }}</td>
+                                    <td><img src="https://drive.google.com/uc?export=view&id={{ $item->items ? $item->items->images : "" }}" width="100px" height="100px" alt=""> </td>
+                                    <td>{{ $item->gold }}</td>
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ $item->date_time }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

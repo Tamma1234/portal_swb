@@ -28,8 +28,6 @@ class ItemController extends Controller
 
     public function detail(Request $request)
     {
-        $files = Storage::disk("google")->directories();
-        dd($files);
         $id = $request->id;
         $item = Items::find($id);
         $items = Items::all();
@@ -67,7 +65,7 @@ class ItemController extends Controller
             } else {
                 Golds::create([
                     'gold_receiver' => $user_code,
-                    'gold' => '-'.$total_gold,
+                    'gold' => '-' . $total_gold,
                     'description' => "Purchase"
                 ]);
                 $date_now = Carbon::now()->toDateTimeString();
@@ -78,22 +76,39 @@ class ItemController extends Controller
                     'item_id' => $request->id,
                     'quantity' => $quantity,
                     'date_time' => $date_now,
-                    'size_id' => $request->size
+                    'status' => 0
                 ]);
                 return redirect()->route('items.bill')->with('msg-add', 'You have successfully made a purchase');
             }
         }
     }
 
-    public function billList() {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function billList()
+    {
         $user = auth()->user();
-        $full_name = $user->user_surname .' '. $user->user_middlename .' '. $user->user_givenname;
-        $bills = Bills::where('user_code', $user->user_code)->get();
+        $full_name = $user->user_surname . ' ' . $user->user_middlename . ' ' . $user->user_givenname;
+        //all order
+        $bill_all = Bills::where('user_code', $user->user_code)->get();
+        //bill awaiting
+        $bill_awaiting = Bills::where('user_code', $user->user_code)->where('status', 0)->get();
+        // Bill Confirmed
+        $bill_confirmed = Bills::where('user_code', $user->user_code)->where('status', 1)->get();
+        // Bill Successful
+        $bill_successful = Bills::where('user_code', $user->user_code)->where('status', 2)->get();
 
-        return view('admin.items.bill-list', compact('bills', 'user', 'full_name'));
+        return view('admin.items.bill-list', compact('bill_all', 'user', 'full_name', 'bill_awaiting',
+            'bill_confirmed', 'bill_successful'));
     }
 
-    public function storeEvent(Request $request) {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeEvent(Request $request)
+    {
         $event_id = $request->event_id;
         $event_swin = EventSwin::where('id', $event_id)->first();
         $event_gold = $event_swin->gold;
@@ -101,7 +116,7 @@ class ItemController extends Controller
         $user_gold = Golds::where('gold_receiver', $user->user_code)->selectRaw('SUM(gold) as total')->first()->total;
 
         $dayNow = Carbon::now()->toDateTimeString();
-        $full_name = $user->user_surname .' '. $user->user_middlename .' '. $user->user_givenname;
+        $full_name = $user->user_surname . ' ' . $user->user_middlename . ' ' . $user->user_givenname;
         $student_event = StudentEvent::where('event_id', $event_id)->where('user_code', $user->user_code)->first();
         if ($student_event != null) {
             return redirect()->route('items.index')->with('errors', 'You have already participated in this event');
