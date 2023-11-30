@@ -16,13 +16,13 @@
                 </div>
                 <div class="col-md-10 col-2 align-self-center">
                     <!-- Button trigger modal -->
-                    @if(!$club_join_user)
-                    <button type="button" class="btn pull-right hidden-sm-down btn btn-outline-danger"
-                            data-toggle="modal" data-target="#exampleModalCenter">
-                        Leave CLub
-                    </button>
-                    @endif
-                    <!-- Modal -->
+                    @if($club_join_user == null)
+                        <button type="button" class="btn pull-right hidden-sm-down btn btn-outline-danger"
+                                data-toggle="modal" data-target="#exampleModalCenter">
+                            Leave CLub
+                        </button>
+                @endif
+                <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -54,180 +54,186 @@
                     </div>
                 </div>
             </div>
-            <div class="kt-portlet__body" id="form-table-search">
-                <?php $club_member = $club_detail->clubs;
+            @if(count($user_club) > 0)
+                <div class="kt-portlet__body" id="form-table-search">
+                    <?php $club_member = $club_detail->clubs;
                     $user_email = \App\Models\User::where('user_code', $club_permission->user_code)->first();
-                ?>
-                <table class="table table-striped- table-bordered table-hover table-checkable">
-                    <thead>
-                    </thead>
-                    <tbody id="tbody">
-                    <tr>
-                        <td>Name</td>
-                        <td>{{ $club_detail->name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Des</td>
-                        <td>{{ $club_detail->description }}</td>
-                    </tr>
-                    <tr>
-                        <td>Date</td>
-                        <td>{{ $club_detail->date_thanh_lap }}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Member</td>
-                        <td>{{ count($club_member) }}</td>
-                    </tr>
-                    <tr>
-                        <td>Contact Chairperson</td>
+                    ?>
+                    <table class="table table-striped- table-bordered table-hover table-checkable">
+                        <thead>
+                        </thead>
+                        <tbody id="tbody">
+                        <tr>
+                            <td>Name</td>
+                            <td>{{ $club_detail->name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Des</td>
+                            <td>{{ $club_detail->description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>{{ $club_detail->date_thanh_lap }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Member</td>
+                            <td>{{ count($club_member) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Contact Chairperson</td>
                             <td>{{ $user_email->user_email }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                @if($club_boss)
-                    <div class="kt-portlet kt-portlet--height-fluid">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-toolbar">
-                                <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#kt_widget4_tab11_content"
-                                           role="tab">
-                                            Join the club
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#kt_widget4_tab12_content"
-                                           role="tab">
-                                            Leave the club
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="kt-portlet__body">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="kt_widget4_tab11_content">
-                                    <table class="table table-striped- table-bordered table-hover table-checkable">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Full Name</th>
-                                            <th>User Code</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="tbody">
-                                        <?php $i = 1;
-                                        ?>
-                                        @foreach($club_join as $item)
-                                            <?php
-                                            $user = \App\Models\User::where('user_code', $item->user_code)->first();
-                                            $full_name = $user->user_surname . ' ' . $user->user_middlename . '' . $user->user_givenname;
-
-                                            ?>
-                                            <tr>
-                                                <td>{{ $i++ }}</td>
-                                                <td>{{ $full_name }}</td>
-                                                <td>{{ $item->user_code }}</td>
-                                                <td class="text-nowrap">
-                                                    <a href="{{ route('club.accept', ['id' => $item->id]) }}"
-                                                       data-toggle="tooltip"
-                                                       data-original-title="Edit">Accept</i>
-                                                    </a>
-                                                    {{--                                                <a href="{{route('users.remove', ['id' => $user->id])}}" data-toggle="tooltip"--}}
-                                                    {{--                                                   data-original-title="Close"> <i class="flaticon-delete"></i> </a>--}}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="tab-pane" id="kt_widget4_tab12_content">
-                                    <table class="table table-striped- table-bordered table-hover table-checkable">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Full Name</th>
-                                            <th>User Code</th>
-                                            <th>Description</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="tbody">
-                                        <?php $i = 1; ?>
-                                        @foreach($club_leave as $item)
-                                            <?php
-                                            $user = \App\Models\User::where('user_code', $item->user_code)->first();
-                                            $full_name = $user->user_surname . ' ' . $user->user_middlename . '' . $user->user_givenname;
-                                            ?>
-                                            <tr>
-                                                <td>{{ $i++ }}</td>
-                                                <td>{{ $full_name }}</td>
-                                                <td>{{ $item->user_code }}</td>
-                                                <td>{{ $item->description }}</td>
-                                                <td class="text-nowrap">
-                                                    <a href="{{ route('club.delete', ['id' => $item->id]) }}"
-                                                       data-toggle="tooltip"
-                                                       data-original-title="Approve">Approve</i>
-                                                    </a>
-                                                    {{--                                                <a href="{{route('users.remove', ['id' => $user->id])}}" data-toggle="tooltip"--}}
-                                                    {{--                                                   data-original-title="Close"> <i class="flaticon-delete"></i> </a>--}}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                        </tr>
+                        </tbody>
+                    </table>
+                    @if($club_boss)
+                        <div class="kt-portlet kt-portlet--height-fluid">
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-toolbar">
+                                    <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold"
+                                        role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab"
+                                               href="#kt_widget4_tab11_content"
+                                               role="tab">
+                                                Join the club
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#kt_widget4_tab12_content"
+                                               role="tab">
+                                                Leave the club
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+
+                            <div class="kt-portlet__body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="kt_widget4_tab11_content">
+                                        <table class="table table-striped- table-bordered table-hover table-checkable">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Full Name</th>
+                                                <th>User Code</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tbody">
+                                            <?php $i = 1;
+                                            ?>
+                                            @foreach($club_join as $item)
+                                                <?php
+                                                $user = \App\Models\User::where('user_code', $item->user_code)->first();
+                                                $full_name = $user->user_surname . ' ' . $user->user_middlename . ' ' . $user->user_givenname;
+
+                                                ?>
+                                                <tr>
+                                                    <td>{{ $i++ }}</td>
+                                                    <td>{{ $full_name }}</td>
+                                                    <td>{{ $item->user_code }}</td>
+                                                    <td class="text-nowrap">
+                                                        <a href="{{ route('club.accept', ['id' => $item->id]) }}"
+                                                           data-toggle="tooltip"
+                                                           data-original-title="Edit">Accept</i>
+                                                        </a>
+                                                        {{--                                                <a href="{{route('users.remove', ['id' => $user->id])}}" data-toggle="tooltip"--}}
+                                                        {{--                                                   data-original-title="Close"> <i class="flaticon-delete"></i> </a>--}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="kt_widget4_tab12_content">
+                                        <table class="table table-striped- table-bordered table-hover table-checkable">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Full Name</th>
+                                                <th>User Code</th>
+                                                <th>Description</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tbody">
+                                            <?php $i = 1; ?>
+                                            @foreach($club_leave as $item)
+                                                <?php
+                                                $user = \App\Models\User::where('user_code', $item->user_code)->first();
+                                                $full_name = $user->user_surname . ' ' . $user->user_middlename . '' . $user->user_givenname;
+                                                ?>
+                                                <tr>
+                                                    <td>{{ $i++ }}</td>
+                                                    <td>{{ $full_name }}</td>
+                                                    <td>{{ $item->user_code }}</td>
+                                                    <td>{{ $item->description }}</td>
+                                                    <td class="text-nowrap">
+                                                        <a href="{{ route('club.remove', ['id' => $item->id]) }}"
+                                                           data-toggle="tooltip"
+                                                           data-original-title="Approve">Approve</i>
+                                                        </a>
+                                                        {{--                                                <a href="{{route('users.remove', ['id' => $user->id])}}" data-toggle="tooltip"--}}
+                                                        {{--                                                   data-original-title="Close"> <i class="flaticon-delete"></i> </a>--}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                @endif
+                {{--                <table class="table table-striped- table-bordered table-hover table-checkable" id="example">--}}
+                {{--                    <thead class="table-active">--}}
+                {{--                    <tr>--}}
+                {{--                        <th class="text-white">STT</th>--}}
+                {{--                        <th class="text-white">User Code</th>--}}
+                {{--                        <th class="text-white">Full Name</th>--}}
+                {{--                        <th class="text-white">Name Club</th>--}}
+                {{--                        <th class="text-white">Active</th>--}}
+                {{--                    </tr>--}}
+                {{--                    </thead>--}}
+                {{--                    <tbody id="tbody">--}}
+                {{--                    <?php $i = 1;?>--}}
+                {{--                    @foreach($user_club as $item)--}}
+                {{--                        <?php--}}
+                {{--                        $user = \App\Models\User::where('user_code', $item->user_code)->first();--}}
+                {{--                        $full_name = $user->user_surname . ' ' . $user->user_middlename . ' ' . $user->user_givenname;--}}
+                {{--                        ?>--}}
+                {{--                        <tr>--}}
+                {{--                            <td>{{ $i++ }}</td>--}}
+                {{--                            <td>{{ $item->user_code }}</td>--}}
+                {{--                            <td>{{ $full_name }}</td>--}}
+                {{--                            <td>{{ $club_detail->name }}</td>--}}
+                {{--                            <td>@if($item->permission == 3)--}}
+                {{--                                    <button type="button"--}}
+                {{--                                            class="btn btn-warning btn-elevate btn-pill btn-elevate-air btn-sm">--}}
+                {{--                                        Chairperson--}}
+                {{--                                    </button>--}}
+                {{--                                @else--}}
+                {{--                                    <button type="button"--}}
+                {{--                                            class="btn btn-success btn-elevate btn-pill btn-elevate-air btn-sm">--}}
+                {{--                                        Member--}}
+                {{--                                    </button>--}}
+                {{--                                @endif--}}
+                {{--                            </td>--}}
+                {{--                            <td>--}}
+                {{--                                    <button type="button" class="btn" id="delete_club" data-id="{{ $item->id }}"--}}
+                {{--                                            data-toggle="kt-tooltip" title="Delete"--}}
+                {{--                                            data-original-title="Close"><i class="flaticon-delete"></i></button>--}}
+                {{--                            </td>--}}
+                {{--                        </tr>--}}
+                {{--                    @endforeach--}}
+                {{--                    </tbody>--}}
+                {{--                </table>--}}
+                <!--end: Datatable -->
+                </div>
+            @else
+                CLub hiện chưa có thành viên nào
             @endif
-            {{--                <table class="table table-striped- table-bordered table-hover table-checkable" id="example">--}}
-            {{--                    <thead class="table-active">--}}
-            {{--                    <tr>--}}
-            {{--                        <th class="text-white">STT</th>--}}
-            {{--                        <th class="text-white">User Code</th>--}}
-            {{--                        <th class="text-white">Full Name</th>--}}
-            {{--                        <th class="text-white">Name Club</th>--}}
-            {{--                        <th class="text-white">Active</th>--}}
-            {{--                    </tr>--}}
-            {{--                    </thead>--}}
-            {{--                    <tbody id="tbody">--}}
-            {{--                    <?php $i = 1;?>--}}
-            {{--                    @foreach($user_club as $item)--}}
-            {{--                        <?php--}}
-            {{--                        $user = \App\Models\User::where('user_code', $item->user_code)->first();--}}
-            {{--                        $full_name = $user->user_surname . ' ' . $user->user_middlename . ' ' . $user->user_givenname;--}}
-            {{--                        ?>--}}
-            {{--                        <tr>--}}
-            {{--                            <td>{{ $i++ }}</td>--}}
-            {{--                            <td>{{ $item->user_code }}</td>--}}
-            {{--                            <td>{{ $full_name }}</td>--}}
-            {{--                            <td>{{ $club_detail->name }}</td>--}}
-            {{--                            <td>@if($item->permission == 3)--}}
-            {{--                                    <button type="button"--}}
-            {{--                                            class="btn btn-warning btn-elevate btn-pill btn-elevate-air btn-sm">--}}
-            {{--                                        Chairperson--}}
-            {{--                                    </button>--}}
-            {{--                                @else--}}
-            {{--                                    <button type="button"--}}
-            {{--                                            class="btn btn-success btn-elevate btn-pill btn-elevate-air btn-sm">--}}
-            {{--                                        Member--}}
-            {{--                                    </button>--}}
-            {{--                                @endif--}}
-            {{--                            </td>--}}
-            {{--                            <td>--}}
-            {{--                                    <button type="button" class="btn" id="delete_club" data-id="{{ $item->id }}"--}}
-            {{--                                            data-toggle="kt-tooltip" title="Delete"--}}
-            {{--                                            data-original-title="Close"><i class="flaticon-delete"></i></button>--}}
-            {{--                            </td>--}}
-            {{--                        </tr>--}}
-            {{--                    @endforeach--}}
-            {{--                    </tbody>--}}
-            {{--                </table>--}}
-            <!--end: Datatable -->
-            </div>
         </div>
     </div>
 @endsection

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\SwClubMember;
 use App\Models\SwinClub;
-use App\Models\UserClub;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -21,15 +20,23 @@ class ClubController extends Controller
     {
         $id = $request->id;
         $user = auth()->user();
-        $club_join_user = SwClubMember::where('club_id', $request->id)->where('user_code', $user->user_code)->first();
+        $club_join_user = SwClubMember::where('club_id', $request->id)->where('user_code', $user->user_code)
+            ->where('permission', 5)
+            ->orWhere('permission', 1)
+            ->first();
+
         $club_detail = SwinClub::where('id', $request->id)->first();
         $user_club = SwClubMember::where('club_id', $request->id)->get();
-        $club_join = SwClubMember::where('club_id', $id)->where('permission', 0)->get();
+        // Show ra thong tin nguoi dang ky vao CLB
+        $club_join = SwClubMember::where('club_id', $id)->where('permission', 1)->get();
+        // Show ra thong tin nguoi roi khoi Club
         $club_leave = SwClubMember::where('club_id', $id)->where('permission', 5)->get();
+        // hien thong tin dang nhap quyen chu tich Club
         $club_boss = SwClubMember::where('club_id', $id)->where('user_code', $user->user_code)
-            ->where('permission', 1)->first();
+            ->where('permission', 3)->first();
+        // show ra thong tin chur tich club
         $club_permission = \App\Models\SwClubMember::where('club_id', $id)
-            ->where('permission', 1)->first();
+            ->where('permission', 3)->first();
 
         return view('admin.clubs.detail', compact('club_detail', 'user_club', 'id',
             'club_join', 'club_leave', 'club_boss', 'club_permission', 'club_join_user'));
@@ -52,7 +59,7 @@ class ClubController extends Controller
             'user_code' => $user_code,
             'club_id' => $club_id,
             'status' => 0,
-            'permission' => 0
+            'permission' => 1
         ]);
         return redirect()->route('clubs.register')->with('msg-add', 'Register Clubs Successfully');
     }
@@ -61,7 +68,7 @@ class ClubController extends Controller
         $id = $request->id;
         $club = SwClubMember::find($id);
         $club->update([
-            'permission' => 3
+            'permission' => 0
         ]);
         return Redirect::back()->with('msg-add', 'You have successfully approved');
     }
@@ -75,7 +82,7 @@ class ClubController extends Controller
             'permission' => 5,
             'description' => $des
         ]);
-        return Redirect::back()->with('msg-add', 'You have successfully approved');
+        return Redirect::back()->with('msg-add', 'You have successfully submitted your request to exit the club');
     }
 
     public function delete(Request $request) {

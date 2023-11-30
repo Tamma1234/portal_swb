@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dra\GroupMember;
 use App\Models\Dra\StudentSubject;
 use App\Models\EventSwin;
+use App\Models\FeeT2;
 use App\Models\Fu\Acitivitys;
 use App\Models\Fu\Attendance;
 use App\Models\Fu\Slot;
@@ -25,7 +26,8 @@ class DashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $events = EventSwin::all();
+        $events = EventSwin::join('student_event', 'event_swin.id', 'student_event.event_id')
+            ->where('student_event.user_code', $user->user_code)->get();
 
         $student_subject = StudentSubject::join('fu_user', 'dra_student_subject.student_login', '=', 'fu_user.user_login')
             ->where('dra_student_subject.student_login', '=', 'fu_user.user_login')
@@ -33,12 +35,18 @@ class DashboardController extends Controller
             ->get();
 //        $comment = Queries::where('user_login', $user->user_login)->get();
 //        dd($comment);
+        $count_type_fee = FeeT2::where('user_code', $user->user_code)->where('type_fee', 1)->get()->count();
+        $count_status_fee = FeeT2::where('user_code', $user->user_code)->where('type_fee', 1)->where('status', 1)->get()->count();
+        $process = "";
 
+        if ($count_type_fee > 0) {
+            $process = $count_status_fee * 100 / $count_type_fee;
+        }
         $group_member = GroupMember::where('member_login', $user->user_login)->get();
         $countGroup = count($group_member);
         $totalGold = Golds::where('gold_receiver', $user->user_code)->selectRaw('SUM(gold) as total')->first();
 
-        return view('admin.dashboard.index', compact('user', 'countGroup', 'events', 'totalGold'));
+        return view('admin.dashboard.index', compact('user', 'countGroup', 'events', 'totalGold', 'count_type_fee', 'count_status_fee', 'process'));
     }
 
     public function listGroup()

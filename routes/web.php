@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/register', 'ClubController@Register')->name('clubs.register');
         Route::get('/detail/{id}', 'ClubController@detail')->name('club.detail');
         Route::post('/leave-club/{id}', 'ClubController@leaveClub')->name('active.leave');
-        Route::post('/delete/{id}', 'ClubController@delete')->name('club.delete');
+        Route::get('/remove-member/{id}', 'ClubController@delete')->name('club.remove');
         Route::get('/accept/{id}', 'ClubController@acceptMember')->name('club.accept');
         Route::get('/delete/{id?}', 'ClubController@deleteClub')->name('delete.club');
         Route::post('/store-register', 'ClubController@storeRegister')->name('clubs.store');

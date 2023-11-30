@@ -39,14 +39,16 @@
                                 </div>
                                 <div class="kt-widget__progress">
                                     <div class="kt-widget__text">
-                                        Progress
+                                        Progress ({{ $count_status_fee }}/{{ $count_type_fee }})
                                     </div>
                                     <div class="progress" style="height: 5px;width: 100%;">
                                         <div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;"
-                                             aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                             aria-valuenow="{{ $process }}" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <div class="kt-widget__stats">
-                                        78
+                                        @if($process != "")
+                                            {{ round($process) }}%
+                                        @endif
                                     </div>
                                 </div>
                             </div>

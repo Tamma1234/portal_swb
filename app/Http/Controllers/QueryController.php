@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\HelloPusherEvent;
 use App\Http\Requests\QueryRequest;
 use App\Models\Queries;
 use App\Models\QuerisCommunicate;
@@ -22,6 +23,8 @@ class QueryController extends Controller
         $user_code = $user->user_code;
         $question = $request->question;
         $queries_type = $request->waye;
+        event(new HelloPusherEvent($request));
+        dd(3211);
         // file images
         $targetDir = 'temp';
         $fileName = $request->file->getClientOriginalName();
@@ -98,7 +101,6 @@ class QueryController extends Controller
         } else {
             $targetFilePath2 = '';
         }
-
         $query = new QuerisCommunicate();
         $query->insert([
             'queries_id' => $id,

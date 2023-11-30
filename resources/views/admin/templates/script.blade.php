@@ -299,7 +299,47 @@
         })
     })
 </script>
+<script type="text/javascript">
 
+    /**
+     - Tạo pusher hiển thị thông báo trong admin khi người dùng đặt hàng thành công
+     */
+    var notificationsWrapper = $('.dropdown-notifications');
+    var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
+    var notificationsCountElem = notificationsToggle.find('i[data-count]');
+    var notificationsCount = parseInt(notificationsCountElem.data('count'));
+    var notifications = notificationsWrapper.find('ul.dropdown-item');
+
+    if (notificationsCount <= 0) {
+        notificationsWrapper.show();
+    }
+
+    //Thay giá trị PUSHER_APP_KEY vào chỗ xxx này nhé
+    var pusher = new Pusher('20d58c9efd74e53ec348', {
+        encrypted: true,
+        cluster: "ap1"
+    });
+
+    // Subscribe to the channel we specified in our Laravel Event
+    var channel = pusher.subscribe('my-channel');
+
+    // Bind a function to a Event (the full Laravel class)
+    channel.bind('App\\Events\\HelloPusherEvent', function(data) {
+        console.log(data);
+        var existingNotifications = notifications.html();
+        var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
+        var newNotificationHtml = `
+        <i class="fas fa-envelope mr-2">
+        </i>`+data.message+`
+         <span class="float-right text-muted text-sm">`+data.date+`</span>
+        `;
+        notifications.html(newNotificationHtml + existingNotifications);
+        notificationsCount += 1;
+        notificationsCountElem.attr('data-count', notificationsCount);
+        notificationsWrapper.find('.notif-count').text(notificationsCount);
+        notificationsWrapper.show();
+    });
+</script>
 <script>
     @if (session('msg-update'))
     swal("Notification", "{{ session('msg-update') }}!", "success");
