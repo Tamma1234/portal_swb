@@ -27,7 +27,6 @@ class SocialController extends Controller
 
     public function callback(Request $request)
     {
-
         $user = Socialite::driver('google')->stateless()->user();
         $user = User::where('user_email', $user->email)
             ->orWhere('admin_email', $user->email)

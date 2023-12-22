@@ -25,6 +25,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         $user = auth()->user();
         $events = EventSwin::join('student_event', 'event_swin.id', 'student_event.event_id')
             ->where('student_event.user_code', $user->user_code)->get();
@@ -45,6 +46,7 @@ class DashboardController extends Controller
         $group_member = GroupMember::where('member_login', $user->user_login)->get();
         $countGroup = count($group_member);
         $totalGold = Golds::where('gold_receiver', $user->user_code)->selectRaw('SUM(gold) as total')->first();
+
 
         return view('admin.dashboard.index', compact('user', 'countGroup', 'events', 'totalGold', 'count_type_fee', 'count_status_fee', 'process'));
     }

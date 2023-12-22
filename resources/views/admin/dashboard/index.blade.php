@@ -90,12 +90,11 @@
                 </div>
             </div>
         </div>
-
         <!--end:: Portlet-->
-
         <!--begin:: Portlet-->
         <div class="row">
             @foreach($events as $event)
+                <?php $student_event = \App\Models\StudentEvent::where('user_code', $user->user_code)->where('event_id', $event->id)->first();?>
                 <div class="col-xl-6">
                     <!--begin:: Portlet-->
                     <div class="kt-portlet kt-portlet--height-fluid">
@@ -136,7 +135,19 @@
                                                     class="btn btn-label-danger btn-sm btn-bold btn-upper">{{ $event->end_date }}</span>
                                             </div>
                                         </div>
+
                                     </div>
+                                    @if($student_event == null)
+                                        <button type="submit" class="btn btn-outline-danger active">
+                                            Register
+                                        </button>
+                                    @else
+
+                                        <button type="button" disabled class="btn btn-info active">
+                                            joined
+                                        </button>
+
+                                    @endif
                                 </div>
                             </div>
 
@@ -147,7 +158,61 @@
                 </div>
             @endforeach
         </div>
-
         <!--End::Pagination-->
     </div>
+@endsection
+@section('script')
+    <script language="javascript">
+
+        var notificationsWrapper = $('.kt-header__topbar-item--langs');
+        var notificationsToggle = notificationsWrapper.find('div[data-toggle]');
+        var notificationsCountElem = notificationsToggle.find('i[data-count]');
+        var notificationsCount = parseInt(notificationsCountElem.data('count'));
+        var notifications = notificationsWrapper.find('div.kt-notification');
+        if (notificationsCount <= 0) {
+            notificationsWrapper.show();
+        }
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('2a371882663fd536655c', {
+            cluster: 'ap1',
+            authEndpoint: "{{ url('api/broadcasting/auth') }}",
+            encrypted: true,
+            auth: {
+                headers: {
+                    "X-CSRF-Token": "{{ csrf_token() }}"
+                }
+            }
+        });
+
+            {{--// Bind a function to a Event (the full Laravel class)--}}
+        let id = "{{ \Illuminate\Support\Facades\Auth::id()  }}";
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function (data) {
+            alert(JSON.stringify(data));
+            // var existingNotifications = notifications.html();
+            // var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
+            // var newNotificationHtml = `
+            //          <a href="/queries/detail/${data.id}" class="kt-notification__item">
+            //           <div class="kt-notification__item-icon">
+            //         <i class="flaticon2-line-chart kt-font-success"></i>
+            //          </div>
+            //         <div class="kt-notification__item-details">
+            //         <div class="kt-notification__item-title">
+            //            ` + data.question + `
+            //         </div>
+            //          <div class="kt-notification__item-time">` + data.date + `
+            //          </div>
+            //        </div>
+            //         </a>`;
+            // notifications.html(newNotificationHtml + existingNotifications);
+            // notificationsCount += 1;
+            // notificationsCountElem.attr('data-count', notificationsCount);
+            // notificationsWrapper.find('.badge-warning').text(notificationsCount);
+            // notificationsWrapper.show();
+        });
+
+    </script>
+
 @endsection

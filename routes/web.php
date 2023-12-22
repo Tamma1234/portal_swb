@@ -66,33 +66,33 @@ Route::middleware('auth')->group(function () {
         Route::post('update-query/{id}', 'QueryController@queryUpdate')->name('queries.update');
         Route::get('history-query', 'QueryController@getHistoryQuery')->name('queries.history');
     });
-    // Route phần users
-    Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'UserController@index')->name('users.index');
-        Route::get('/search', 'UserController@search')->name('users.search');
-        Route::post('/post-search', 'UserController@postSearch')->name('users.post.search');
-        Route::get('create', 'UserController@create')->name('users.create');
-        Route::post('store', 'UserController@store')->name('users.store');
-        Route::get('edit/{id}', 'UserController@edit')->name('users.edit');
-        Route::post('update/{id}', 'UserController@update')->name('users.update');
-        // Cancel account
-
-        Route::get('remove/{id}', 'UserController@delete')->name('users.remove');
-        // List user delete
-        Route::get('user-trashout', 'UserController@userTrashOut')->name('users.trash');
-        // Delete user completely
-        Route::get('delete-completely/{id}', 'UserController@deleteCompletely')->name('users.delete.completely');
-    });
-
-    Route::group(['prefix' => 'room'], function () {
-        Route::get('index', 'RoomController@index')->name('rooms.index');
-        Route::get('search', 'RoomController@searchDate')->name('rooms.search');
-        Route::post('add-room/{id?}', 'RoomController@addRooms')->name('rooms.add');
-        Route::get('active-room/{id}', 'RoomController@activeRooms')->name('rooms.active');
-        Route::get('update-room/{id}', 'RoomController@updateRooms')->name('rooms.update');
-        Route::get('cancel-room/{id}', 'RoomController@cancelRooms')->name('rooms.cancel');
-        Route::post('store-room/{id}', 'RoomController@storeCancel')->name('rooms.store.cancel');
-    });
+//    // Route phần users
+//    Route::group(['prefix' => 'users'], function () {
+//        Route::get('/', 'UserController@index')->name('users.index');
+//        Route::get('/search', 'UserController@search')->name('users.search');
+//        Route::post('/post-search', 'UserController@postSearch')->name('users.post.search');
+//        Route::get('create', 'UserController@create')->name('users.create');
+//        Route::post('store', 'UserController@store')->name('users.store');
+//        Route::get('edit/{id}', 'UserController@edit')->name('users.edit');
+//        Route::post('update/{id}', 'UserController@update')->name('users.update');
+//        // Cancel account
+//
+//        Route::get('remove/{id}', 'UserController@delete')->name('users.remove');
+//        // List user delete
+//        Route::get('user-trashout', 'UserController@userTrashOut')->name('users.trash');
+//        // Delete user completely
+//        Route::get('delete-completely/{id}', 'UserController@deleteCompletely')->name('users.delete.completely');
+//    });
+//
+//    Route::group(['prefix' => 'room'], function () {
+//        Route::get('index', 'RoomController@index')->name('rooms.index');
+//        Route::get('search', 'RoomController@searchDate')->name('rooms.search');
+//        Route::post('add-room/{id?}', 'RoomController@addRooms')->name('rooms.add');
+//        Route::get('active-room/{id}', 'RoomController@activeRooms')->name('rooms.active');
+//        Route::get('update-room/{id}', 'RoomController@updateRooms')->name('rooms.update');
+//        Route::get('cancel-room/{id}', 'RoomController@cancelRooms')->name('rooms.cancel');
+//        Route::post('store-room/{id}', 'RoomController@storeCancel')->name('rooms.store.cancel');
+//    });
 
     //Route Items
     Route::group(['prefix' => 'items'], function () {
@@ -102,6 +102,7 @@ Route::middleware('auth')->group(function () {
         Route::post('order/{id}', 'ItemController@orders')->name('items.order');
         Route::post('store-event/{id}', 'ItemController@storeEvent')->name('store.event');
         Route::get('bill-list', 'ItemController@billList')->name('items.bill');
+        Route::get('promotion', 'ItemController@promotion')->name('items.promotion');
     });
     //Parent
     Route::group(['prefix' => 'parent'], function () {

@@ -18,12 +18,12 @@ class AuthController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        if ($user) {
-            return redirect()->route('dashboard');
-        }
-        $campus = Campus::select('id', 'campus_code', 'campus_name')->get();
-        $campusCode = "";
+            $user = Auth::user();
+            if ($user) {
+                return redirect()->route('dashboard');
+            }
+            $campus = Campus::select('id', 'campus_code', 'campus_name')->get();
+            $campusCode = "";
             return view('admin.auth.login', compact('campus', 'campusCode'));
     }
 

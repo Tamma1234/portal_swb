@@ -51,7 +51,11 @@
                                                         <div class="inner">
                                                             <div class="main-img"><img
                                                                     src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
-                                                                    style="width: 200px">
+                                                                    style="width: 200px; position: absolute">
+                                                                <div id="flast-sale">
+                                                                    <span>20% <br>Sale</span>
+
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </a>

@@ -24,7 +24,6 @@ class QueryRequest extends FormRequest
     public function attributes()
     {
         return [
-            'file' => 'File',
             'question' => "Question"
         ];
     }
@@ -38,7 +37,6 @@ class QueryRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|mimes:jpeg,jpg,png,gif,pdf|max:2048',
             'question' => 'required',
         ];
     }
@@ -46,9 +44,6 @@ class QueryRequest extends FormRequest
     public function messages()
     {
         return [
-            'max' => ':attribute must be less 225 kí tự',
-            'mimes' => ':attribute format jpg, png, jpeg,',
-            'file.max' => ':attribute less than 2mb',
             'required' => ':attribute cannot be left blank',
         ];
     }

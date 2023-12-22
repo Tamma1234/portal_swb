@@ -68,7 +68,7 @@
                         <th title="Field #4">Credit Points</th>
                         <th title="Field #5">Semester</th>
                         <th title="Field #6">Grade</th>
-{{--                        <th title="Field #7">Status</th>--}}
+                        <th title="Field #7">Status</th>
                         <th title="Field #8">#</th>
                     </tr>
                     </thead>
@@ -84,17 +84,17 @@
                             <td>{{ $num_of_credit }}</td>
                             <td>{{ $item->pterm_name }}</td>
                             <td>{{ $item->grade }}</td>
-{{--                            <td align="right">--}}
-{{--                                @if($item->is_finish == 0)--}}
-{{--                                    5--}}
-{{--                                @else--}}
-{{--                                    @if($item->val <= 0)--}}
-{{--                                        2--}}
-{{--                                    @else--}}
-{{--                                        4--}}
-{{--                                    @endif--}}
-{{--                                @endif--}}
-{{--                            </td>--}}
+                            <td align="right">
+                                @if($item->is_finish == 0)
+                                    5
+                                @else
+                                    @if($item->val <= 0)
+                                        2
+                                    @else
+                                        4
+                                    @endif
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

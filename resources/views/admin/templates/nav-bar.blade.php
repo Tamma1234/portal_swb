@@ -347,6 +347,12 @@
                                         class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                         class="kt-menu__link-text">Bill List</span></a>
                             </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
+                                data-ktmenu-submenu-toggle="hover"><a
+                                    href="{{ route('items.promotion') }}" class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
+                                        class="kt-menu__link-text">Promotions</span></a>
+                            </li>
                         </ul>
                     </div>
                 </li>

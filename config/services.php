@@ -14,8 +14,8 @@ return [
     |
     */
     'google' => [
-        'client_id'     => '794234075741-ci0v87ae2fft7a2v1h6jltmerhpno26o.apps.googleusercontent.com',
-        'client_secret' => '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',
+        'client_id'     => '794234075741-4uj491ra7n7tdsb2bpr2f226lhlljdri.apps.googleusercontent.com',
+        'client_secret' => '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',
         'redirect'      => 'http://127.0.0.1:8000/callback/google'
     ],
 

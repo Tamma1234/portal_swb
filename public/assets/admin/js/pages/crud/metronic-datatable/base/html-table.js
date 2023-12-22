@@ -30,10 +30,10 @@ var KTDatatableHtmlTableDemo = function() {
 					template: function(row) {
 						var status = {
 							1: {'title': 'Pending', 'class': 'kt-badge--brand'},
-							2: {'title': 'Delivered', 'class': ' kt-badge--danger'},
+							2: {'title': 'Studying', 'class': ' kt-badge--danger'},
 							3: {'title': 'Canceled', 'class': ' kt-badge--primary'},
-							4: {'title': 'Success', 'class': ' kt-badge--success'},
-							5: {'title': 'Info', 'class': ' kt-badge--info'},
+							4: {'title': 'Completed', 'class': ' kt-badge--success'},
+							5: {'title': 'Enrolling', 'class': ' kt-badge--info'},
 							6: {'title': 'Danger', 'class': ' kt-badge--danger'},
 							7: {'title': 'Warning', 'class': ' kt-badge--warning'},
 						};

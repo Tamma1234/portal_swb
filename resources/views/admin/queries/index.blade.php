@@ -72,9 +72,6 @@
                                 <label for="exampleTextarea">File:<code>*</code></label>
                                 <input class="uppy-input-label btn btn-light-primary btn-sm" type="file" name="file" id="file">
                                 <span></span>
-                                @error('file')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
                         <div class="col-xl-3"></div>

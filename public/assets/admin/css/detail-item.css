@@ -45,6 +45,20 @@ a {
     width: 100%;
     margin-bottom: 6px;
 }
+
+#flast-sale {
+    position: relative;
+    margin-left: 215px;
+    background: red;
+    color: white;
+    font-family: cursive;
+    border-radius: 5px;
+}
+
+#flast-sale span {
+    padding-left : 6px
+}
+
 .thumblist {
     width: 35%;
     border-left: 1px solid #e1e7ec !important;

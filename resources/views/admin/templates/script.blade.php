@@ -231,13 +231,16 @@
 <script src="{{asset('assets/admin/js/scripts.bundle.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/pages/dashboard.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/pages/crud/datatables/basic/basic.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/js/pages/crud/metronic-datatable/base/html-table.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/admin/js/pages/crud/metronic-datatable/base/html-table.js') }}"
+        type="text/javascript"></script>
 <script src="{{ asset('assets/admin/js/pages/components/calendar/basic.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/js/pages/custom/wizard/wizard-2.js') }}" type="text/javascript"></script>
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
 {{--<script src="{{ asset('assets/admin/js/pages/components/calendar/background-events.js') }}" type="text/javascript"></script>--}}
 
-<script src="{{asset('assets/admin/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/admin/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"
+        type="text/javascript"></script>
 <!-- // Alert success -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
@@ -264,7 +267,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
+
 
     $('#btn_login_google').click(function (e) {
         let campus_id = $('#campus_id').val();
@@ -281,7 +286,7 @@
     });
 
     $(document).ready(function () {
-        $("#list-carts").on("change","#cart_quantity", function () {
+        $("#list-carts").on("change", "#cart_quantity", function () {
             var qty = $(this).val();
             var id = $(this).data('id');
             var data = {
@@ -292,54 +297,14 @@
                 url: '{{ route('items.update') }}',
                 type: 'GET',
                 data: data,
-            }).done(function(response) {
+            }).done(function (response) {
                 $('#pricing-1__price').empty();
                 $('#pricing-1__price').html(response);
             });
         })
     })
 </script>
-<script type="text/javascript">
 
-    /**
-     - Tạo pusher hiển thị thông báo trong admin khi người dùng đặt hàng thành công
-     */
-    var notificationsWrapper = $('.dropdown-notifications');
-    var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
-    var notificationsCountElem = notificationsToggle.find('i[data-count]');
-    var notificationsCount = parseInt(notificationsCountElem.data('count'));
-    var notifications = notificationsWrapper.find('ul.dropdown-item');
-
-    if (notificationsCount <= 0) {
-        notificationsWrapper.show();
-    }
-
-    //Thay giá trị PUSHER_APP_KEY vào chỗ xxx này nhé
-    var pusher = new Pusher('20d58c9efd74e53ec348', {
-        encrypted: true,
-        cluster: "ap1"
-    });
-
-    // Subscribe to the channel we specified in our Laravel Event
-    var channel = pusher.subscribe('my-channel');
-
-    // Bind a function to a Event (the full Laravel class)
-    channel.bind('App\\Events\\HelloPusherEvent', function(data) {
-        console.log(data);
-        var existingNotifications = notifications.html();
-        var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
-        var newNotificationHtml = `
-        <i class="fas fa-envelope mr-2">
-        </i>`+data.message+`
-         <span class="float-right text-muted text-sm">`+data.date+`</span>
-        `;
-        notifications.html(newNotificationHtml + existingNotifications);
-        notificationsCount += 1;
-        notificationsCountElem.attr('data-count', notificationsCount);
-        notificationsWrapper.find('.notif-count').text(notificationsCount);
-        notificationsWrapper.show();
-    });
-</script>
 <script>
     @if (session('msg-update'))
     swal("Notification", "{{ session('msg-update') }}!", "success");
