@@ -32,7 +32,6 @@ a {
 .card-img-tiles .main-img, .card-img-tiles .thumblist {
     display: table-cell;
     width: 65%;
-    padding: 15px;
     vertical-align: middle;
 }
 
@@ -53,6 +52,7 @@ a {
     color: white;
     font-family: cursive;
     border-radius: 5px;
+    opacity: 0.6;
 }
 
 #flast-sale span {

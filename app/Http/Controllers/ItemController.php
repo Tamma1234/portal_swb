@@ -23,6 +23,7 @@ class ItemController extends Controller
         $user = \auth()->user();
         $events = EventSwin::orderBy('start_date', 'DESC')->get();
         $dayNow = Carbon::now()->toDateTimeString();
+
         return view('admin.items.index', compact('items', 'events', 'dayNow', 'user'));
     }
 

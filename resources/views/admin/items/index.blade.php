@@ -45,36 +45,91 @@
                                 <div class="container">
                                     <div class="row">
                                         @foreach($items as $item)
-                                            <div class="col-md-3 col-sm-3">
-                                                <div class="card mb-30"><a class="card-img-tiles" href="#"
-                                                                           data-abc="true">
-                                                        <div class="inner">
-                                                            <div class="main-img"><img
-                                                                    src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
-                                                                    style="width: 200px; position: absolute">
-                                                                <div id="flast-sale">
-                                                                    <span>20% <br>Sale</span>
+                                            <?php
+                                            $gold_sale = $item->gold - ($item->gold * 0.2);
+                                            ?>
+                                            @if(count($item->promotion) > 0)
+                                                @foreach($item->promotion as $item_promo)
+                                                    @if($item_promo->start_date <= $dayNow && $item_promo->end_date >= $dayNow)
+                                                        <div class="col-md-3 col-sm-3">
+                                                            <div class="card mb-30"><a class="card-img-tiles" href="#"
+                                                                                       data-abc="true">
+                                                                    <div class="inner">
+                                                                        <div class="main-img"><img
+                                                                                src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
+                                                                                style="position: absolute">
+                                                                            <div id="flast-sale" class="text-center">
+                                                                                <span>20% <br>Sale</span>
 
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <div class="card-body text-center">
+                                                                    <h4 class="card-title"><a
+                                                                            href="{{ route('items.detail', ['id' => $item->id]) }}"> {{ $item->name_item }}</a>
+                                                                    </h4>
+                                                                    <p class="text-muted">
+
+                                                                        <span class="kt-pricing-1__price"
+                                                                              id="pricing-1__price"
+                                                                              style="font-size: x-large;color: #999999;font-family: unset;text-decoration: line-through">{{ $item->gold}}</span>
+                                                                        <span class="kt-pricing-1__price">
+                                                               <span class="kt-pricing-1__price"
+                                                                     id="pricing-1__price"
+                                                                     style="font-size: x-large;color: red;font-family: unset;">{{ $gold_sale }}</span>
+                                                                <span class="kt-pricing-1__price"
+                                                                      style="padding-right: 10px">
+                                                                <img style="vertical-align: baseline; width: 20px"
+                                                                     src="{{ asset('assets/admin/images/dong-coin.jpg') }}"
+                                                                     alt=""></span>
+                                                                    </p>
+                                                                    <a class="btn btn-outline-primary btn-sm"
+                                                                       href="{{ route('items.detail', ['id' => $item->id]) }}"
+                                                                       data-abc="true">View
+                                                                        Products</a>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </a>
-                                                    <div class="card-body text-center">
-                                                        <h4 class="card-title"><a href="{{ route('items.detail', ['id' => $item->id]) }}"> {{ $item->name_item }}</a></h4>
-                                                        <p class="text-muted"><span class="kt-pricing-1__price"
-                                                                                    id="pricing-1__price"
-                                                                                    style="font-size: x-large;color: red;font-family: unset;">{{ $item->gold }}</span><span class="kt-pricing-1__price">
-                                                                <img style="vertical-align: baseline; width: 20px" src="{{ asset('assets/admin/images/dong-coin.jpg') }}"
+                                                    @endif
+                                                @endforeach
+                                                @else
+                                                    <div class="col-md-3 col-sm-3">
+                                                        <div class="card mb-30"><a class="card-img-tiles" href="#"
+                                                                                   data-abc="true">
+                                                                <div class="inner">
+                                                                    <div class="main-img"><img
+                                                                            src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
+                                                                            style="position: absolute">
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <div class="card-body text-center">
+                                                                <h4 class="card-title"><a
+                                                                        href="{{ route('items.detail', ['id' => $item->id]) }}"> {{ $item->name_item }}</a>
+                                                                </h4>
+                                                                <p class="text-muted">
+
+                                                                        <span class="kt-pricing-1__price"
+                                                                              id="pricing-1__price"
+                                                                              style="font-size: x-large;color: red;font-family: unset">{{ $item->gold}}</span>
+                                                                    <span class="kt-pricing-1__price">
+                                                                <span class="kt-pricing-1__price"
+                                                                      style="padding-right: 10px">
+                                                                <img style="vertical-align: baseline; width: 20px"
+                                                                     src="{{ asset('assets/admin/images/dong-coin.jpg') }}"
                                                                      alt=""></span>
-                                                        </p>
-                                                        <a class="btn btn-outline-primary btn-sm"
-                                                           href="{{ route('items.detail', ['id' => $item->id]) }}"
-                                                           data-abc="true">View
-                                                            Products</a>
+                                                                </p>
+                                                                <a class="btn btn-outline-primary btn-sm"
+                                                                   href="{{ route('items.detail', ['id' => $item->id]) }}"
+                                                                   data-abc="true">View
+                                                                    Products</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                            @endif
                                         @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -189,8 +244,8 @@
                                                                         @else
                                                                             <div class="buttons">
                                                                                 <span class="btn btn-outline-primary"
-                                                                                   href="#"
-                                                                                   data-abc="true">Joined</span>
+                                                                                      href="#"
+                                                                                      data-abc="true">Joined</span>
                                                                                 {{--                                <button class="btn btn-dark">Add to Basket</button>--}}
                                                                             </div>
                                                                         @endif
