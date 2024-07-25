@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/index', 'SurveyController@index')->name('survey.index');
         Route::get('/detail/{id}', 'SurveyController@detail')->name('survey.detail');
         Route::post('/store/{id}', 'SurveyController@store')->name('survey.store');
-        Route::post('/responses/{id}', 'SurveyController@responses')->name('survey.responses');
+        Route::get('/responses', 'SurveyController@responses')->name('survey.responses');
     });
 //    // Route phần users
 //    Route::group(['prefix' => 'users'], function () {

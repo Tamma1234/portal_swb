@@ -76,43 +76,49 @@ class SurveyController extends Controller
 //        foreach ($answers as $question_id => $answer_id) {
 //            $answer = questions::find($answer_id)->name;
 //            $data[] = [
-//                'servey_id' => $survey_id,
+//                'survey_id' => $survey_id,
 //                'user_code' => $user_code,
 //                'question_id' => $question_id,
 //                'answers' => $answer
 //            ];
 //        }
 //        $data[] = [
-//            'servey_id' => $survey_id,
+//            'survey_id' => $survey_id,
 //            'user_code' => $user_code,
 //            'question_id' => $question_answer_id,
 //            'answers' => $title_job
 //        ];
 //
 //        $data[] = [
-//            'servey_id' => $survey_id,
+//            'survey_id' => $survey_id,
 //            'user_code' => $user_code,
 //            'question_id' => $question_answer_id,
 //            'answers' => $company
 //        ];
 //
 //        $data[] = [
-//            'servey_id' => $survey_id,
+//            'survey_id' => $survey_id,
 //            'user_code' => $user_code,
 //            'question_id' => $question_answer_id,
 //            'answers' => $industry
 //        ];
 //        $data[] = [
-//            'servey_id' => $survey_id,
+//            'survey_id' => $survey_id,
 //            'user_code' => $user_code,
 //            'question_id' => 6,
 //            'answers' => $fileId
 //        ];
 //        Answers::insert($data);
-        return redirect()->route('survey.index')->with('success', '<p class="font-weight-bold">Graduation  marks the beginning of a new chapter of success!</p>
+        return redirect()->route('survey.responses')->with('success', '<p class="font-weight-bold">Graduation  marks the beginning of a new chapter of success!</p>
 <span class="font-weight-bold">Join Swinburne Vietnam alumni network to receive exclusive benefits and further career development opportunities. Connect with us:</span><br>
 Alumni Private Group: <a href="https://www.facebook.com/share/MDHaLA6tQcZ5pUfE/?mibextid=K35XfP" target="_blank">https://www.facebook.com/share/MDHaLA6tQcZ5pUfE/?mibextid=K35XfP</a><br>
 Facebook Page: <a href="https://www.facebook.com/people/Swinburne-Vietnam-Alumni/61552920658658/" target="_blank">https://www.facebook.com/people/Swinburne-Vietnam-Alumni/61552920658658/</a><br><br>
 <span class="font-weight-bold"> Thank you for participating in this survey. Your input is invaluable in helping us support your career.</span>');
+    }
+
+    public function responses() {
+        $user_code = auth()->user()->user_code;
+        $answers = Answers::where('user_code', $user_code)->get();
+        return view('admin.survey.response', compact('answers'));
     }
 }

@@ -15,4 +15,12 @@ class Answers extends Model
         $this->connection = session('campus_db');
         parent::__construct($attributes);
     }
+
+    public function survey() {
+        return $this->hasOne(Surveys::class, 'id', 'survey_id');
+    }
+
+    public function question() {
+        return $this->hasOne(questions::class, 'id', 'question_id');
+    }
 }
