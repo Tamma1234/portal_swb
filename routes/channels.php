@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Broadcast;
 //    return (int) $user->id === (int) $id;
 //});
 
-Broadcast::channel("student-channel", function ($user) {
-   return true;
+Broadcast::channel("my-channel.3124", function ($user) {
+    return true;
 });

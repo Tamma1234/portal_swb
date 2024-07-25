@@ -68,7 +68,15 @@
                         events: "{{ route('student.list') }}",
 
                         eventRender: function(info) {
+
                             var element = $(info.el);
+                            var event = info.event;
+                            var formattedStartDate = moment(event.start).format('HH:mm');
+                            var formattedEndDate = moment(event.end).format('HH:mm');
+                            let formatStarEnnDate = formattedStartDate +' - '+ formattedEndDate;
+                            // Update the event title with the formatted start date
+                            element.find('.fc-time').html(formatStarEnnDate);
+
                             if (info.event.extendedProps && info.event.extendedProps.description) {
                                 if (element.hasClass('fc-day-grid-event')) {
                                     element.data('content', info.event.extendedProps.description);
@@ -82,7 +90,6 @@
                             }
                         }
                     });
-
                     calendar.render();
                 }
             };

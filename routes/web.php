@@ -66,6 +66,13 @@ Route::middleware('auth')->group(function () {
         Route::post('update-query/{id}', 'QueryController@queryUpdate')->name('queries.update');
         Route::get('history-query', 'QueryController@getHistoryQuery')->name('queries.history');
     });
+
+    Route::group(['prefix' => 'survey'], function () {
+        Route::get('/index', 'SurveyController@index')->name('survey.index');
+        Route::get('/detail/{id}', 'SurveyController@detail')->name('survey.detail');
+        Route::post('/store/{id}', 'SurveyController@store')->name('survey.store');
+        Route::post('/responses/{id}', 'SurveyController@responses')->name('survey.responses');
+    });
 //    // Route phần users
 //    Route::group(['prefix' => 'users'], function () {
 //        Route::get('/', 'UserController@index')->name('users.index');

@@ -133,7 +133,6 @@
             var _token = $('input[name="_token"]').val();
             if (parent_check == true) {
                 $("#check-all").show();
-
                 parent_active = 0;
             } else {
                 $("#check-all").hide();

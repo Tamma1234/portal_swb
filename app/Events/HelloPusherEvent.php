@@ -17,15 +17,18 @@ class HelloPusherEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $question;
     public $user_id;
+    public $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($question)
+    public function __construct($data)
     {
-      $this->question = $question;
+//      $this->question = $question;
+//      $this->user_id = $user_id;
+      $this->data = $data;
     }
 
     /**
@@ -34,9 +37,12 @@ class HelloPusherEvent implements ShouldBroadcast
     public function broadcastOn()
     {
 //        return new Channel('student-channel');
-        return new Channel("student-channel");
+        return new PrivateChannel('my-channel'.$this->data['user_id']);
     }
 
+    /**
+     * @return string
+     */
     public function broadcastAs()
     {
         return 'my-event';

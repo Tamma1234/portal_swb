@@ -9,6 +9,7 @@ use App\Models\ItemGalleryImage;
 use App\Models\Items;
 use App\Models\ItemSizes;
 use App\Models\StudentEvent;
+use App\Models\ItemPromotion;
 use App\Models\User;
 use Google\Service\ServiceControl\Auth;
 use Illuminate\Http\Request;
@@ -33,8 +34,9 @@ class ItemController extends Controller
         $item = Items::find($id);
         $items = Items::all();
         $galleryImage = ItemGalleryImage::where('item_id', $id)->get();
+        $dayNow = Carbon::now()->toDateTimeString();
 
-        return view('admin.items.detail', compact('item', 'items', 'galleryImage'));
+        return view('admin.items.detail', compact('item', 'items', 'galleryImage', 'dayNow'));
     }
 
     public function update(Request $request)
@@ -53,35 +55,145 @@ class ItemController extends Controller
         $user = auth()->user();
         $user_code = $user->user_code;
         $item = Items::find($request->id);
+       // $gold_sale = $request->gold_sale;
         $item_gold = $item->gold;
+        $date_now = Carbon::now()->toDateTimeString();
         $quantity = $request->cart_quantity;
-        $total_gold = $item_gold * $quantity;
-        $gold = Golds::where('gold_receiver', $user_code)->first();
-        if ($gold == null) {
-            return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Your gold is not enough to buy');
-        } else {
-            $gold_user = $gold->gold;
-            if ($gold_user < $total_gold) {
-                return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Your gold is not enough to buy');
-            } else {
-                Golds::create([
-                    'gold_receiver' => $user_code,
-                    'gold' => '-' . $total_gold,
-                    'description' => "Purchase"
-                ]);
-                $date_now = Carbon::now()->toDateTimeString();
 
-                Bills::create([
-                    'user_code' => $user_code,
-                    'gold' => $total_gold,
-                    'item_id' => $request->id,
-                    'quantity' => $quantity,
-                    'date_time' => $date_now,
-                    'status' => 0
-                ]);
-                return redirect()->route('items.bill')->with('msg-add', 'You have successfully made a purchase');
+        if ($quantity <= 0) {
+            return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Please choose a quantity greater than 0');
+        } else {
+            $total_gold_chua_sale = $item_gold * $quantity;
+            // $check=ItemPromotion::where('item_id',$item->id)->get();
+            $result = ItemPromotion::join('promotions', 'item_promotion.promotion_id', '=', 'promotions.id')
+                ->select('promotions.*', 'item_promotion.*')
+                ->where('item_promotion.item_id', '=', $item->id)
+                ->where('promotions.start_date', '<=', now())
+                ->where('promotions.end_date', '>=', now())
+                ->first();
+
+            if($result != null){
+                $percent = $result->percent;
+                $phan_tram= $percent * $item->gold /100;
+                $item_gold =  $item->gold - $phan_tram;
+            }
+            $total_gold = $item_gold * $quantity;
+
+            $gold = Golds::where('gold_receiver', $user_code)->selectRaw('SUM(gold) as total')->first();
+            // dd($gold);
+            //dd($gold);
+            if($gold != null){
+                if($total_gold > $gold->total){
+                    return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Your gold is not enough to buy');
+                }else{
+                    $item_quantity = $item->quantity;
+                    $total_quantity = $item_quantity - $quantity;
+                    $item->update([
+                        'quantity' => $total_quantity
+                    ]);
+                    Golds::create([
+                        'gold_receiver' => $user_code,
+                        'gold' => '-' . $total_gold,
+                        'description' => "Purchase"
+                    ]);
+                    Bills::create([
+                        'user_code' => $user_code,
+                        'gold' => $total_gold_chua_sale,
+                        'gold_sale' => $total_gold,
+                        'item_id' => $request->id,
+                        'quantity' => $quantity,
+                        'date_time' => $date_now,
+                        'status' => 0
+                    ]);
+
+                    return redirect()->route('items.bill')->with('msg-add', 'You have successfully made a purchase');
+                }
+            }else{
+                return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Your gold is not enough to buy');
             }
         }
+
+
+
+
+
+
+
+//        if ($gold == null) {
+//            return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Your gold is not enough to buy');
+//        } else {
+//            if ($gold_sale != 0) {
+//                $total_sale = $gold_sale * $quantity;
+//
+//                $gold_user = $gold->total;
+//                if ($gold_user < $total_sale) {
+//                    return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Your gold is not enough to buy');
+//                } else {
+//                        $item_quantity = $item->quantity;
+//                        $total_quantity = $item_quantity - $quantity;
+//                        $item->update([
+//                            'quantity' => $total_quantity
+//                        ]);
+//                        //Create golds khi mua hàng
+//                        Golds::create([
+//                            'gold_receiver' => $user_code,
+//                            'gold' => '-' . $total_sale,
+//                            'description' => "Purchase"
+//                        ]);
+//
+//                        //Create Bills
+//                        Bills::create([
+//                            'user_code' => $user_code,
+//                            'gold' => $total_gold,
+//                            'gold_sale' => $total_sale,
+//                            'item_id' => $request->id,
+//                            'quantity' => $quantity,
+//                            'date_time' => $date_now,
+//                            'status' => 0
+//                        ]);
+//                        return redirect()->route('items.bill')->with('msg-add', 'You have successfully made a purchase');
+//                    // Update quantity in Items
+//
+//                }
+//            }
+//            else {
+//                $gold_user = $gold->total;
+//
+//                if ($total_gold > 0) {
+//                    if ($gold_user < $total_gold) {
+//                        return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Your gold is not enough to buy');
+//                    } else {
+//                        // Update quantity in Items
+//                        $item_quantity = $item->quantity;
+//                        $total_quantity = $item_quantity - $quantity;
+//                        $item->update([
+//                            'quantity' => $total_quantity
+//                        ]);
+//                        //Create golds khi mua hàng
+//                        Golds::create([
+//                            'gold_receiver' => $user_code,
+//                            'gold' => '-' . $total_gold,
+//                            'description' => "Purchase"
+//                        ]);
+//
+//                        //Create Bills
+//                        Bills::create([
+//                            'user_code' => $user_code,
+//                            'gold' => $total_gold,
+//                            'gold_sale' => 0,
+//                            'item_id' => $request->id,
+//                            'quantity' => $quantity,
+//                            'date_time' => $date_now,
+//                            'status' => 0
+//                        ]);
+//                        return redirect()->route('items.bill')->with('msg-add', 'You have successfully made a purchase');
+//                    }
+//                } else {
+//                    return redirect()->route('items.detail', ['id' => $request->id])->with('errors', 'Please choose a quantity greater than zero');
+//                }
+//            }
+//
+//        }
     }
 
     /**

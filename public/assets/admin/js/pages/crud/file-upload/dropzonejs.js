@@ -43,7 +43,7 @@ var KTDropzoneDemo = function () {
             maxFiles: 10,
             maxFilesize: 10, // MB
             addRemoveLinks: true,
-            acceptedFiles: "image/*,application/pdf,.psd",
+            acceptedFiles: "application/pdf",
             accept: function(file, done) {
                 if (file.name == "justinbieber.jpg") {
                     done("Naha, you don't.");

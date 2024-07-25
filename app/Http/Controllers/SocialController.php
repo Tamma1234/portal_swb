@@ -11,6 +11,10 @@ use App\Models\User;
 
 class SocialController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function redirect(Request $request)
     {
         $array_campus = config('localStorage')->campus;
@@ -25,18 +29,24 @@ class SocialController extends Controller
         return Socialite::driver('google')->stateless()->redirect();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function callback(Request $request)
     {
         $user = Socialite::driver('google')->stateless()->user();
-        $user = User::where('user_email', $user->email)
+        $user =  User::where('personal_email', $user->email)
+            ->orWhere('user_email', $user->email)
             ->orWhere('admin_email', $user->email)
             ->first();
+
 //        dd($user);
         if ($user) {
             Auth::login($user);
             return redirect()->route('dashboard');
         } else {
-            return redirect()->route('home');
+            return redirect()->route('home')->with('errors', 'Your email does not exist on the system');
         }
     }
 }

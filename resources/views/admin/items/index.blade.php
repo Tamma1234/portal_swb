@@ -45,11 +45,11 @@
                                 <div class="container">
                                     <div class="row">
                                         @foreach($items as $item)
-                                            <?php
-                                            $gold_sale = $item->gold - ($item->gold * 0.2);
-                                            ?>
                                             @if(count($item->promotion) > 0)
                                                 @foreach($item->promotion as $item_promo)
+                                                    <?php
+                                                    $gold_sale = $item->gold - ($item->gold * $item_promo->percent / 100);
+                                                    ?>
                                                     @if($item_promo->start_date <= $dayNow && $item_promo->end_date >= $dayNow)
                                                         <div class="col-md-3 col-sm-3">
                                                             <div class="card mb-30"><a class="card-img-tiles" href="#"
@@ -59,8 +59,7 @@
                                                                                 src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
                                                                                 style="position: absolute">
                                                                             <div id="flast-sale" class="text-center">
-                                                                                <span>20% <br>Sale</span>
-
+                                                                                <span>{{ $item_promo->percent }}% <br>Sale</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -77,7 +76,7 @@
                                                                         <span class="kt-pricing-1__price">
                                                                <span class="kt-pricing-1__price"
                                                                      id="pricing-1__price"
-                                                                     style="font-size: x-large;color: red;font-family: unset;">{{ $gold_sale }}</span>
+                                                                     style="font-size: x-large;color: red;font-family: unset;">{{ round($gold_sale)  }}</span>
                                                                 <span class="kt-pricing-1__price"
                                                                       style="padding-right: 10px">
                                                                 <img style="vertical-align: baseline; width: 20px"
@@ -93,14 +92,21 @@
                                                         </div>
                                                     @endif
                                                 @endforeach
-                                                @else
                                                     <div class="col-md-3 col-sm-3">
                                                         <div class="card mb-30"><a class="card-img-tiles" href="#"
                                                                                    data-abc="true">
                                                                 <div class="inner">
-                                                                    <div class="main-img"><img
-                                                                            src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
-                                                                            style="position: absolute">
+                                                                    <div class="main-img">
+                                                                        @if($item->quantity > 0)
+                                                                            <img src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
+                                                                                 style="width: 200px">
+                                                                        @else
+                                                                            <img src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
+                                                                                 style="width: 200px; opacity: 0.5">
+                                                                            <h1 class="text-danger text-center">Out
+                                                                                of
+                                                                                stock</h1>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </a>
@@ -127,9 +133,51 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                            @else
+                                                <div class="col-md-3 col-sm-3">
+                                                    <div class="card mb-30"><a class="card-img-tiles" href="#"
+                                                                               data-abc="true">
+                                                            <div class="inner">
+                                                                <div class="main-img">
+                                                                    @if($item->quantity > 0)
+                                                                        <img src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
+                                                                             style="width: 200px">
+                                                                    @else
+                                                                        <img src="https://drive.google.com/uc?export=view&id={{ $item->images }}"
+                                                                             style="width: 200px; opacity: 0.5">
+                                                                        <h1 class="text-danger text-center">Out
+                                                                            of
+                                                                            stock</h1>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <div class="card-body text-center">
+                                                            <h4 class="card-title"><a
+                                                                    href="{{ route('items.detail', ['id' => $item->id]) }}"> {{ $item->name_item }}</a>
+                                                            </h4>
+                                                            <p class="text-muted">
+
+                                                                        <span class="kt-pricing-1__price"
+                                                                              id="pricing-1__price"
+                                                                              style="font-size: x-large;color: red;font-family: unset">{{ $item->gold}}</span>
+                                                                <span class="kt-pricing-1__price">
+                                                                <span class="kt-pricing-1__price"
+                                                                      style="padding-right: 10px">
+                                                                <img style="vertical-align: baseline; width: 20px"
+                                                                     src="{{ asset('assets/admin/images/dong-coin.jpg') }}"
+                                                                     alt=""></span>
+                                                            </p>
+                                                            <a class="btn btn-outline-primary btn-sm"
+                                                               href="{{ route('items.detail', ['id' => $item->id]) }}"
+                                                               data-abc="true">View
+                                                                Products</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @endif
                                         @endforeach
-
                                     </div>
                                 </div>
                             </div>

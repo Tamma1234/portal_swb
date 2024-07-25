@@ -16,7 +16,11 @@ return [
     'google' => [
         'client_id'     => '794234075741-4uj491ra7n7tdsb2bpr2f226lhlljdri.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect'      => 'http://127.0.0.1:8000/callback/google'
+        'redirect'      => 'http://127.0.0.1:8000/callback/google',
+
+        'drive_folder_id_survey' => env('GOOGLE_DRIVE_FOLDER_ID_SURVEY'),
+        'credentials_path' => env('GOOGLE_APPLICATION_CREDENTIALS'),
+
     ],
 
     'mailgun' => [

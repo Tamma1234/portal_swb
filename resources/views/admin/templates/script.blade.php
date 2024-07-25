@@ -311,8 +311,16 @@
     @endif;
 
     @if (session('msg-add'))
-    swal("Notification", "{{ session('msg-add') }}!", "success");
+    swal("Successfully", `{!! htmlspecialchars_decode(session('msg-add')) !!}`, "success");
     @endif;
+
+{{--    @if (session('success'))--}}
+{{--        swal({--}}
+{{--            title: "Notification",--}}
+{{--            html: `{!! json_encode(session('success')) !!}`,--}}
+{{--            icon: "success"--}}
+{{--        });--}}
+{{--    @endif--}}
 
     @if (session('msg-delete'))
     swal("Notification", "{{ session('msg-delete') }}!", "success");

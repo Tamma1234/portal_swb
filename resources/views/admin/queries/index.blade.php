@@ -38,23 +38,35 @@
                                         <span></span>
                                     </label>
                                     <label class="kt-radio">
-                                        <input type="radio" name="waye" value="Change/Defer/Transfer of course">Change/Defer/Transfer (<i>Please complete a <a href="https://swinburne-vn.edu.vn/wp-content/uploads/2022/03/Defer-or-course-transfer-form-1.pdf" target="_blank">Defer or course transfer form</a> and attach file below</i>)
+                                        <input type="radio" name="waye" value="Change/Defer/Transfer of course">Change/Defer/Transfer
+                                        (<i>Please complete a <a
+                                                href="https://swinburne-vn.edu.vn/wp-content/uploads/2022/03/Defer-or-course-transfer-form-1.pdf"
+                                                target="_blank">Defer or course transfer form</a> and attach file below</i>)
                                         <span></span>
                                     </label>
                                     <label class="kt-radio">
-                                        <input type="radio" name="waye" value="Leave of Absense">Leave of Absense (<i>"Please complete a <a href="https://swinburne-vn.edu.vn/wp-content/uploads/2022/03/Leave-of-absence.pdf" target="_blank">Leave of absence form</a> and attach file below</i>)
+                                        <input type="radio" name="waye" value="Leave of Absense">Leave of Absense (<i>"Please
+                                            complete a <a
+                                                href="https://swinburne-vn.edu.vn/wp-content/uploads/2022/03/Leave-of-absence.pdf"
+                                                target="_blank">Leave of absence form</a> and attach file below</i>)
                                         <span></span>
                                     </label>
                                     <label class="kt-radio">
-                                        <input type="radio" name="waye" value="SWithdrawal from course">Withdrawal from course (<i>"Please complete a <a href="https://swinburne-vn.edu.vn/wp-content/uploads/2022/03/Withdrawal-from-course-application.pdf" target="_blank">Withdrawal from course form</a> and attach file below</i>)
+                                        <input type="radio" name="waye" value="SWithdrawal from course">Withdrawal from
+                                        course (<i>"Please complete a <a
+                                                href="https://swinburne-vn.edu.vn/wp-content/uploads/2022/03/Withdrawal-from-course-application.pdf"
+                                                target="_blank">Withdrawal from course form</a> and attach file
+                                            below</i>)
                                         <span></span>
                                     </label>
                                     <label class="kt-radio">
-                                        <input type="radio" name="waye" value="Study plan/ course advices">Study plan/ course advices
+                                        <input type="radio" name="waye" value="Study plan/ course advices">Study plan/
+                                        course advices
                                         <span></span>
                                     </label>
                                     <label class="kt-radio">
-                                        <input type="radio" name="waye" value="Clubs and Activities">Clubs and Activities
+                                        <input type="radio" name="waye" value="Clubs and Activities">Clubs and
+                                        Activities
                                         <span></span>
                                     </label>
                                     <label class="kt-radio">
@@ -70,7 +82,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleTextarea">File:<code>*</code></label>
-                                <input class="uppy-input-label btn btn-light-primary btn-sm" type="file" name="file" id="file">
+                                <input class="uppy-input-label btn btn-light-primary btn-sm" type="file" name="file"
+                                       id="file">
                                 <span></span>
                             </div>
                         </div>
@@ -82,7 +95,6 @@
                         <div class="row">
                             <div class="col-xl-3"></div>
                             <div class="col-xl-6">
-
                                 <input type="submit" class="btn btn-brand" name="submit" value="Submit">
                             </div>
                             <div class="col-xl-3"></div>
@@ -94,3 +106,20 @@
     </div>
 @endsection
 
+@section('script')
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('6d3ed469de3a9cc60527', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
+@endsection

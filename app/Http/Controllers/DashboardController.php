@@ -47,7 +47,6 @@ class DashboardController extends Controller
         $countGroup = count($group_member);
         $totalGold = Golds::where('gold_receiver', $user->user_code)->selectRaw('SUM(gold) as total')->first();
 
-
         return view('admin.dashboard.index', compact('user', 'countGroup', 'events', 'totalGold', 'count_type_fee', 'count_status_fee', 'process'));
     }
 
@@ -189,26 +188,26 @@ class DashboardController extends Controller
 //                $end=$slot_end;
                 if ($subject_code == 'ENL101' || $subject_code == 'ENL102' || $subject_code == 'ENL201' || $subject_code == 'ENL202' || $subject_code == 'ENL301' || $subject_code == 'ENL302') {
                     if ($slot_start_id == 1) {
-                        $start = '07:30';
+                        $start = '07:00:00';
                     }
                     if ($slot_start_id == 2) {
-                        $start = '08:30';
+                        $start = '08:00:00';
                     }
                     if ($slot_start_id == 3) {
-                        $start = '09:30';
+                        $start = '09:00:00';
                     }
                     if ($slot_end_id == 8) {
-                        $end = '17:30';
+                        $end = '17:00:00';
                     }
                     if ($slot_start_id == 8) {
-                        $start = '15:30';
+                        $start = '15:00:00';
                     }
                 }
 
                 $day_st = $activity->day . " " . "$start";
                 $day_end = $activity->day . " " . "$end";
-                $title = "Group:" . ' ' . $subject_code . '-' . $term_name;
-                $des = "Room: " . $room_name . " - Subject: " . $subject_name . " (" . $subject_code . ")";
+                $title =  "Group:" . ' ' . $subject_code . '-' . $term_name;
+                $des = " Room: " . $room_name . " - Subject: " . $subject_name . " (" . $subject_code . ")" . ' - ' . $term_name;
                 $today = date('Y-m-d');
                 if ($today > $activity->day) {
                     $class_name = "fc-event-light fc-event-solid-success";
@@ -220,7 +219,6 @@ class DashboardController extends Controller
                 $fu_subject = Subjects::where('subject_code', $subject_code)
                     ->select('is_major')
                     ->first();
-
                 $data[] = [
                     'title' => $title,
                     'start' => $day_st,

@@ -272,7 +272,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
+                <li class="kt-menu__item  kt-menu__item--submenu {{ Route::is('queries.*') ? 'kt-menu__item--open kt-menu__item--here' : '' }}" aria-haspopup="true"
                     data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
                                                           class="kt-menu__link kt-menu__toggle"><span
                             class="kt-menu__link-icon flaticon-web"></span><span class="kt-menu__link-text">Queries</span><i
@@ -281,13 +281,13 @@
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
                                     class="kt-menu__link"><span class="kt-menu__link-text">Queries</span></span></li>
-                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
+                            <li class="kt-menu__item {{ Route::is('queries.index') ? 'kt-menu__item--active' : '' }} kt-menu__item--submenu" aria-haspopup="true"
                                 data-ktmenu-submenu-toggle="hover"><a
                                     href="{{ route('queries.index') }}" class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                         class="kt-menu__link-text">Queries</span></a>
                             </li>
-                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
+                            <li class="kt-menu__item {{ Route::is('queries.history') ? 'kt-menu__item--active' : '' }} kt-menu__item--submenu" aria-haspopup="true"
                                 data-ktmenu-submenu-toggle="hover"><a
                                     href="{{ route('queries.history') }}" class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
@@ -388,6 +388,36 @@
                                     href="{{ route('items.index') }}" class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                         class="kt-menu__link-text">Update Contact</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
+                    data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
+                                                          class="kt-menu__link kt-menu__toggle"><span
+                            class="kt-menu__link-icon flaticon-web"></span><span class="kt-menu__link-text">Survey</span><i
+                            class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
+                                    class="kt-menu__link"><span class="kt-menu__link-text">Survey</span></span></li>
+                            {{--                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"--}}
+                            {{--                                data-ktmenu-submenu-toggle="hover"><a--}}
+                            {{--                                    href="{{ route('clubs.index') }}" class="kt-menu__link "><i--}}
+                            {{--                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span--}}
+                            {{--                                        class="kt-menu__link-text">List Club</span></a>--}}
+                            {{--                            </li>--}}
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
+                                data-ktmenu-submenu-toggle="hover"><a
+                                    href="{{ route('survey.index') }}" class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
+                                        class="kt-menu__link-text">List</span></a>
+                            </li>
+{{--                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"--}}
+{{--                                data-ktmenu-submenu-toggle="hover"><a--}}
+{{--                                    href="{{ route('survey.detail') }}" class="kt-menu__link "><i--}}
+{{--                                        class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span--}}
+{{--                                        class="kt-menu__link-text">Detail</span></a>--}}
                             </li>
                         </ul>
                     </div>

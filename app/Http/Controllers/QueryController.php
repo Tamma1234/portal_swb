@@ -26,9 +26,13 @@ class QueryController extends Controller
         $user_code = $user->user_code;
         $question = $request->question;
         $queries_type = $request->waye;
-        $user_id = 4152;
-        event(new HelloPusherEvent($question));
-
+        $user_id = 3124;
+        $data = [
+            'user_id' => 3124,
+            'message' => 'Your message here',
+        ];
+        event(new HelloPusherEvent( $data));
+       // return response()->json(['message' => 'Event sent successfully']);
 //       Notification::send($user, new QueryNotification($request->question));
         // file images
 //        $targetDir = 'temp';

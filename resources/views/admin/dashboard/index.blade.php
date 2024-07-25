@@ -158,11 +158,36 @@
                 </div>
             @endforeach
         </div>
+        <!-- Modal -->
+{{--        <div class="modal fade" id="popup_survey" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">--}}
+{{--            <div class="modal-dialog modal-dialog-centered">--}}
+{{--                <div class="modal-content">--}}
+{{--                    <div class="modal-header">--}}
+{{--                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>--}}
+{{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                            <span aria-hidden="true">&times;</span>--}}
+{{--                        </button>--}}
+{{--                    </div>--}}
+{{--                    <div class="modal-body">--}}
+{{--                        ...--}}
+{{--                    </div>--}}
+{{--                    <div class="modal-footer">--}}
+{{--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+{{--                        <button type="button" class="btn btn-primary">Understood</button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+
         <!--End::Pagination-->
     </div>
 @endsection
 @section('script')
     <script language="javascript">
+        $(window).on('load', function () {
+            $('#popup_survey').modal('show');
+        });
+
 
         var notificationsWrapper = $('.kt-header__topbar-item--langs');
         var notificationsToggle = notificationsWrapper.find('div[data-toggle]');
@@ -174,23 +199,24 @@
         }
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
+        // const CSRF_TOKEN = $('meta[name="csrf-tok2en"]').attr('content');
 
         var pusher = new Pusher('2a371882663fd536655c', {
             cluster: 'ap1',
             authEndpoint: "{{ url('api/broadcasting/auth') }}",
             encrypted: true,
-            auth: {
-                headers: {
-                    "X-CSRF-Token": "{{ csrf_token() }}"
-                }
-            }
+            debug: true
+            // auth: {
+            //     headers: {
+            //         "X-CSRF-Token": CSRF_TOKEN
+            //     }
+            // }
         });
-
             {{--// Bind a function to a Event (the full Laravel class)--}}
         let id = "{{ \Illuminate\Support\Facades\Auth::id()  }}";
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', function (data) {
-            alert(JSON.stringify(data));
+        let private = pusher.subscribe('private-my-channel.3124');
+        private.bind('my-event', function (data) {
+            alert(123123);
             // var existingNotifications = notifications.html();
             // var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
             // var newNotificationHtml = `
